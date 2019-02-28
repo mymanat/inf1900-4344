@@ -1,5 +1,5 @@
 #include <avr/io.h>
-#include "log.cpp"
+#include "log.h"
 
 int main(){
     initialisationUART();

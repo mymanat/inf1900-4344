@@ -35,7 +35,7 @@ PRJSRC=main.cpp
 INC=-I ../lib
 
 # Libraires a lier (ex: -lmylib)
-LIBS=-L ../lib/-llibrairieRobot
+LIBS= -l inf1900 -L ../lib
 
 # Niveau d'optimization
 # Utilisez s (size opt), 1, 2, 3 ou 0 (off)
