@@ -1,0 +1,9 @@
+*.o
+*.pdf
+*.d
+*.hex
+*.out.map
+*.out
+*/.idea
+cmake-build-debug
+CMakeLists.txt
