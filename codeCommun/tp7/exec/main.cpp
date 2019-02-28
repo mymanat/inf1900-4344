@@ -1,9 +1,9 @@
 #include <avr/io.h>
-#include <log.cpp>
+#include "log.cpp"
 
 int main(){
     initialisationUART();
-    char mots[] = "Le robot en INF1900\n";
+    char mots[] = "TEST: Le robot en INF1900\n";
 
 
     log_uart(mots);
