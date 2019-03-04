@@ -3,6 +3,7 @@
 *.hex
 *.out.map
 *.out
+*.a
 */.idea
 cmake-build-debug
 CMakeLists.txt
