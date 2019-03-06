@@ -1,0 +1,84 @@
+Polytechnique Montréal
+
+Département de génie informatique et génie logiciel
+
+INF1900: Projet initial de système embarqué
+
+Grille de correction des programmes:
+
+Identification:
+  Travail    : Mise en commun du code et formation de librairies
+  Section #  : 3
+  Équipe #   : 4344
+  Correcteur : Mouna Belaid
+
+Code:
+– La qualités et le choix de vos portions de code choisies   (3.5/5)
+– La qualités de vos modifications aux Makefiles             (4.5/5)
+
+Le rapport:
+– Explications cohérentes par rapport au code retenu
+  pour former la librairie                                   (0/2)
+– Explications cohérentes par rapport aux Makefiles modifiés (0/2)
+– Explications claires avec un bon niveau de détails         (0/2)
+– Bon français                                               (0/1)
+
+Généralités:
+– Bonne soumission de l'ensemble du code (compilation sans
+  erreurs, …) et du rapport selon le format demandé          (1.5/3)
+
+Total: 9.5/20
+
+Commentaires du correcteur:
+Vous n'avez pas soumis votre rapport ... 
+- (-1.5 // Généralités)
+Fichiers indésirables : codeCommun/tp7/lib/libinf1900.a
+Vous avez soumis le projet au mauvais endroit. Le tp7 doit se retrouver sous le répertoire
+tp/tp7
+- (-1.5 // La qualités et le choix de vos portions de code choisies)
+Trop de fonctions importantes manquantes: toutes les fonctions concernant la led, le bouton 
+poussoir, memoire_24.
+Noms de fichiers/fonctions doivent être significatifs: log.h / log_uart
+- (-0.5 // La qualités de vos modifications aux Makefiles) 
+Il faut supprimer la partie makeinstall du makefile de la librairie
+
+
+======================= Basé sur le commit suivant =============================
+commit 287c7aeda5198bead911b4b7f30e77f943ad78ab
+Author: Maxime Fecteau <maxime.fecteau.99@gmail.com>
+Date:   Thu Feb 28 16:36:40 2019 -0500
+
+    ajout makefile librairie
+
+======================= Fichiers indésirables =============================
+branche-43/tp/tp1/compteur32bits.d
+branche-43/tp/tp1/compteur32bits.o
+branche-43/tp/tp1/test32bits.hex
+branche-43/tp/tp1/test32bits.out
+branche-43/tp/tp1/test32bits.out.map
+branche-43/tp/tp3/pb1/probleme1.d
+branche-43/tp/tp3/pb1/probleme1.hex
+branche-43/tp/tp3/pb1/probleme1.o
+branche-43/tp/tp3/pb1/probleme1.out
+branche-43/tp/tp3/pb1/probleme1.out.map
+branche-43/tp/tp3/pb2/probleme2.d
+branche-43/tp/tp3/pb2/probleme2.hex
+branche-43/tp/tp3/pb2/probleme2.o
+branche-43/tp/tp3/pb2/probleme2.out
+branche-43/tp/tp3/pb2/probleme2.out.map
+branche-43/tp/tp4/pb2/probleme2.d
+branche-43/tp/tp4/pb2/probleme2.hex
+branche-43/tp/tp4/pb2/probleme2.o
+branche-43/tp/tp4/pb2/probleme2.out
+branche-43/tp/tp4/pb2/probleme2.out.map
+branche-43/tp/tp5/pb1/memoire_24.d
+branche-43/tp/tp5/pb1/memoire_24.o
+branche-43/tp/tp5/pb1/probleme1.out.map
+branche-43/tp/tp5/pb1/tp5.d
+branche-43/tp/tp5/pb1/tp5.o
+codeCommun/tp7/lib/libinf1900.a
+
+======================= Sortie de make dans les sous-répertoires =============================
+======================= Sortie de make dans tp/tp7 =============================
+make: *** correction_tp7/4344/tp/tp7 : No such file or directory. Arrêt.
+
