@@ -83,7 +83,8 @@ ARFLAGS=-crs
 CFLAGS=-I. -MMD $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
 	-fpack-struct -fshort-enums             \
 	-funsigned-bitfields -funsigned-char    \
-	-Wall                                        
+	-Wall -DF_CPU=8000000
+
 
 # Flags pour le compilateur en C++
 CXXFLAGS=-fno-exceptions     

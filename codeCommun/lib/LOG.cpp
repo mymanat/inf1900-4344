@@ -32,8 +32,8 @@ void initialisationUART(void) {
 
 }
 
-void log_uart(char mots[]) {
-    for (char i = 0, character = mots[i]; character != '\0' && i < 100; i++, character = mots[i]) {
+void log_uart(unsigned char mots[]) {
+    for (unsigned char i = 0, character = mots[i]; character != '\0' && i < 100; i++, character = mots[i]) {
         transmissionUART(character);
     }
 }

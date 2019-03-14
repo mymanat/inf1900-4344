@@ -5,6 +5,6 @@
 
 void initialisationUART();
 void transmissionUART(uint8_t donnee);
-void log_uart(char mots[]);
+void log_uart(unsigned char mots[]);
 
 #endif 
