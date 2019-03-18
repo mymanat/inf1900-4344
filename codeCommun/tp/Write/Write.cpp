@@ -4,9 +4,7 @@
 
 
 #include <avr/io.h>
-#include "LOG.h"
 #include "memoire_24.h"
-#include "wait.h"
 
 int main() {
     initialisationUART();
@@ -15,10 +13,7 @@ int main() {
     char adresse = 0;
     while(true){
         char data = receptionUART();
-
         memoire24CXXX.ecriture(adresse, data);
-
-
         adresse++;
     }
 
