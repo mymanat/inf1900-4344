@@ -4,10 +4,10 @@
 
 
 #include <avr/io.h>
+#include "LOG.h"
 #include "memoire_24.h"
 
 int main() {
-    initialisationUART();
 
     Memoire24CXXX memoire24CXXX;
     char adresse = 0;
