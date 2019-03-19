@@ -1,15 +1,5 @@
 #include "moteurs.h"
 
-<<<<<<< HEAD
-void initialisationMoteurs(void) {
-  cli();
-  DDRD = 0xff;
-  sei();
-}
-
-void ajustementPWM(int pa, int pb) {
-  OCR1A = 255 * ((float)pa / 100);
-=======
 void ajustementPWM(int a, int b) {
   // mise à un des sorties OC1A et OC1B sur comparaison
 
@@ -20,7 +10,6 @@ void ajustementPWM(int a, int b) {
   // page 177 de la description technique du ATmega324PA)
 
   OCR1A = a;
->>>>>>> 38d1c7dd06c9fe5dc5cef99c62098322459e11f5
 
   OCR1B = b;
 
@@ -32,35 +21,34 @@ void ajustementPWM(int a, int b) {
   TCCR1C = 0;
 }
 void avancer(int vitesse) {
-    PORTD |= (0<<3);
-    PORTD |= (0<<2); 
-    ajustementPWM(vitesse, vitesse);    
+  PORTD |= (0 << 3);
+  PORTD |= (0 << 2);
+  ajustementPWM(vitesse, vitesse);
 }
 void reculer(int vitesse) {
-    PORTD |= (1<<3);
-    PORTD |= (1<<2); 
-    ajustementPWM(vitesse, vitesse);
+  PORTD |= (1 << 3);
+  PORTD |= (1 << 2);
+  ajustementPWM(vitesse, vitesse);
 }
 void tournerDroite() {
-    PORTD |= (0<<3);
-    PORTD |= (1<<2);
-    int rotationSpeed = 64;
-    ajustementPWM(rotationSpeed, rotationSpeed);
-    _delay_ms(2000);
-    arreterMoteurs();  
+  PORTD |= (0 << 3);
+  PORTD |= (1 << 2);
+  int rotationSpeed = 64;
+  ajustementPWM(rotationSpeed, rotationSpeed);
+  _delay_ms(2000);
+  arreterMoteurs();
 }
 void tournerGauche() {
-    PORTD |= (1<<3);
-    PORTD |= (0<<2);
-    int rotationSpeed = 64;
-    ajustementPWM(rotationSpeed, rotationSpeed);
-    _delay_ms(2000);
-    arreterMoteurs(); 
+  PORTD |= (1 << 3);
+  PORTD |= (0 << 2);
+  int rotationSpeed = 64;
+  ajustementPWM(rotationSpeed, rotationSpeed);
+  _delay_ms(2000);
+  arreterMoteurs();
 }
-void arreterMoteurs(){
-    PORTD |= (0<<3);
-    PORTD |= (0<<2); 
-    int zero = 0;
-    ajustementPWM(zero, zero);
+void arreterMoteurs() {
+  PORTD |= (0 << 3);
+  PORTD |= (0 << 2);
+  int zero = 0;
+  ajustementPWM(zero, zero);
 }
-
