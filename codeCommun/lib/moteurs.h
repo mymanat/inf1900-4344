@@ -2,6 +2,7 @@
 #define MOTEURS_H
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <util/delay.h>
 
 void ajustementPWM(int a, int b);
 void avancer(int vitesse);

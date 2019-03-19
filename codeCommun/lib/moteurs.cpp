@@ -37,7 +37,7 @@ void tournerDroite() {
     int rotationSpeed = 64;
     ajustementPWM(rotationSpeed, rotationSpeed);
     _delay_ms(2000);
-    arreterMoteur();  
+    arreterMoteurs();  
 }
 void tournerGauche() {
     PORTD |= (1<<3);
@@ -45,7 +45,7 @@ void tournerGauche() {
     int rotationSpeed = 64;
     ajustementPWM(rotationSpeed, rotationSpeed);
     _delay_ms(2000);
-    arreterMoteur(); 
+    arreterMoteurs(); 
 }
 void arreterMoteurs(){
     PORTD |= (0<<3);
