@@ -7,6 +7,8 @@
 
 #define DDR_MOTEUR DDRD
 
+#define TIMER_COUNT 25
+
 #define PORT_MOTEUR PORTD
 #define PIN_MOTEUR_GAUCHE 6
 #define PIN_MOTEUR_DROITE 7
