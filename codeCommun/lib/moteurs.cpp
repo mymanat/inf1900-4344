@@ -37,13 +37,7 @@ void moteurs::setDirection(bool direction) {
  * @param moteurNb Le numero du moteur
  */
 void moteurs::setDirectionMoteur(bool direction, bool moteurNb) {
-    uint8_t pinMoteur = (moteurNb) ? PIN_MOTEUR_GAUCHE : PIN_MOTEUR_DROITE;
-    if (direction) {
-        PORT_MOTEUR &= ~(1 << pinMoteur);
-    }
-    else{
-        PORT_MOTEUR |= (1 << pinMoteur);
-    }
+    setBit(&PORT_MOTEUR, !direction, (moteurNb) ? PIN_MOTEUR_GAUCHE : PIN_MOTEUR_DROITE);
 }
 
 void moteurs::avancer(int vitesse) {

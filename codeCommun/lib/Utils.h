@@ -1,0 +1,14 @@
+#ifndef UTILS_H
+#define UTILS_H
+
+#include "constantes.h"
+
+
+void setBit(uint8_t *variable, bool valeur, uint8_t bitIndex);
+void setBit(volatile uint8_t *variable, bool valeur, uint8_t bitIndex) ;
+
+
+
+
+
+#endif

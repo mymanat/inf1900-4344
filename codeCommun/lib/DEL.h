@@ -7,7 +7,8 @@
 
 #include "constantes.h"
 /**
- * Classe Permettant de contrôler la DEL. Celle-ci doit être branchée sur le PORTA, avec le + connecté au bit 1, et le - au bit 2
+ * Classe Permettant de contrôler la DEL.
+ * Celle-ci doit être branchée sur le PORTA (comme défini dans constantes.h), avec le + connecté au bit 1, et le - au bit 2 (pour la première DEL)
  */
 class DEL {
 
