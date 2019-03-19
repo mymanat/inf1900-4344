@@ -13,6 +13,7 @@ void Routine::executerCommande(uint8_t commande, uint8_t data) {
 
     transmissionUART(commande);
     transmissionUART(data);
+    int timeCounter = 25;
 
     if (commande == 0x01) {
         debutExecution = true;
@@ -25,7 +26,7 @@ void Routine::executerCommande(uint8_t commande, uint8_t data) {
         switch (commande) {
 
             case 0x02:
-                wait(data * 25);
+                wait(data * timeCounter);
                 break;
             case 0x44:
                 del.allumer(data);

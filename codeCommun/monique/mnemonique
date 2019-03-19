@@ -1,7 +1,9 @@
 //Debut
+
 DBT ;
 
 ATT 50;
+
 DBC 19 ; //Routine initialisation
 DAL 1 ;
 ATT 1 ;
@@ -37,4 +39,7 @@ MAR ;
 SAR ;
 DET 1;
 
+SGO 2; //Celebration
+
 FIN ; //Fin
+

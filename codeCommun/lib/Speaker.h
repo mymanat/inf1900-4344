@@ -1,15 +1,13 @@
 #ifndef SPEAKER
 #define SPEAKER
 
-
 #include <avr/interrupt.h>
 
 #include <avr/io.h>
 
 #define F_CPU 8000000
 
-#include <util/delay.h>
-
+#include "wait.h"
 
 #define MI4 64
 
@@ -31,11 +29,9 @@
 
 #define LA 57
 
-#define NOIRE 350
-
-class Speaker {
-public:
-
+class Speaker
+{
+  public:
     Speaker();
 
     void jouerMelodie();
@@ -50,7 +46,6 @@ public:
 
     double trouverFrequence(int note);
 
-
     double Notes[37] = {110, 116.54, 123.47, 130.81, 138.59, 146.84, 155.56,
 
                         164.81, 174.61, 184.99, 195.99, 207.65, 220, 233.08,
@@ -63,6 +58,5 @@ public:
 
                         830.60, 880};
 };
-
 
 #endif
