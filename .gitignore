@@ -1,9 +1,10 @@
 *.o
+.idea/
 *.d
 *.hex
 *.out.map
 *.out
 *.a
-*/.idea
+*.bin
 cmake-build-debug
 CMakeLists.txt

@@ -1,0 +1,39 @@
+//Debut
+DBT ;
+
+DBC 19 ; //Routine initialisation
+DAL 1 ;
+ATT 1 ;
+DET 1 ;
+ATT 1 ;
+FBC ;
+
+ATT 40; //Pause
+
+DAL 1 ; //Routine avancer
+ATT 20 ;
+SGO 69 ;
+MAV 128 ;
+ATT 80 ;
+MAR ;
+SAR ;
+DET 1;
+
+ATT 40 ; //Pause
+
+TRD ;   //Routine rotation
+ATT 40;
+TRG;
+
+ATT 40; //Pause
+
+DAL 1 ; //Routine reculer
+ATT 20 ;
+SGO 45 ;
+MRE 64 ;
+ATT 80 ;
+MAR ;
+SAR ;
+DET 1;
+
+FIN ; //Fin
