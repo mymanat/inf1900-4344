@@ -11,11 +11,11 @@
  */
 void DEL::allumer(uint8_t numeroDEL) const {
     PORT_DEL |= 0b01 << numeroDEL;
-    PORT_DEL ^= 0b10 << numeroDEL;
+    PORT_DEL &= ~(0b10 << numeroDEL);
 }
 
 void DEL::eteindre(uint8_t numeroDEL) const {
-    PORT_DEL ^= 0b11 << numeroDEL;
+    PORT_DEL &= ~(0b11 << numeroDEL);
 }
 
 

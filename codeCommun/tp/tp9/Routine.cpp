@@ -3,10 +3,17 @@
 //
 
 #include "Routine.h"
+Routine::Routine() {
 
-Routine::Routine() {}
+    initialisationUART();
+
+}
 
 void Routine::executerCommande(uint8_t commande, uint8_t data) {
+
+    transmissionUART(commande);
+    transmissionUART(data);
+
     if (commande == 0x01) {
         debutExecution = true;
     }
@@ -27,10 +34,10 @@ void Routine::executerCommande(uint8_t commande, uint8_t data) {
                 del.eteindre(data);
                 break;
             case 0x48:
-                jouerSon(data);
+                speaker.jouerSon(data);
                 break;
             case 0x09:
-                arreterSon();
+                speaker.arreterSon();
                 break;
             case 0x60:
             case 0x61:

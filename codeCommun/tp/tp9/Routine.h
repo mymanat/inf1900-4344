@@ -6,6 +6,7 @@
 #define MAIN_ROUTINE_H
 
 #include <avr/io.h>
+#include "LOG.h"//todo
 
 #include "constantes.h"
 
@@ -13,7 +14,10 @@
 #include "moteurs.h"
 #include "PWM.h"
 #include "DEL.h"
-#include "speaker.h"
+#include "Speaker.h"
+
+
+
 
 class Routine {
 
@@ -35,6 +39,7 @@ public:
 private:
     DEL del;
     moteurs moteur;
+    Speaker speaker;
 
     bool debutExecution = false;
     uint8_t adresse = 0;
