@@ -1,13 +1,13 @@
 #include <avr/io.h>
 
-
-
 #include "Routine.h"
 #include "memoire_24.h"
+#include "Speaker.h"
 
 Routine routine;
 
-void lireEtExecuter(){
+void lireEtExecuter()
+{
     Memoire24CXXX memoire24CXXX;
 
     uint8_t commande = 0;
@@ -22,7 +22,8 @@ void lireEtExecuter(){
 
     routine.getAdresse();
 
-    for (routine.setAdresse(2); routine.getAdresse() < nbAdresses; routine.addToAdress(2)){
+    for (routine.setAdresse(2); routine.getAdresse() < nbAdresses; routine.addToAdress(2))
+    {
 
         memoire24CXXX.lecture(routine.getAdresse(), &commande);
         memoire24CXXX.lecture(routine.getAdresse() + 1, &data);
@@ -31,9 +32,9 @@ void lireEtExecuter(){
     }
 }
 
-int main() {
-
+int main()
+{
+    Speaker sp;
+    sp.jouerSon(1);
     lireEtExecuter();
-
-
 }
