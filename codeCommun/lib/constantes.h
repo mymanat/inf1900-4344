@@ -2,6 +2,9 @@
 #define CONSTANTES_H
 
 #include <avr/io.h>
+//#include <avr/iom324pa.h> //TODO: Remove
+
+#define DDR_PWM DDRD
 
 
 #define DDR_DEL DDRA

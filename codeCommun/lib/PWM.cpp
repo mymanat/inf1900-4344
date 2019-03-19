@@ -1,6 +1,12 @@
-#include "moteurs.h"
+//
+// Created by simon on 3/18/19.
+//
 
-void moteurs::ajustementPWM(int a, int b) {
+#include "PWM.h"
+
+
+
+void PWM::ajustementPWM(float pa, float pb) const{
     // mise à un des sorties OC1A et OC1B sur comparaison
 
     // réussie en mode PWM 8 bits, phase correcte
@@ -9,9 +15,9 @@ void moteurs::ajustementPWM(int a, int b) {
 
     // page 177 de la description technique du ATmega324PA)
 
-    OCR1A = a;
+    OCR1A = pa;//255 * ((float)pa / 100);
 
-    OCR1B = b;
+    OCR1B = pb;//255 * ((float)pb / 100);
 
     // division d'horloge par 8 - implique une frequence de PWM fixe
 
@@ -22,45 +28,10 @@ void moteurs::ajustementPWM(int a, int b) {
     TCCR1C = 0;
 }
 
-void moteurs::avancer(int vitesse) {
-    PORTD |= (0 << 3);
-    PORTD |= (0 << 2);
-    ajustementPWM(vitesse, vitesse);
-}
 
-void moteurs::reculer(int vitesse) {
-    PORTD |= (1 << 3);
-    PORTD |= (1 << 2);
-    ajustementPWM(vitesse, vitesse);
-}
 
-void moteurs::tournerDroite() {
-    PORTD |= (1 << 3);
-    PORTD |= (0 << 2);
-    int rotationSpeed = 255;
-    ajustementPWM(rotationSpeed, rotationSpeed);
-    _delay_ms(500);
-    arreterMoteurs();
-}
 
-void moteurs::tournerGauche() {
-    PORTD |= (0 << 3);
-    PORTD |= (1 << 2);
-    int rotationSpeed = 255;
-    ajustementPWM(rotationSpeed, rotationSpeed);
-    _delay_ms(500);
-    arreterMoteurs();
-}
-
-void moteurs::arreterMoteurs() {
-    PORTD |= (0 << 3);
-    PORTD |= (0 << 2);
-    int zero = 0;
-    ajustementPWM(zero, zero);
-}
-
-moteurs::moteurs() {
-
+PWM::PWM() {
     // cli est une routine qui bloque toutes les interruptions.
     // Il serait bien mauvais d'être interrompu alors que
     // le microcontroleur n'est pas prêt...
@@ -86,4 +57,6 @@ moteurs::moteurs() {
     // sei permet de recevoir à nouveau des interruptions.
 
     sei();
+
+
 }
