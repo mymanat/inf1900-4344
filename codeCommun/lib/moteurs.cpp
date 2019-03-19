@@ -1,6 +1,6 @@
 #include "moteurs.h"
 
-void ajustementPWM(int pa, int pb) {
+void ajustementPWM(int a, int b) {
   // mise à un des sorties OC1A et OC1B sur comparaison
 
   // réussie en mode PWM 8 bits, phase correcte
@@ -9,9 +9,9 @@ void ajustementPWM(int pa, int pb) {
 
   // page 177 de la description technique du ATmega324PA)
 
-  OCR1A = 255 * ((float)pa / 100);
+  OCR1A = a;
 
-  OCR1B = 255 * ((float)pb / 100);
+  OCR1B = b;
 
   // division d'horloge par 8 - implique une frequence de PWM fixe
 
@@ -21,3 +21,36 @@ void ajustementPWM(int pa, int pb) {
 
   TCCR1C = 0;
 }
+void avancer(int vitesse) {
+    PORTD |= (0<<3);
+    PORTD |= (0<<2); 
+    ajustementPWM(vitesse, vitesse);    
+}
+void reculer(int vitesse) {
+    PORTD |= (1<<3);
+    PORTD |= (1<<2); 
+    ajustementPWM(vitesse, vitesse);
+}
+void tournerDroite() {
+    PORTD |= (0<<3);
+    PORTD |= (1<<2);
+    int rotationSpeed = 64;
+    ajustementPWM(rotationSpeed, rotationSpeed);
+    _delay_ms(2000);
+    arreterMoteur();  
+}
+void tournerGauche() {
+    PORTD |= (1<<3);
+    PORTD |= (0<<2);
+    int rotationSpeed = 64;
+    ajustementPWM(rotationSpeed, rotationSpeed);
+    _delay_ms(2000);
+    arreterMoteur(); 
+}
+void arreterMoteurs(){
+    PORTD |= (0<<3);
+    PORTD |= (0<<2); 
+    int zero = 0;
+    ajustementPWM(zero, zero);
+}
+
