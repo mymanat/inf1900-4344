@@ -39,7 +39,7 @@ MAR ;
 SAR ;
 DET 1;
 
-SGO 2; //Celebration
+SGO 1; //Celebration
 
 FIN ; //Fin
 

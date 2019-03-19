@@ -2,11 +2,9 @@
 
 #include "Routine.h"
 #include "memoire_24.h"
-#include "Speaker.h"
 
-Routine routine;
 
-void lireEtExecuter()
+void lireEtExecuter(Routine & routine)
 {
     Memoire24CXXX memoire24CXXX;
 
@@ -16,7 +14,7 @@ void lireEtExecuter()
     uint16_t nbAdresses = 0;
 
     memoire24CXXX.lecture(0, &data);
-    nbAdresses = data << 8;
+    nbAdresses = data << 8u;
     memoire24CXXX.lecture(1, &data);
     nbAdresses |= data;
 
@@ -34,7 +32,6 @@ void lireEtExecuter()
 
 int main()
 {
-    Speaker sp;
-    sp.jouerSon(1);
-    lireEtExecuter();
+    Routine routine;
+    lireEtExecuter(routine);
 }
