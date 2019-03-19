@@ -1,0 +1,28 @@
+//Debut
+DBT ;
+
+DAL 0;
+
+MAV 255;
+ATT 80;
+
+TRG;
+DET 0;
+DAL 1;
+MRE 128;
+ATT 80;
+MAR;
+
+SGO 69;
+ATT 255;
+SAR;
+
+DAL 0;
+MAV 128;
+ATT 80;
+
+TRD;
+MAV 255;
+ATT 80;
+
+FIN ; //Fin
