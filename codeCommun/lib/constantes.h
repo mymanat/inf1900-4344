@@ -15,6 +15,7 @@
 
 #define DDR_DEL DDRA
 #define PORT_DEL PORTA
+#define DDR_BTN_INTERRUPT DDRD
 
 #define PORT_SPEAKER PORTB
 #define DDR_SPEAKER DDRB
@@ -27,6 +28,17 @@
 #define POSITION_DEL_3 2
 #define POSITION_DEL_4 3
 #define POSITION_DEL_5 7
+
+enum Couleur
+{
+    Rouge,
+    Vert,
+    Ambree,
+    Eteint
+};
+
+#define MODE_SORTIE 0xff
+#define MODE_ENTREE 0x00
 
 enum Couleur
 {
