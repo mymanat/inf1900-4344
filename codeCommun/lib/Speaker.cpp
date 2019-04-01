@@ -11,7 +11,7 @@ void Speaker::initialisationSpeaker(void)
 {
     cli();
 
-    DDRB = 0xff;
+    DDR_SPEAKER = MODE_SORTIE;
 
     sei();
 }
