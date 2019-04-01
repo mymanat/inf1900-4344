@@ -69,7 +69,7 @@ HEXFORMAT=ihex
 CFLAGS=-I. -MMD $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
 	-fpack-struct -fshort-enums             \
 	-funsigned-bitfields -funsigned-char    \
-	-Wall -DF_CPU=8000000                                       
+	-Wall -DF_CPU=8000000
 
 # Flags pour le compilateur en C++
 CXXFLAGS=-fno-exceptions     
@@ -114,7 +114,7 @@ OBJDEPS=$(CFILES:.c=.o) \
 # En plus de la commande make qui permet de compiler
 # votre projet, vous pouvez utilisez les commandes
 # make all, make install et make clean
-.PHONY: all install clean 
+.PHONY: all install clean debug
 
 # Make all permet simplement de compiler le projet
 #
@@ -143,6 +143,10 @@ $(TRG): $(OBJDEPS)
 %.hex: %.out
 	$(OBJCOPY) -j .text -j .data \
 		-O $(HEXFORMAT) $< $@
+
+
+debug:CFLAGS += -DDEBUG
+debug: install
 
 # Make install permet de compiler le projet puis
 # d'ecrire le programme en memoire flash dans votre
