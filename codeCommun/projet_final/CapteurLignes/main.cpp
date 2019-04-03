@@ -14,7 +14,7 @@ int main()
     int cste = 500;
     DDRA = MODE_ENTREE;
     DDRC = MODE_SORTIE;
-    DDRB = MODE_ENTREE;
+    //DDRB = MODE_ENTREE;
     DDRD = MODE_SORTIE;
 
     can convertisseur;
