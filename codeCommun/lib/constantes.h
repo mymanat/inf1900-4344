@@ -10,8 +10,8 @@
 #define TIMER_COUNT 25
 
 #define PORT_MOTEUR PORTD
-#define PIN_MOTEUR_GAUCHE 6
-#define PIN_MOTEUR_DROITE 7
+#define PIN_MOTEUR_GAUCHE (uint8_t) 6
+#define PIN_MOTEUR_DROITE (uint8_t) 7
 
 #define DDR_DEL DDRA
 #define PORT_DEL PORTA
@@ -29,23 +29,21 @@
 #define POSITION_DEL_4 3
 #define POSITION_DEL_5 7
 
-enum Couleur
-{
+enum Couleur {
     Rouge,
     Vert,
     Ambree,
     Eteint
 };
 
-#define MODE_SORTIE 0xff
-#define MODE_ENTREE 0x00
 
-enum Couleur
-{
-    Rouge,
-    Vert,
-    Ambree,
-    Eteint
-};
+/* ---- Timer ---- *///todo move
+#define CNT_NO_CLOCK_SOURCE (0 << CS02) | (0 << CS01) | (0 << CS00)
+#define CNT_NO_PRESCALING   (0 << CS02) | (0 << CS01) | (1 << CS00)
+#define CNT_PRESCALER_8     (0 << CS02) | (1 << CS01) | (0 << CS00)
+#define CNT_PRESCALER_64    (0 << CS02) | (1 << CS01) | (1 << CS00)
+#define CNT_PRESCALER_256   (1 << CS02) | (0 << CS01) | (0 << CS00)
+#define CNT_PRESCALER_1024  (1 << CS02) | (0 << CS01) | (1 << CS00)
+
 
 #endif
