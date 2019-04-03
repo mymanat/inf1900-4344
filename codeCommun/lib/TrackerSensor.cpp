@@ -21,9 +21,17 @@ void TrackerSensor::update() {
         uint16_t value = lecture(i);
         values[i - SENSOR_POS] = value;
 
-        bool delState = value <= blackValue + SENSOR_DELTA_BLACK;
+        bool delState = valueIsBlack(value);
         del.setState(delState, i + 1);
     }
+}
+
+bool TrackerSensor::valueIsBlack(uint16_t value) const {
+    return value < blackValue + SENSOR_DELTA_BLACK;
+}
+
+bool TrackerSensor::isBlack(uint8_t sensorID) const {
+    return valueIsBlack(getValue(sensorID));
 }
 
 /**

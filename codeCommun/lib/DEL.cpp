@@ -15,8 +15,19 @@ void DEL::allumer(uint8_t numeroDEL) const {
     setBit(&PORT_DEL, true, getPositionDEL(numeroDEL));
 }
 
+void DEL::allumer() const {
+    setState(true);
+}
+
 void DEL::eteindre(uint8_t numeroDEL) const {
     setBit(&PORT_DEL, false, getPositionDEL(numeroDEL));
+}
+
+/**
+ * Permet d'éteindre toutes les DELs
+ */
+void DEL::eteindre() const {
+    setState(false);
 }
 
 void DEL::setState(bool state, uint8_t numeroDEL) const {
@@ -25,6 +36,16 @@ void DEL::setState(bool state, uint8_t numeroDEL) const {
     }
     else{
         eteindre(numeroDEL);
+    }
+}
+
+/**
+ * Permet de définir l'état de toutes les DELs
+ * @param state l'état
+ */
+void DEL::setState(bool state) const {
+    for (uint8_t i = 1; i <= DEL_COUNT; ++i) {
+        setState(state, i);
     }
 }
 

@@ -30,11 +30,14 @@ public:
 
     const uint16_t *getValues() const;
 
-    uint16_t getValue(uint8_t index) const;
+    uint16_t getValue(uint8_t sensorID) const;
 
     uint16_t getBlackValue() const;
 
     void setBlackValue(uint16_t blackValue);
+
+    bool valueIsBlack(uint16_t value) const;
+    bool isBlack(uint8_t sensorID) const;
 
 
 private:
