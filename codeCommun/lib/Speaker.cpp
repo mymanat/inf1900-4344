@@ -2,13 +2,11 @@
 
 int NOIRE;
 
-void Speaker::arreterSon()
-{
+void Speaker::arreterSon() {
     TCCR0A = 0;
 }
 
-void Speaker::initialisationSpeaker(void)
-{
+void Speaker::initialisationSpeaker(void) {
     cli();
 
     DDR_SPEAKER = MODE_SORTIE;
@@ -16,8 +14,7 @@ void Speaker::initialisationSpeaker(void)
     sei();
 }
 
-void Speaker::jouerSon(int note)
-{
+void Speaker::jouerSon(int note) {
     if (note == 1)
     {
         jouerMelodie();
@@ -43,7 +40,7 @@ void Speaker::jouerSon(int note)
 
         TCCR0A = (1 << WGM01) | (1 << COM0A0);
 
-        // Prescaler 8
+        // Prescaler 256
 
         TCCR0B = (1 << CS02);
 
@@ -51,18 +48,41 @@ void Speaker::jouerSon(int note)
     }
 }
 
-double Speaker::trouverFrequence(int note)
-{
+void Speaker::playFrequency() {
+
+    arreterSon();
+
+    wait(10);
+
+//        double freq = Notes[note - 45];
+    double freq = 38000;
+
+    double tempsCalcule = F_CPU * (1 / freq) / 2;
+
+    OCR0A = tempsCalcule;
+
+    // Mode 1 de Waveform Generation Mode, clear on compare match
+
+    TCCR0A = (1 << WGM01) | (1 << COM0A0);
+
+    // Prescaler 256
+
+//        TCCR0B = (1 << CS02);
+
+    TCCR1C = 0;
+
+}
+
+
+double Speaker::trouverFrequence(int note) {
     return 0;
 }
 
-Speaker::Speaker()
-{
+Speaker::Speaker() {
     initialisationSpeaker();
 }
 
-void Speaker::jouerMelodie()
-{
+void Speaker::jouerMelodie() {
     NOIRE = 700;
     jouerSon(RE);
 
@@ -563,8 +583,7 @@ void Speaker::jouerMelodie()
     arreterSon();
 }
 
-void Speaker::jouerMelodie2()
-{
+void Speaker::jouerMelodie2() {
     NOIRE = 350;
     jouerSon(LA);
 
