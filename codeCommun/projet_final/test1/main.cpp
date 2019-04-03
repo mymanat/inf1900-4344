@@ -1,72 +1,70 @@
 #include <avr/io.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "Utils.h"
 #include "memoire_24.h"
+#include "constantes.h"
+#include "wait.h"
+#include "LOG.h"
+#include "can.h"
 
+void initialisation() 
+{
+    cli();
 
-
+    DDRA = MODE_ENTREE;
+    DDRB = MODE_ENTREE;
+    DDRC = MODE_SORTIE;
+    DDRD = MODE_SORTIE;
+    
+    sei();
+}
 
 int main()
 {
-    DDRB = MODE_ENTREE;
-    DDRD = MODE_SORTIE;
-    int section = DONNÉE_INFRAROUGE;
+    initialisation();
+    PORTC = 0xff;
+    int section = 4;
+    //while (section == 0)
+    //{
+        //section = DONNÉE_INFRAROUGE;
+    //}
+
+    //int section = DONNÉE_INFRAROUGE;
     Moteur moteur;
     Del del;
+    can convertisseur;
 
+    wait(40 * TIMER_COUNT);
 
-    //while(1){
-        //PORTD = PINB;
-    //}
-    
-    while(section != 1 || section != 2 || section != 3 || section != 4)
-    {
-    }
     switch (section)
 ​    {
         case 1:
-            del.allumer(1);
-            wait(120 * TIMER_COUNT)
-            del.eteindre(1);
+            setBit(&PORTC, 0, POSITION_DEL_1);
+            wait(120 * TIMER_COUNT);
+            setBit(&PORTC, 1, POSITION_DEL_1);
             break;
         case 2:
-            del.allumer(2);
-            wait(120 * TIMER_COUNT)
-            del.eteindre(2);
+            setBit(&PORTC, 0, POSITION_DEL_2);
+            wait(120 * TIMER_COUNT);
+            setBit(&PORTC, 1, POSITION_DEL_2);
             break;
         case 3:
-            del.allumer(4);
-            wait(120 * TIMER_COUNT)
-            del.eteindre(4);
+            setBit(&PORTC, 0, POSITION_DEL_3);
+            wait(120 * TIMER_COUNT);
+            setBit(&PORTC, 1, POSITION_DEL_3);
             break;
         case 4:
-            del.allumer(8);
-            wait(120 * TIMER_COUNT)
-            del.eteindre(8);
+            setBit(&PORTC, 0, POSITION_DEL_4);
+            wait(120 * TIMER_COUNT);
+            setBit(&PORTC, 1, POSITION_DEL_4);
             break;
-    }  
-    for(int i = 0; i < 4; ++i) 
-    {
-        switch (section)
-​        {
-            case 1:
-                damn;
-                ChangerSection(section);
-                break;
-            case 2:
-                damn;
-                ChangerSection(section);
-                break;
-            case 3:
-                damn;
-                ChangerSection(section);
-                break;
-            case 4:
-                damn
-                ChangerSection(section);
-                break;
-        }
     }
+    int valeurNoir = convertisseur.lecture(3);
+    moteur.avancer(126);
+    wait(40 * TIMER_COUNT);
+    moteur.arreterMoteurs();
     return 0;
 }
 void ChangerSection(int& sectionActuelle)
@@ -78,5 +76,27 @@ void ChangerSection(int& sectionActuelle)
     else
     {
         ++sectionActuel;
+    }
+}
+void FaireSection()
+{
+    int section = 4;
+    for(int i = 0; i < 4; ++i) 
+    {
+        switch (section)
+​        {
+            case 1:
+                ChangerSection(section);
+                break;
+            case 2:
+                ChangerSection(section);
+                break;
+            case 3:
+                ChangerSection(section);
+                break;
+            case 4:
+                ChangerSection(section);
+                break;
+        }
     }
 }
