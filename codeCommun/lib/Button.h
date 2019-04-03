@@ -11,7 +11,7 @@
 
 #define BTN_PRESSED PIND & 0x04
 
-extern volatile uint8_t BTN_INT_STATE ;
+extern volatile uint8_t BTN_INT_STATE;
 
 
 class Button {
@@ -19,16 +19,13 @@ public:
     Button();
 
     bool getState() const;
-    void setState(bool state);
+
+    void setState(bool state) ;
+
 
 private:
 
-
 };
-
-
-
-
 
 
 #endif //MAIN_BUTTON_H

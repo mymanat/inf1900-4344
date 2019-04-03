@@ -12,17 +12,11 @@
  * @param numeroDEL Le numero de la DEL à allumer
  */
 void DEL::allumer(uint8_t numeroDEL) const {
-//    PORT_DEL |= 0b01 << numeroDEL;
-//    PORT_DEL &= ~(0b10 << numeroDEL);
-    setBit(&PORT_DEL, 1, getPositionDEL(numeroDEL));
+    setBit(&PORT_DEL, true, getPositionDEL(numeroDEL));
 }
 
 void DEL::eteindre(uint8_t numeroDEL) const {
-//    PORT_DEL &= ~(0b11 << numeroDEL);
-
-    setBit(&PORT_DEL, 0, getPositionDEL(numeroDEL));
-
-
+    setBit(&PORT_DEL, false, getPositionDEL(numeroDEL));
 }
 
 void DEL::setState(bool state, uint8_t numeroDEL) const {

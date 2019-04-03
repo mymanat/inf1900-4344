@@ -33,3 +33,4 @@ bool Button::getState() const{
 void Button::setState(bool state) {
     BTN_INT_STATE = static_cast<uint8_t>(state);
 }
+
