@@ -25,6 +25,15 @@ void DEL::eteindre(uint8_t numeroDEL) const {
 
 }
 
+void DEL::setState(bool state, uint8_t numeroDEL) const {
+    if (state) {
+        allumer(numeroDEL);
+    }
+    else{
+        eteindre(numeroDEL);
+    }
+}
+
 uint8_t DEL::getPositionDEL(uint8_t numeroDEL) const{
     switch (numeroDEL) {
         case 1:

@@ -21,6 +21,7 @@ public:
     void allumer(uint8_t numeroDEL=0) const;
 
     void eteindre(uint8_t numeroDEL=0) const;
+    void setState(bool state, uint8_t numeroDEL=0) const;
 
 
 };
