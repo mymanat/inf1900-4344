@@ -5,20 +5,26 @@
 #ifndef MAIN_ROBOT1_H
 #define MAIN_ROBOT1_H
 
-#include <stdint-gcc.h>
 #include "../Robot.h"
+#include "DEL.h"
 
-class Robot1 : Robot{
+class Robot1 : public Robot{
 public:
+    Robot1();
 
-    Robot1(uint8_t section);
 
-    void run() override;
+//    void run() override;
+void run();
 
     void setSection(uint8_t section);
 
+    uint8_t receiveData() ;
+
 private:
     uint8_t section = 1;
+    DEL del;
+    Timer timer;
+    Button button;
 };
 
 
