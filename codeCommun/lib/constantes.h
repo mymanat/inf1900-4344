@@ -27,7 +27,7 @@
 #define POSITION_DEL_2 1
 #define POSITION_DEL_3 2
 #define POSITION_DEL_4 3
-#define POSITION_DEL_5 7
+#define POSITION_DEL_5 5
 
 enum Couleur {
     Rouge,
