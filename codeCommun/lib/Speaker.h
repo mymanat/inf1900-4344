@@ -45,6 +45,8 @@ class Speaker
 
     void jouerSon(int note);
 
+    void playFrequency();
+
     double trouverFrequence(int note);
 
     double Notes[37] = {110, 116.54, 123.47, 130.81, 138.59, 146.84, 155.56,

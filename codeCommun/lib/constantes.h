@@ -13,8 +13,9 @@
 #define PIN_MOTEUR_GAUCHE (uint8_t) 6
 #define PIN_MOTEUR_DROITE (uint8_t) 7
 
-#define DDR_DEL DDRA
-#define PORT_DEL PORTA
+#define DDR_DEL DDRC
+#define PORT_DEL PORTC
+
 #define DDR_BTN_INTERRUPT DDRD
 
 #define PORT_SPEAKER PORTB
