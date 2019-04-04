@@ -41,7 +41,6 @@ public:
     bool valueIsBlack(uint16_t value) const;
     bool isBlack(uint8_t sensorID) const;
 
-
 private:
     uint16_t values[SENSOR_COUNT] = {0, 0, 0, 0, 0};
     uint16_t blackValue;

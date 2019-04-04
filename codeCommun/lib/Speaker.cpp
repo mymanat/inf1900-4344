@@ -787,3 +787,153 @@ void Speaker::jouerMelodie2() {
 
     arreterSon();
 }
+
+
+void Speaker::jouerMelodie3(){
+    DEL del;
+
+
+    NOIRE = 700;
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 2);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 8);
+
+    jouerSon(SOL4);
+
+    wait(NOIRE / 8);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 4);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 2);
+    arreterSon();
+}

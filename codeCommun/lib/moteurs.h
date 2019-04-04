@@ -15,7 +15,7 @@
 #define DIRECTION_AVANCER 1
 #define DIRECTION_RECULER 0
 
-#define VITESSE_ROTATION 255
+#define VITESSE_ROTATION 100
 #define DUREE_ROTATION 500
 class moteurs : public Component{
 public:

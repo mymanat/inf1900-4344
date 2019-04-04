@@ -10,10 +10,13 @@
 #include "moteurs.h"
 #include "TrackerSensor.h"
 
+#include "Speaker.h"
+
 class Robot1 : public Robot {
 public:
     Robot1();
 
+    void init() override;
 
     void run() override;
 
@@ -21,7 +24,7 @@ public:
 
     uint8_t receiveData();
 
-    void suivreLigne();
+    bool suivreLigne();
 
     void section4(int & changement);
 
@@ -30,6 +33,7 @@ public:
     void changerSection();
 
 private:
+    bool shouldStop = false;
     uint8_t section = 0;
     DEL del;
     Timer timer;

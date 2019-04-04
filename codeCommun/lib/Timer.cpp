@@ -14,6 +14,10 @@ Timer::Timer(uint16_t duration) : Timer() {
 }
 
 Timer::Timer() {
+    init();
+}
+
+void Timer::init() {
     // cli est une routine qui bloque toutes les interruptions.
     // Il serait bien mauvais d'être interrompu alors que
     // le microcontroleur n'est pas prêt...
@@ -26,13 +30,10 @@ Timer::Timer() {
 
     EIMSK |= (1 << INT0);
 
-
-
     // sei permet de recevoir à nouveau des interruptions.
 
     sei();
 }
-
 
 void Timer::startTimer() {
 
@@ -51,6 +52,7 @@ void Timer::startTimer() {
     TCCR1C = 0;
 
     TIMSK1 = (1 << OCIE1A);
+
 
 }
 
