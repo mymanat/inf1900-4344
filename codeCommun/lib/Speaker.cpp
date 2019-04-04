@@ -55,9 +55,9 @@ void Speaker::playFrequency() {
     wait(10);
 
 //        double freq = Notes[note - 45];
-    double freq = 38000;
+    double freq = 38100;
 
-    double tempsCalcule = F_CPU * (1 / freq) / 2;
+    double tempsCalcule = F_CPU * (1 / freq) / 2 ;
 
     OCR0A = tempsCalcule;
 
@@ -67,7 +67,9 @@ void Speaker::playFrequency() {
 
     // Prescaler 256
 
-//        TCCR0B = (1 << CS02);
+        //TCCR0B = (1 << CS01) | (1 << CS00);
+        TCCR0B = (1 << CS00);
+        //TCCR0B = (1 << CS02);
 
     TCCR1C = 0;
 

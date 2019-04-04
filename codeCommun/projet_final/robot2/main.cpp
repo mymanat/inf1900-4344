@@ -19,6 +19,7 @@ int main() {
 //    pwm.ajustementPWM()
     Speaker speaker;
     speaker.playFrequency();
+    //speaker.jouerSon(50);
 
 //    DDRC = MODE_SORTIE;
 //
