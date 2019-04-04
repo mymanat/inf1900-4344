@@ -10,8 +10,7 @@ volatile uint8_t BTN_INT_STATE = 0;
 
 
 Button::Button() {
-    DDR_BTN_INTERRUPT = MODE_ENTREE;
-    EICRA |= (1 << ISC00);
+    init();
 }
 
 
@@ -33,3 +32,10 @@ bool Button::getState() const{
 void Button::setState(bool state) {
     BTN_INT_STATE = static_cast<uint8_t>(state);
 }
+
+void Button::init() {
+    DDR_BTN_INTERRUPT = MODE_ENTREE;
+    EICRA |= (1 << ISC00);
+
+}
+

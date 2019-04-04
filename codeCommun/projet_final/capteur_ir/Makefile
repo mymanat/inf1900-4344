@@ -1,4 +1,4 @@
-PROJECTNAME=CapteurLignes
+PROJECTNAME=capteurIr
 
 PRJSRC=main.cpp
 

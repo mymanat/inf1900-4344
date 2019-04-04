@@ -3,6 +3,10 @@
 
 #include <avr/io.h>
 
+
+#define DDR_TRACKER_SENSOR  DDRA
+
+
 #define DDR_PWM DDRD
 
 #define DDR_MOTEUR DDRD

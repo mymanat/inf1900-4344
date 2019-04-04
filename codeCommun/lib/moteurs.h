@@ -5,6 +5,8 @@
 #include <util/delay.h>
 #include "PWM.h"
 #include "Utils.h"
+#include "Component.h"
+
 
 
 #define MOTEUR_DROITE 1
@@ -15,11 +17,13 @@
 
 #define VITESSE_ROTATION 255
 #define DUREE_ROTATION 500
-class moteurs {
+class moteurs : public Component{
 public:
     moteurs();
 
-    void ajustementPWM(int a, int b);
+    void init() override;
+
+    void ajustementMoteur(uint8_t gauche, uint8_t droite);
     void avancer(int vitesse);
     void reculer(int vitesse);
     void tournerDroite();
@@ -32,6 +36,8 @@ public:
     void setDirection(bool direction);
 
 
+private:
+    void ajustementPWM(uint8_t a, uint8_t b);
 };
 
 #endif
