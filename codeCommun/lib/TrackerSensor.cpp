@@ -7,8 +7,7 @@
 TrackerSensor::TrackerSensor() {
 
 
-    DDR_TRACKER_SENSOR = MODE_ENTREE;
-    blackValue = getValue(SENSOR_MIDDLE_POS);
+    init();
 
 }
 
@@ -59,6 +58,12 @@ uint16_t TrackerSensor::getBlackValue() const {
 
 void TrackerSensor::setBlackValue(uint16_t blackValue) {
     TrackerSensor::blackValue = blackValue;
+}
+
+void TrackerSensor::init() {
+
+    DDR_TRACKER_SENSOR = MODE_ENTREE;
+    blackValue = getValue(SENSOR_MIDDLE_POS);
 }
 
 

@@ -12,6 +12,7 @@
 
 #include "can.h"
 #include "DEL.h"
+#include "Component.h"
 
 #define SENSOR_POS 0
 #define SENSOR_MIDDLE_POS 3
@@ -19,11 +20,12 @@
 
 #define SENSOR_COUNT 5 //Le nombre de capteurs disponibles
 
-class TrackerSensor : can {
+class TrackerSensor : public can, public Component {
 
 public:
     TrackerSensor();
 
+    void init() override;
 
 
     void update();

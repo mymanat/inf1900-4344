@@ -8,15 +8,18 @@
 
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "Component.h"
 
 #define BTN_PRESSED PIND & 0x04
 
 extern volatile uint8_t BTN_INT_STATE;
 
 
-class Button {
+class Button : public Component{
 public:
     Button();
+
+    void init() override;
 
     bool getState() const;
 

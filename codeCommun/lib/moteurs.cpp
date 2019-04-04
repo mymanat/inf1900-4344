@@ -1,6 +1,7 @@
 #include "moteurs.h"
 
-void moteurs::ajustementPWM(int a, int b) {
+void moteurs::ajustementPWM(uint8_t a, uint8_t b) {
+
     // mise à un des sorties OC1A et OC1B sur comparaison
 
     // réussie en mode PWM 8 bits, phase correcte
@@ -20,6 +21,10 @@ void moteurs::ajustementPWM(int a, int b) {
     TCCR1B = (1 << CS11);
 
     TCCR1C = 0;
+}
+
+void moteurs::ajustementMoteur(uint8_t gauche, uint8_t droite) {
+    ajustementPWM(droite, gauche);
 }
 
 /**
@@ -76,7 +81,10 @@ void moteurs::arreterMoteurs() {
 }
 
 moteurs::moteurs() {
+    init();
+}
 
+void moteurs::init() {
     // cli est une routine qui bloque toutes les interruptions.
     // Il serait bien mauvais d'être interrompu alors que
     // le microcontroleur n'est pas prêt...

@@ -12,7 +12,7 @@
  * @param numeroDEL Le numero de la DEL à allumer
  */
 void DEL::allumer(uint8_t numeroDEL) const {
-    setBit(&PORT_DEL, true, getPositionDEL(numeroDEL));
+    setState(true, numeroDEL);
 }
 
 void DEL::allumer() const {
@@ -20,7 +20,7 @@ void DEL::allumer() const {
 }
 
 void DEL::eteindre(uint8_t numeroDEL) const {
-    setBit(&PORT_DEL, false, getPositionDEL(numeroDEL));
+    setState(false, numeroDEL);
 }
 
 /**
@@ -31,11 +31,14 @@ void DEL::eteindre() const {
 }
 
 void DEL::setState(bool state, uint8_t numeroDEL) const {
+    if (numeroDEL == 0) {
+        return;
+    }
     if (state) {
-        allumer(numeroDEL);
+        setBit(&PORT_DEL, true, getPositionDEL(numeroDEL));
     }
     else{
-        eteindre(numeroDEL);
+        setBit(&PORT_DEL, false, getPositionDEL(numeroDEL));
     }
 }
 
@@ -68,7 +71,7 @@ uint8_t DEL::getPositionDEL(uint8_t numeroDEL) const{
             break;
         default:
             DEBUG_PRINT("ERREUR: Mauvais numero de DEL");
-            return 0;
+            return 2;
             break;
     }
 }
