@@ -55,9 +55,9 @@ void Speaker::playFrequency() {
     wait(10);
 
 //        double freq = Notes[note - 45];
-    double freq = 38000;
+    double freq = 38100;
 
-    double tempsCalcule = F_CPU * (1 / freq) / 2;
+    double tempsCalcule = F_CPU * (1 / freq) / 2 ;
 
     OCR0A = tempsCalcule;
 
@@ -67,7 +67,9 @@ void Speaker::playFrequency() {
 
     // Prescaler 256
 
-//        TCCR0B = (1 << CS02);
+        //TCCR0B = (1 << CS01) | (1 << CS00);
+        TCCR0B = (1 << CS00);
+        //TCCR0B = (1 << CS02);
 
     TCCR1C = 0;
 
@@ -785,5 +787,155 @@ void Speaker::jouerMelodie2() {
 
     wait(NOIRE / 2);
 
+    arreterSon();
+}
+
+
+void Speaker::jouerMelodie3(){
+    DEL del;
+
+
+    NOIRE = 700;
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 2);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 8);
+
+    jouerSon(SOL4);
+
+    wait(NOIRE / 8);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 2);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 8);
+
+    jouerSon(MI4);
+    del.eteindre();
+    del.allumer(2);
+
+    wait(NOIRE / 4);
+
+    jouerSon(FA4);
+    del.eteindre();
+    del.allumer(3);
+
+    wait(NOIRE / 8);
+
+    jouerSon(RE);
+    del.eteindre();
+    del.allumer(1);
+
+    wait(NOIRE / 2);
+
+    jouerSon(DO);
+    del.eteindre();
+    del.allumer(4);
+
+    wait(NOIRE / 2);
     arreterSon();
 }

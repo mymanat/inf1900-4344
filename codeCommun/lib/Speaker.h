@@ -30,6 +30,9 @@
 
 #define LA 57
 
+
+#include "DEL.h" //todo
+
 class Speaker
 {
   public:
@@ -38,6 +41,7 @@ class Speaker
     void jouerMelodie();
 
     void jouerMelodie2();
+    void jouerMelodie3();
 
     void arreterSon();
 

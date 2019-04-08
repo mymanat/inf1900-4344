@@ -5,15 +5,19 @@
 #ifndef MAIN_ROBOT1_H
 #define MAIN_ROBOT1_H
 
+#include <stdint-gcc.h>
 #include "../Robot.h"
 #include "DEL.h"
 #include "moteurs.h"
 #include "TrackerSensor.h"
 
+#include "Speaker.h"
+
 class Robot1 : public Robot {
 public:
     Robot1();
 
+    void init() override;
 
     void run() override;
 
@@ -21,7 +25,7 @@ public:
 
     uint8_t receiveData();
 
-    void suivreLigne();
+    bool suivreLigne();
 
     void section4(int & changement);
 
@@ -30,12 +34,20 @@ public:
     void changerSection();
 
 private:
+    bool shouldStop = false;
     uint8_t section = 0;
     DEL del;
     Timer timer;
     moteurs moteur;
     TrackerSensor convertisseur;
     Button button;
+
+    uint8_t vitesse_max = 120;
+    uint8_t vitesse = vitesse_max;
+
+    uint8_t delta = 20;
+    uint8_t vitesse_lent = vitesse_max - delta;
+    uint8_t lastDirection = 0;//1, 2d, 3g
 };
 
 

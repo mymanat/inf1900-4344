@@ -31,6 +31,7 @@ public:
     void update();
 
     const uint16_t *getValues() const;
+    uint8_t getIsBlackCode() const;
 
     uint16_t getValue(uint8_t sensorID) const;
 
@@ -40,7 +41,6 @@ public:
 
     bool valueIsBlack(uint16_t value) const;
     bool isBlack(uint8_t sensorID) const;
-
 
 private:
     uint16_t values[SENSOR_COUNT] = {0, 0, 0, 0, 0};

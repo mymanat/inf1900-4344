@@ -6,6 +6,8 @@
 #define MAIN_TIMER_H
 
 #include <avr/interrupt.h>
+#include "Component.h"
+
 #define DUREE_1S 7812
 
 
@@ -15,11 +17,12 @@ extern volatile uint8_t TIMER1_DONE ;
 /**
  * Classe permettant de définir un compteur de 0 jusqu'à duration.
  */
-class Timer {
+class Timer : public Component {
 
 public:
     Timer();
 
+    void init() override;
     Timer(uint16_t duration);
 
     void startTimer();

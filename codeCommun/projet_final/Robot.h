@@ -10,12 +10,10 @@
 #include "Timer.h"
 #include "Button.h"
 #include "wait.h"
+#include "Component.h"
 
 
-
-
-
-class Robot {
+class Robot : public Component {
 
 public:
     virtual void run() = 0;
