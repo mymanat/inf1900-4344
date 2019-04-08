@@ -24,10 +24,11 @@ void Robot1::run() {
 //        convertisseur.update();
 //
 //    } while (suivreLigne());
-while(1) {
-    convertisseur.update();
-    suivreLigne();
-}
+    while (1)
+    {
+        convertisseur.update();
+        suivreLigne();
+    }
 
     moteur.arreterMoteurs();
     Speaker speaker;
@@ -85,22 +86,10 @@ bool Robot1::suivreLigne() {
     int vitesse = 150;
     int delay = 50;
     int vitesseMax = 255;
+    char code = convertisseur.getIsBlackCode();
 //    moteur.setDirection(1);
-    if (shouldStop && !convertisseur.isBlack(1) && !convertisseur.isBlack(2) && !convertisseur.isBlack(3) &&
-        !convertisseur.isBlack(4) && !convertisseur.isBlack(5))
-    {
-        shouldStop = false;
-        return false;
-    }
-    if (convertisseur.isBlack(1) && convertisseur.isBlack(2) && convertisseur.isBlack(3) &&
-        convertisseur.isBlack(4) && convertisseur.isBlack(5))
-    {
-//        shouldStop = true;
-//        return true;
-
-        return false;
-    }
-    else if (convertisseur.isBlack(4) && convertisseur.isBlack(5))
+    if (code & 0b11000)
+//    else if (convertisseur.isBlack(4) && convertisseur.isBlack(5))
     {
         //tourner droite
 //        moteur.setDirectionMoteur(1, 0);
@@ -108,7 +97,8 @@ bool Robot1::suivreLigne() {
         wait(delay);
     }
 
-    else if (convertisseur.isBlack(1) && convertisseur.isBlack(2))
+//    else if (convertisseur.isBlack(1) && convertisseur.isBlack(2))
+    if (code & 0b00011)
     {
         //tourner gauche
 //        moteur.setDirectionMoteur(0, 1);
@@ -120,24 +110,29 @@ bool Robot1::suivreLigne() {
         moteur.setDirection(1);
     }
 
-    if (convertisseur.isBlack(1))
+//    if (convertisseur.isBlack(1))
+    if (code & 0b00001)
     {
         moteur.ajustementMoteur(0, vitesse);
     }
-    else if (convertisseur.isBlack(2))
+//    else if (convertisseur.isBlack(2))
+    else if (code & 0b00010)
     {
 
         moteur.ajustementMoteur(vitesse / 2, vitesse);
     }
-    else if (convertisseur.isBlack(5))
+//    else if (convertisseur.isBlack(5))
+    else if (code & 0b10000)
     {
         moteur.ajustementMoteur(vitesse, 0);
     }
-    else if (convertisseur.isBlack(4))
+//    else if (convertisseur.isBlack(4))
+    else if (code & 0b01000)
     {
         moteur.ajustementMoteur(vitesse, vitesse / 2);
     }
-    else if (convertisseur.isBlack(3))
+//    else if (convertisseur.isBlack(3))
+    else if (code & 0b00100)
     {
         moteur.avancer(vitesse);
     }
@@ -184,7 +179,6 @@ uint8_t Robot1::receiveData() {
     }
 
     return compteur;
-
 
 
 }
