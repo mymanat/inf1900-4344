@@ -15,10 +15,10 @@ TrackerSensor::TrackerSensor() {
  * Permet de mettre à jour les valeurs en mémoire ainsi que l'état des DELs
  */
 void TrackerSensor::update() {
-    for (uint8_t i = SENSOR_POS; i < SENSOR_POS + SENSOR_COUNT; ++i)
+    for (uint8_t i = 0; i <  SENSOR_COUNT; ++i)
     {
         uint16_t value = lecture(i);
-        values[i - SENSOR_POS] = value;
+        values[i] = value;
 
         bool delState = valueIsBlack(value);
         del.setState(delState, i + 1);
@@ -27,6 +27,17 @@ void TrackerSensor::update() {
 
 bool TrackerSensor::valueIsBlack(uint16_t value) const {
     return value < blackValue + SENSOR_DELTA_BLACK;
+}
+
+uint8_t TrackerSensor::getIsBlackCode() const {
+    uint8_t result = 0;
+
+    for (char i = SENSOR_COUNT; i > 0; --i)
+    {
+        result |= (isBlack(i) << (i - 1));
+
+    }
+    return result;
 }
 
 bool TrackerSensor::isBlack(uint8_t sensorID) const {

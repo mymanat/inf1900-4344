@@ -5,6 +5,7 @@
 #ifndef MAIN_ROBOT1_H
 #define MAIN_ROBOT1_H
 
+#include <stdint-gcc.h>
 #include "../Robot.h"
 #include "DEL.h"
 #include "moteurs.h"
@@ -40,6 +41,9 @@ private:
     moteurs moteur;
     TrackerSensor convertisseur;
     Button button;
+
+    uint8_t vitesse = 120;
+    uint8_t lastDirection = 0;//1, 2d, 3g
 };
 
 
