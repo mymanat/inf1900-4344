@@ -3,9 +3,7 @@
 
 #include <avr/io.h>
 
-
-#define DDR_TRACKER_SENSOR  DDRA
-
+#define DDR_TRACKER_SENSOR DDRA
 
 #define DDR_PWM DDRD
 
@@ -14,8 +12,8 @@
 #define TIMER_COUNT 25
 
 #define PORT_MOTEUR PORTD
-#define PIN_MOTEUR_GAUCHE (uint8_t) 6
-#define PIN_MOTEUR_DROITE (uint8_t) 7
+#define PIN_MOTEUR_GAUCHE (uint8_t)6
+#define PIN_MOTEUR_DROITE (uint8_t)7
 
 #define DDR_DEL DDRC
 #define PORT_DEL PORTC
@@ -34,21 +32,22 @@
 #define POSITION_DEL_4 3
 #define POSITION_DEL_5 5
 
-enum Couleur {
+#define LONGUEUR_COMMANDE_IR 12
+
+enum Couleur
+{
     Rouge,
     Vert,
     Ambree,
     Eteint
 };
 
-
-/* ---- Timer ---- *///todo move
+/* ---- Timer ---- */ //todo move
 #define CNT_NO_CLOCK_SOURCE (0 << CS02) | (0 << CS01) | (0 << CS00)
-#define CNT_NO_PRESCALING   (0 << CS02) | (0 << CS01) | (1 << CS00)
-#define CNT_PRESCALER_8     (0 << CS02) | (1 << CS01) | (0 << CS00)
-#define CNT_PRESCALER_64    (0 << CS02) | (1 << CS01) | (1 << CS00)
-#define CNT_PRESCALER_256   (1 << CS02) | (0 << CS01) | (0 << CS00)
-#define CNT_PRESCALER_1024  (1 << CS02) | (0 << CS01) | (1 << CS00)
-
+#define CNT_NO_PRESCALING (0 << CS02) | (0 << CS01) | (1 << CS00)
+#define CNT_PRESCALER_8 (0 << CS02) | (1 << CS01) | (0 << CS00)
+#define CNT_PRESCALER_64 (0 << CS02) | (1 << CS01) | (1 << CS00)
+#define CNT_PRESCALER_256 (1 << CS02) | (0 << CS01) | (0 << CS00)
+#define CNT_PRESCALER_1024 (1 << CS02) | (0 << CS01) | (1 << CS00)
 
 #endif
