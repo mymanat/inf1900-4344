@@ -79,68 +79,81 @@ void Robot1::section4(int & changement) {
 
 bool Robot1::suivreLigne() {
 
+    uint8_t v_lent = vitesse_max - 50;
 
-    uint8_t delta = 30;
-    uint8_t v = vitesse;
-    uint8_t v2 = v - 40;
+    uint8_t delta = 20;
     char code = convertisseur.getIsBlackCode();
 
-
-    uint8_t vg = v, vd = v;
+    moteur.arreterMoteurs();
     moteur.setDirection(DIRECTION_AVANCER);
+
+    uint8_t vg = 0, vd = 0;
     //10000
     if (code & 0b10000)
     {
-        lastDirection = 3;
-        vg = v2;
-        vd = v2 - delta;
+
+        if (lastDirection == 3) {
+            vitesse = vitesse_max;
+        }
+        else{
+
+            lastDirection = 3;
+            vitesse = v_lent;
+        }
+
+
+        vg = vitesse ;
+        vd = vitesse;
     }
     else if (code & 0b01000)
     {
-        vd -= delta;
-        lastDirection = 3;
+//        lastDirection = 3;
+        vg = vitesse;
+        vd = vitesse - delta;
     }
 
     else if (code & 0b00001)
     {
-        lastDirection = 2;
 
-//        if (inCurve) {
-//            inCurve = false;
-//        }
-//        else{
-//            vitesse = 80;
-//        }
-        vitesse = 100;
-        v = vitesse;
-        v2 = v - delta;
+        if (lastDirection == 2) {
+            vitesse = vitesse_max;
 
+        }
+        else{
+            lastDirection = 2;
+            vitesse = v_lent;
 
-        vd = v2;
-        vg = v2 - delta;
+        }
+
+        vg = vitesse;
+        vd = vitesse;
     }
     else if (code & 0b00010)
     {
-        vg -= delta;
-        lastDirection = 2;
+        vg = vitesse - delta;
+        vd = vitesse;
     }
 
     else if (!(code & 0b11011))
     {
-        lastDirection = 1;
-        vd = v;
-        vg = v;
+//        lastDirection = 1;
+        vd = vitesse;
+        vg = vitesse;
+
     }
-    else
+    if(code & 0b11111 || code == 0b00000)
     {
         switch (lastDirection) {
             case 2:
-                vd = vitesse;
-                vg = vitesse - delta;
+                moteur.setDirectionMoteur(DIRECTION_RECULER, MOTEUR_DROITE);
+
+                vg = vitesse;
+                vd = v_lent;
                 break;
             case 3:
-                vg = vitesse;
-                vd = vitesse - delta;
+                moteur.setDirectionMoteur(DIRECTION_RECULER, MOTEUR_GAUCHE);
+                vg = v_lent;
+                vd = vitesse;
                 break;
         }
     }
