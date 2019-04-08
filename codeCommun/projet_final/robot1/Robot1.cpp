@@ -15,15 +15,14 @@ Robot1::Robot1() {
 }
 
 void Robot1::run() {
-    moteur.init();
-    convertisseur.init();
-    while (1)
+    //moteur.init();
+    //convertisseur.init();
+    int cpt = 0;
+    while (cpt < 4)
     {
-        convertisseur.update();
-        suivreLigne();
-
+        faireSection();
+        ++cpt;
     }
-
 }
 
 
@@ -41,8 +40,9 @@ void Robot1::changerSection() {
 void Robot1::faireSection() {
     int changement = 0;
 
-    switch (section)
+    while(changement == 0)
     {
+        switch (section){
         case 1:
             break;
         case 2:
