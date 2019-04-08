@@ -5,6 +5,7 @@
 
 int main() {
 
+    initialisationUART();
     Robot1 robot1;
     //robot1.init);
 //    while (1)

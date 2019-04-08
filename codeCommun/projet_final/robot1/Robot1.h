@@ -25,13 +25,14 @@ public:
 
     uint8_t receiveData();
 
-    bool suivreLigne();
+    bool suivreLigne(char code);
 
     void section4(int & changement);
 
     void faireSection();
 
     void changerSection();
+    void realign();
 
 private:
     bool shouldStop = false;
@@ -44,6 +45,9 @@ private:
 
     uint8_t vitesse_max = 120;
     uint8_t vitesse = vitesse_max;
+
+
+    uint8_t state = 0;
 
     uint8_t delta = 20;
     uint8_t vitesse_lent = vitesse_max - delta;
