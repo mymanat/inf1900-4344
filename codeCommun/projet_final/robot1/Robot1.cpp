@@ -7,7 +7,6 @@
 
 Robot1::Robot1() {
 
-    init();//todo remove?
 }
 
 void Robot1::init() {
@@ -79,67 +78,73 @@ void Robot1::section4(int & changement) {
 }
 
 bool Robot1::suivreLigne() {
-    int vitesse = 150;
-    int delay = 50;
-    int vitesseMax = 255;
-//    moteur.setDirection(1);
-    if (shouldStop && !convertisseur.isBlack(1) && !convertisseur.isBlack(2) && !convertisseur.isBlack(3) &&
-        !convertisseur.isBlack(4) && !convertisseur.isBlack(5))
-    {
-        shouldStop = false;
-        return false;
-    }
-    if (convertisseur.isBlack(1) && convertisseur.isBlack(2) && convertisseur.isBlack(3) &&
-        convertisseur.isBlack(4) && convertisseur.isBlack(5))
-    {
-//        shouldStop = true;
-//        return true;
 
-        return false;
-    }
-    else if (convertisseur.isBlack(4) && convertisseur.isBlack(5))
+
+    uint8_t delta = 30;
+    uint8_t v = vitesse;
+    uint8_t v2 = v - 40;
+    char code = convertisseur.getIsBlackCode();
+
+
+    uint8_t vg = v, vd = v;
+    moteur.setDirection(DIRECTION_AVANCER);
+    //10000
+    if (code & 0b10000)
     {
-        //tourner droite
-//        moteur.setDirectionMoteur(1, 0);
-        moteur.ajustementMoteur(vitesse, 0);
-        wait(delay);
+        lastDirection = 3;
+        vg = v2;
+        vd = v2 - delta;
+    }
+    else if (code & 0b01000)
+    {
+        vd -= delta;
+        lastDirection = 3;
     }
 
-    else if (convertisseur.isBlack(1) && convertisseur.isBlack(2))
+    else if (code & 0b00001)
     {
-        //tourner gauche
-//        moteur.setDirectionMoteur(0, 1);
-        moteur.ajustementMoteur(0, vitesse);
-        wait(delay);
+        lastDirection = 2;
+
+//        if (inCurve) {
+//            inCurve = false;
+//        }
+//        else{
+//            vitesse = 80;
+//        }
+        vitesse = 100;
+        v = vitesse;
+        v2 = v - delta;
+
+
+        vd = v2;
+        vg = v2 - delta;
+    }
+    else if (code & 0b00010)
+    {
+        vg -= delta;
+        lastDirection = 2;
+    }
+
+    else if (!(code & 0b11011))
+    {
+        lastDirection = 1;
+        vd = v;
+        vg = v;
     }
     else
     {
-        moteur.setDirection(1);
+        switch (lastDirection) {
+            case 2:
+                vd = vitesse;
+                vg = vitesse - delta;
+                break;
+            case 3:
+                vg = vitesse;
+                vd = vitesse - delta;
+                break;
+        }
     }
-
-    if (convertisseur.isBlack(1))
-    {
-        moteur.ajustementMoteur(0, vitesse);
-    }
-    else if (convertisseur.isBlack(2))
-    {
-
-        moteur.ajustementMoteur(vitesse / 2, vitesse);
-    }
-    else if (convertisseur.isBlack(5))
-    {
-        moteur.ajustementMoteur(vitesse, 0);
-    }
-    else if (convertisseur.isBlack(4))
-    {
-        moteur.ajustementMoteur(vitesse, vitesse / 2);
-    }
-    else if (convertisseur.isBlack(3))
-    {
-        moteur.avancer(vitesse);
-    }
-
-    shouldStop = false;
+    moteur.ajustementMoteur(vg, vd);
     return true;
 }
 

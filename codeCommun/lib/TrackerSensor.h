@@ -31,6 +31,7 @@ public:
     void update();
 
     const uint16_t *getValues() const;
+    uint8_t getIsBlackCode() const;
 
     uint16_t getValue(uint8_t sensorID) const;
 

@@ -40,6 +40,9 @@ void DEL::setState(bool state, uint8_t numeroDEL) const {
     else{
         setBit(&PORT_DEL, false, getPositionDEL(numeroDEL));
     }
+
+
+
 }
 
 /**
