@@ -6,12 +6,15 @@
 int main() {
 
     Robot1 robot1;
-    while (1)
-    {
+    //robot1.init);
+//    while (1)
+//    {
         robot1.run();
-        robot1.init();
-
-    }
-
+//        robot1.init();
+//
+//    }
+//DEL del;
+//del.allumer();
+//
 
 }

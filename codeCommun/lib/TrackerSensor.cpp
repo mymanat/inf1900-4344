@@ -29,6 +29,10 @@ bool TrackerSensor::valueIsBlack(uint16_t value) const {
     return value < blackValue + SENSOR_DELTA_BLACK;
 }
 
+/**
+ * 54321
+ * @return
+ */
 uint8_t TrackerSensor::getIsBlackCode() const {
     uint8_t result = 0;
 

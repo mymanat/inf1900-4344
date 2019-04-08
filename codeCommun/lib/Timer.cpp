@@ -15,6 +15,7 @@ Timer::Timer(uint16_t duration) : Timer() {
 
 Timer::Timer() {
     init();
+
 }
 
 void Timer::init() {

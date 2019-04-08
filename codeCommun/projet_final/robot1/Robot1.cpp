@@ -19,11 +19,15 @@ void Robot1::init() {
 void Robot1::run() {
     moteur.init();
     convertisseur.init();
-    do
-    {
-        convertisseur.update();
-
-    } while (suivreLigne());
+//    do
+//    {
+//        convertisseur.update();
+//
+//    } while (suivreLigne());
+while(1) {
+    convertisseur.update();
+    suivreLigne();
+}
 
     moteur.arreterMoteurs();
     Speaker speaker;
@@ -78,86 +82,67 @@ void Robot1::section4(int & changement) {
 }
 
 bool Robot1::suivreLigne() {
-
-    uint8_t v_lent = vitesse_max - 50;
-
-    uint8_t delta = 20;
-    char code = convertisseur.getIsBlackCode();
-
-    moteur.arreterMoteurs();
-    moteur.setDirection(DIRECTION_AVANCER);
-
-    uint8_t vg = 0, vd = 0;
-    //10000
-    if (code & 0b10000)
+    int vitesse = 150;
+    int delay = 50;
+    int vitesseMax = 255;
+//    moteur.setDirection(1);
+    if (shouldStop && !convertisseur.isBlack(1) && !convertisseur.isBlack(2) && !convertisseur.isBlack(3) &&
+        !convertisseur.isBlack(4) && !convertisseur.isBlack(5))
     {
-
-        if (lastDirection == 3) {
-            vitesse = vitesse_max;
-        }
-        else{
-
-            lastDirection = 3;
-            vitesse = v_lent;
-        }
-
-
-        vg = vitesse ;
-        vd = vitesse;
+        shouldStop = false;
+        return false;
     }
-    else if (code & 0b01000)
+    if (convertisseur.isBlack(1) && convertisseur.isBlack(2) && convertisseur.isBlack(3) &&
+        convertisseur.isBlack(4) && convertisseur.isBlack(5))
     {
-//        lastDirection = 3;
-        vg = vitesse;
-        vd = vitesse - delta;
+//        shouldStop = true;
+//        return true;
+
+        return false;
+    }
+    else if (convertisseur.isBlack(4) && convertisseur.isBlack(5))
+    {
+        //tourner droite
+//        moteur.setDirectionMoteur(1, 0);
+        moteur.ajustementMoteur(vitesse, 0);
+        wait(delay);
     }
 
-    else if (code & 0b00001)
+    else if (convertisseur.isBlack(1) && convertisseur.isBlack(2))
     {
-
-        if (lastDirection == 2) {
-            vitesse = vitesse_max;
-
-        }
-        else{
-            lastDirection = 2;
-            vitesse = v_lent;
-
-        }
-
-        vg = vitesse;
-        vd = vitesse;
+        //tourner gauche
+//        moteur.setDirectionMoteur(0, 1);
+        moteur.ajustementMoteur(0, vitesse);
+        wait(delay);
     }
-    else if (code & 0b00010)
+    else
     {
-        vg = vitesse - delta;
-        vd = vitesse;
+        moteur.setDirection(1);
     }
 
-    else if (!(code & 0b11011))
+    if (convertisseur.isBlack(1))
     {
-//        lastDirection = 1;
-        vd = vitesse;
-        vg = vitesse;
-
+        moteur.ajustementMoteur(0, vitesse);
     }
-    if(code & 0b11111 || code == 0b00000)
+    else if (convertisseur.isBlack(2))
     {
-        switch (lastDirection) {
-            case 2:
-                moteur.setDirectionMoteur(DIRECTION_RECULER, MOTEUR_DROITE);
 
-                vg = vitesse;
-                vd = v_lent;
-                break;
-            case 3:
-                moteur.setDirectionMoteur(DIRECTION_RECULER, MOTEUR_GAUCHE);
-                vg = v_lent;
-                vd = vitesse;
-                break;
-        }
+        moteur.ajustementMoteur(vitesse / 2, vitesse);
     }
-    moteur.ajustementMoteur(vg, vd);
+    else if (convertisseur.isBlack(5))
+    {
+        moteur.ajustementMoteur(vitesse, 0);
+    }
+    else if (convertisseur.isBlack(4))
+    {
+        moteur.ajustementMoteur(vitesse, vitesse / 2);
+    }
+    else if (convertisseur.isBlack(3))
+    {
+        moteur.avancer(vitesse);
+    }
+
+    shouldStop = false;
     return true;
 }
 
@@ -167,6 +152,7 @@ void Robot1::setSection(uint8_t section) {
 
 
 uint8_t Robot1::receiveData() {
+
 
     timer.init();
 
@@ -198,4 +184,7 @@ uint8_t Robot1::receiveData() {
     }
 
     return compteur;
+
+
+
 }

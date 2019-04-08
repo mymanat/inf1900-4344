@@ -42,8 +42,11 @@ private:
     TrackerSensor convertisseur;
     Button button;
 
-    uint8_t vitesse_max = 175;
+    uint8_t vitesse_max = 120;
     uint8_t vitesse = vitesse_max;
+
+    uint8_t delta = 20;
+    uint8_t vitesse_lent = vitesse_max - delta;
     uint8_t lastDirection = 0;//1, 2d, 3g
 };
 
