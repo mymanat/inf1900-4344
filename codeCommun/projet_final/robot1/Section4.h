@@ -17,6 +17,8 @@
  */
 class Section4 : public Robot1 {
 public:
+    Section4();
+
     bool evaluateState(uint8_t code) override;
 
     void evaluateAction(uint8_t code) override;

@@ -5,6 +5,10 @@
 #include "Section4.h"
 
 
+Section4::Section4() {
+    setShouldGoStraight(true);
+}
+
 bool Section4::evaluateState(uint8_t code) {
     setVitesse(VITESSE_LENT);
 //    state = 1;//todo remove

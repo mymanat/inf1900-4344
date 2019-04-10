@@ -40,7 +40,14 @@ void Robot1::evaluateAction(uint8_t code) {
 
 }
 
-bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t turnSpeed) {
+/**
+ * Suivre ligne
+ * @param code
+ * @param speed Vitesse des roues par defaut
+ * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
+ * @return
+ */
+bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     if (code & 0b00011)
     {
         moteur.ajustementMoteur(turnSpeed, speed);
@@ -49,8 +56,9 @@ bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t turnSpeed) {
     {
         moteur.ajustementMoteur(speed, turnSpeed);
     }
-    else if (code & 0b00100)
+    else if (code & 0b00100 || shouldGoStraight)
     {
+
         moteur.avancer(speed);
 
     }
@@ -119,5 +127,13 @@ void Robot1::setVitesse(uint8_t vitesse) {
 
 void Robot1::setSection(uint8_t section) {
     Robot1::section = section;
+}
+
+bool Robot1::isShouldGoStraight() const {
+    return shouldGoStraight;
+}
+
+void Robot1::setShouldGoStraight(bool shouldGoStraight) {
+    Robot1::shouldGoStraight = shouldGoStraight;
 }
 
