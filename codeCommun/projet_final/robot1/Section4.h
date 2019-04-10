@@ -23,6 +23,7 @@ public:
 
     void suivreLigneBoite(uint8_t code);
 
+    void changementBoite();
 };
 
 

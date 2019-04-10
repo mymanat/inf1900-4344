@@ -17,6 +17,7 @@ bool Section4::evaluateState(uint8_t code) {
 }
 
 void Section4::evaluateAction(uint8_t code) {
+    changementBoite();
     /*switch (state)
     {
         default:
@@ -93,6 +94,15 @@ void Section4::suivreLigneBoite(uint8_t code) {
     {
         moteur.ajustementMoteur(VITESSE_ROTATION, VITESSE_ROTATION / 2);
     }
+}
+void Section4::changementBoite() {
+    speaker.jouerSon(80);
+    wait(50);
+    speaker.arreterSon();
+    wait(20);
+    speaker.jouerSon(70);
+    wait(50);
+    speaker.arreterSon();
 }
 
 

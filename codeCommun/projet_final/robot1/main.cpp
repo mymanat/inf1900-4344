@@ -27,14 +27,15 @@ int main() {
 
 
     Section4 section4;
-    section4.run();
+    section4.changementBoite();
+    //section4.run();
 
 
 //    Section2 section2;
 //    section2.run();
 
     Speaker speaker;
-    speaker.jouerSon(RE);
+    //speaker.jouerSon(RE);
     del.allumer();
     wait(500);
     speaker.arreterSon();

@@ -19,6 +19,7 @@
 #include "../../lib/moteurs.h"
 #include "../../lib/TrackerSensor.h"
 #include "../../lib/Button.h"
+#include "../../lib/Speaker.h"
 
 
 #define VITESSE_MAX 170
@@ -66,6 +67,7 @@ protected:
     moteurs moteur;
     TrackerSensor convertisseur;
     Button button;
+    Speaker speaker;
 
 
     uint8_t state = 0;
