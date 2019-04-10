@@ -15,6 +15,8 @@ bool Section3::suivreLigneSection3(uint8_t code) {
 }
 
 bool Section3::evaluateState(uint8_t code) {
+    transmissionUART(code);
+    transmissionUART(compareBits(0b11111, "11111"));
     switch (state)
     {
         case 0:
@@ -64,6 +66,7 @@ bool Section3::evaluateState(uint8_t code) {
 }
 
 void Section3::evaluateAction(uint8_t code) {
+    readData(code);
 
     switch (state)
     {
@@ -80,3 +83,11 @@ void Section3::evaluateAction(uint8_t code) {
 
 }
 
+void Section3::readData(uint8_t code) {
+    if (compareBits(code, "1xxx1"))
+    {
+        transmissionUART(loopCounter);
+
+    }
+    loopCounter++;
+}

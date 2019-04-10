@@ -29,7 +29,7 @@ bool compareBits(uint8_t value, char *compareString) {
     for (uint8_t i = 0; compareString[i] != '\0'; i++)
     {
         bool a = 1 & (value >> i);
-        if (!(compareString[i] == 'x' || a == compareString[i]))
+        if (!(compareString[i] == 'x' || a == compareString[i] - 48))
         {
             return false;
         }
