@@ -18,14 +18,12 @@ void Robot1::init() {
 
 
 void Robot1::run() {
-    section = receiveData();
     moteur.init();
     convertisseur.init();
     speaker.initialisationSpeaker();
     bool shouldLoop = true;
     while (shouldLoop)
     {
-        int changement = 0;
         convertisseur.update();
 
         shouldLoop = evaluateState(convertisseur.getIsBlackCode());
