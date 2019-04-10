@@ -1,20 +1,29 @@
 #include <avr/io.h>
 
 #include "Robot1.h"
+#include "Section3.h"
+#include "Section2.h"
 
 
 int main() {
 
-    Robot1 robot1;
-    //robot1.init);
-//    while (1)
-//    {
-        robot1.run();
-//        robot1.init();
-//
-//    }
-//DEL del;
-//del.allumer();
-//
+//    initialisationUART();
+
+    Section3 section3;
+    section3.run();
+
+
+//    Section2 section2;
+//    section2.run();
+
+    Speaker speaker;
+    speaker.jouerSon(RE);
+    DEL del;
+    del.allumer();
+    wait(500);
+    speaker.arreterSon();
+    del.eteindre();
+    wait(500);
+    del.allumer();
 
 }

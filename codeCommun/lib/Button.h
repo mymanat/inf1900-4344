@@ -23,7 +23,7 @@ public:
 
     bool getState() const;
 
-    void setState(bool state) ;
+    static void setState(uint8_t state) ;
 
 
 private:

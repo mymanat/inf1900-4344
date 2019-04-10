@@ -11,17 +11,28 @@ TrackerSensor::TrackerSensor() {
 
 }
 
+void TrackerSensor::updateDEL() {
+
+
+    for (uint8_t i = 1; i < SENSOR_COUNT + 1; ++i) {
+        del.setState(isBlack(i), i);
+    }
+}
+
 /**
  * Permet de mettre à jour les valeurs en mémoire ainsi que l'état des DELs
  */
 void TrackerSensor::update() {
-    for (uint8_t i = 0; i <  SENSOR_COUNT; ++i)
+    for (uint8_t i = 0; i < SENSOR_COUNT; ++i)
     {
         uint16_t value = lecture(i);
         values[i] = value;
 
-        bool delState = valueIsBlack(value);
-        del.setState(delState, i + 1);
+        if (shouldUpdateDEL)
+        {
+            bool delState = valueIsBlack(value);
+            del.setState(delState, i + 1);
+        }
     }
 }
 
@@ -63,7 +74,7 @@ const uint16_t *TrackerSensor::getValues() const {
  * @return la valeur du capteur
  */
 uint16_t TrackerSensor::getValue(uint8_t sensorID) const {
-    return values[sensorID-1];
+    return values[sensorID - 1];
 
 }
 
@@ -79,6 +90,14 @@ void TrackerSensor::init() {
 
     DDR_TRACKER_SENSOR = MODE_ENTREE;
     blackValue = getValue(SENSOR_MIDDLE_POS);
+}
+
+bool TrackerSensor::isShouldUpdateDel() const {
+    return shouldUpdateDEL;
+}
+
+void TrackerSensor::setShouldUpdateDel(bool shouldUpdateDel) {
+    shouldUpdateDEL = shouldUpdateDel;
 }
 
 
