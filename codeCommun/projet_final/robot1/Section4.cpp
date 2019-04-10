@@ -8,70 +8,41 @@
 bool Section4::evaluateState(uint8_t code) {
     setVitesse(VITESSE_LENT);
 //    state = 1;//todo remove
-    switch (state)
+    if (state % 2 == 0)
     {
-        case 0: case 2:
-            if (code == 0b11111) {
-                state++;
-            }
-            break;
-        case 1:
-
-            break;
+        if (state == 6 && compareBits(code, "xxxx1"))
+        {
+            moteur.arreterMoteurs();
+            return false;
+        }
+        if (compareBits(code, "xx0xx"))
+        {
+            changementBoite();
+            state++;
+        }
     }
+    else
+    {
+        if (compareBits(code, "xx1xx"))
+        {
+            changementBoite();
+            state++;
+        }
+
+    }
+
     return true;
 }
 
 void Section4::evaluateAction(uint8_t code) {
     changementBoite();
-    /*switch (state)
-    {
-        default:
-            suivreLigne(code);
-            break;
-    }*/
-
-//    moteur.init();
-    uint8_t code_inverted = code;
-    switch (state)
-    {
-        case 0:
-        case 2:
-        case 4:
-            suivreLigne(code, getVitesse(), getVitesse() / 2);
-            break;
-
-        case 1:
-        case 3:
-        case 5:
-            suivreLigne(code, getVitesse()/2, getVitesse());
-            break;
+    if (state % 2 == 0) {
+        //State = 2 4 6: Suivre ligne normal
+        suivreLigne(code, getVitesse(), getVitesse() / 2);
     }
-
-
-
-
-
-
-/*
-
-    bool changement = true; //todo ???
-    if (code & 0b11111)
-    {
-        changement = !changement;
+    else{
+        suivreLigne(code, getVitesse() / 2, getVitesse());
     }
-    if (changement)
-    {
-        suivreLigne(code);
-    }
-    else
-    {
-        suivreLigneBoite(code);
-    }
-*/
-
-
-
 
 }
 
@@ -97,6 +68,7 @@ void Section4::suivreLigneBoite(uint8_t code) {
         moteur.ajustementMoteur(VITESSE_ROTATION, VITESSE_ROTATION / 2);
     }
 }
+
 void Section4::changementBoite() {
     speaker.jouerSon(80);
     wait(50);

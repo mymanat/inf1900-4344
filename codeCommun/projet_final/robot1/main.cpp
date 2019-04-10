@@ -24,8 +24,11 @@ int main() {
 
 
 
-    Section4 section4;
-    section4.run();
+//    Section4 section4;
+//    section4.run();
+    initialisationUART();
+    Section3 section3;;
+    section3.run();
 
 
 //    Section2 section2;
