@@ -7,7 +7,14 @@
 
 
 #include "Robot1.h"
-
+/**
+ * States:
+ * 0: suivre ligne
+ * 1: boite1
+ * 2: suivre ligne
+ * 3: boite2:
+ * 4: suivre ligne
+ */
 class Section4 : public Robot1 {
 public:
     bool evaluateState(uint8_t code) override;

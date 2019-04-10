@@ -3,14 +3,31 @@
 #include "Robot1.h"
 #include "Section3.h"
 #include "Section2.h"
+#include "Section4.h"
 
 
 int main() {
+    DEL del;
 
 //    initialisationUART();
+//    Button button;
+//    button.init();
+//
+//    while (!button.getState()) {
+//
+//    }
+//
+//    del.allumer();
 
-    Section3 section3;
-    section3.run();
+
+//todo: sectio2 wtf
+
+
+
+
+
+    Section4 section4;
+    section4.run();
 
 
 //    Section2 section2;
@@ -18,12 +35,13 @@ int main() {
 
     Speaker speaker;
     speaker.jouerSon(RE);
-    DEL del;
     del.allumer();
     wait(500);
     speaker.arreterSon();
     del.eteindre();
     wait(500);
     del.allumer();
+    moteurs moteurs;
+    moteurs.arreterMoteurs();
 
 }

@@ -5,11 +5,15 @@
 #include "Robot1.h"
 
 
+Robot1::Robot1() {
+    init();
+}
+
 void Robot1::init() {
 
-    setSection(receiveData());
-    del.eteindre();
-    del.allumer(section);
+//    setSection(receiveData());
+//    del.eteindre();
+//    del.allumer(section);
 }
 
 
@@ -36,26 +40,27 @@ void Robot1::evaluateAction(uint8_t code) {
 
 }
 
-
-bool Robot1::suivreLigne(char code) {
+bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t turnSpeed) {
     if (code & 0b00011)
     {
-        vitesse = VITESSE_LENT;
-
-        moteur.ajustementMoteur(vitesse / 2, vitesse);
+        moteur.ajustementMoteur(turnSpeed, speed);
     }
     else if (code & 0b11000)
     {
-        vitesse = VITESSE_LENT;
-        moteur.ajustementMoteur(vitesse, vitesse / 2);
+        moteur.ajustementMoteur(speed, turnSpeed);
     }
     else if (code & 0b00100)
     {
-        vitesse = VITESSE_MAX;
-        moteur.avancer(vitesse);
+        moteur.avancer(speed);
+
     }
 
     return true;
+}
+
+bool Robot1::suivreLigne(char code) {
+    return suivreLigne(code, vitesse, vitesse / 2);
+
 }
 
 
@@ -115,3 +120,4 @@ void Robot1::setVitesse(uint8_t vitesse) {
 void Robot1::setSection(uint8_t section) {
     Robot1::section = section;
 }
+

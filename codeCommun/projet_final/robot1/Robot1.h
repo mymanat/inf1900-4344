@@ -29,6 +29,8 @@
 class Robot1 : public Robot {
 public:
 
+    Robot1();
+
     void init() override;
 
     void run() override;
@@ -40,6 +42,7 @@ public:
 
 
     bool suivreLigne(char code);
+    bool suivreLigne(char code, uint8_t speed, uint8_t turnSpeed);
 
     uint8_t receiveData();
 
@@ -53,6 +56,7 @@ public:
     uint8_t getVitesse() const;
 
     void setVitesse(uint8_t vitesse);
+
 
 protected:
 

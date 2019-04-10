@@ -19,11 +19,14 @@ class Section3 : public Robot1{
 
 public:
 
+    Section3();
+
     bool evaluateState(uint8_t code) override;
 
     void evaluateAction(uint8_t code) override;
 
     bool suivreLigneSection3(uint8_t code);
+
 
 private:
     uint8_t numeroDroite = 0;

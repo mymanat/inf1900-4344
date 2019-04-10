@@ -24,6 +24,7 @@ void moteurs::ajustementPWM(uint8_t a, uint8_t b) {
 }
 
 void moteurs::ajustementMoteur(uint8_t gauche, uint8_t droite) {
+    arreterMoteurs();
     ajustementPWM(droite, gauche);
 }
 
@@ -76,7 +77,7 @@ void moteurs::tournerGauche() {
 }
 
 void moteurs::arreterMoteurs() {
-    setDirection(0);
+    setDirection(1);
     ajustementPWM(0, 0);
 }
 

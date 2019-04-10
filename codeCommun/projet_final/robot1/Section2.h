@@ -17,10 +17,14 @@
 
 class Section2 : public Robot1 {
 public:
-    //ralentir dans demi lune pas reaccel
+
+    Section2();
+
+//ralentir dans demi lune pas reaccel
     bool evaluateState(uint8_t code) override;
 
     void evaluateAction(uint8_t code) override;
+
 };
 
 

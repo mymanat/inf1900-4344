@@ -14,6 +14,37 @@ void Speaker::initialisationSpeaker(void) {
     sei();
 }
 
+void Speaker::jouerSonDebugState(uint8_t state) {
+    //0: C3
+    uint8_t note = 0;
+    switch (state) {
+        case 0:
+            note = MI3;
+            break;
+        case 1:
+            note = FA3;
+            break;
+        case 2:
+            note = SOL3;
+            break;
+        case 3:
+            note = LA;
+            break;
+        case 4:
+            note = SI;
+            break;
+        case 5:
+            note = DO;
+            break;
+
+    }
+
+
+    jouerSon(note);
+    wait(200);
+    arreterSon();
+}
+
 void Speaker::jouerSon(int note) {
     if (note == 1)
     {

@@ -4,44 +4,73 @@
 
 #include "Section2.h"
 
+Section2::Section2() {
+    state = 0;
+}
 
 bool Section2::evaluateState(uint8_t code) {
-    convertisseur.setShouldUpdateDel(false);//
-    del.eteindre();
-    del.allumer(state);
 
-    if (state == 0)
-    {
-        convertisseur.updateDEL();
-    }
+    Speaker speaker;
 
     if (state == 0 && code & 0b00001)
     {
+        moteur.arreterMoteurs();
+        wait(500);
 
-        setVitesse(VITESSE_LENT);
         state++;
     }
 
-    if (state == 1 && code & 0b10000)
+    else if (state == 1 && code & 0b10000)
     {
-        setVitesse(VITESSE_MAX);
+        moteur.arreterMoteurs();
+        wait(500);
         state++;
     }
-    if (state == 2 && code & 0b00001)
+    else if (state == 2 && code & 0b00001)
     {
-        setVitesse(VITESSE_LENT);
         state++;
     }
-    if (state == 3 && code == 0b11111)
+    else if (state == 3 && code == 0b11111)
     {
         moteur.arreterMoteurs();
 
-        return false;
+//        return false;
     }
 
+    else
+    {
+        return true;
+    }
+
+    speaker.jouerSonDebugState(state);
     return true;//todo
 }
 
 void Section2::evaluateAction(uint8_t code) {
-    suivreLigne(code);
+    switch (state)
+    {
+        case 0:
+            suivreLigne(code, getVitesse(), getVitesse());
+
+        case 1:
+            if (code & 0b01100)
+            {
+                suivreLigne(code, VITESSE_LENT, VITESSE_LENT / 2);
+
+
+            }
+            else
+            {
+                moteur.ajustementMoteur(VITESSE_LENT / 3, VITESSE_LENT);
+
+            }
+            break;
+
+        default:
+//            suivreLigne(code, getVitesse(), getVitesse());
+//            suivreLigne(code);
+            suivreLigne(code, getVitesse(), getVitesse() - 10);
+            break;
+    }
+
 }

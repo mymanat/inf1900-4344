@@ -4,6 +4,11 @@
 
 #include "Section3.h"
 
+Section3::Section3() {
+    setVitesse(VITESSE_LENT);
+}
+
+
 bool Section3::suivreLigneSection3(uint8_t code) {
     return suivreLigne(code);
 
@@ -74,3 +79,4 @@ void Section3::evaluateAction(uint8_t code) {
     }
 
 }
+
