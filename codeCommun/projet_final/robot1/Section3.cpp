@@ -18,7 +18,7 @@ bool Section3::evaluateState(uint8_t code) {
     switch (state)
     {
         case 0:
-            if (code == 0b11111)
+            if (compareBits(code, "11111"))
             {
                 moteur.arreterMoteurs();
                 button.init();
@@ -47,7 +47,7 @@ bool Section3::evaluateState(uint8_t code) {
             break;
         case 2:
 
-            if (code == 0)
+            if (compareBits(code, "00000"))
             {
 
                 convertisseur.setShouldUpdateDel(false);

@@ -14,8 +14,7 @@
 #include "LOG.h"
 #include "IRTransciever.h"
 
-int main()
-{
+int main() {
     DDRA = MODE_ENTREE;
 
     can convertisseur;

@@ -20,12 +20,10 @@ void Robot1::init() {
 void Robot1::run() {
     moteur.init();
     convertisseur.init();
-    speaker.initialisationSpeaker();
     bool shouldLoop = true;
     while (shouldLoop)
     {
         convertisseur.update();
-
         shouldLoop = evaluateState(convertisseur.getIsBlackCode());
 
 
