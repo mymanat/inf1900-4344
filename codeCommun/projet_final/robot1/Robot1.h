@@ -23,7 +23,7 @@
 
 
 #define VITESSE_MAX 170
-#define VITESSE_LENT 100
+#define VITESSE_LENT 120
 #define DELTA_V 20
 
 

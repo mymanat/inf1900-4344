@@ -28,8 +28,12 @@ public:
     bool suivreLigneSection3(uint8_t code);
 
 
+    void readData(uint8_t code);
+
+
 private:
     uint8_t numeroDroite = 0;
+    uint8_t loopCounter = 0;
 
 };
 
