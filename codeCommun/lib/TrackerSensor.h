@@ -29,6 +29,7 @@ public:
 
 
     void update();
+    void updateDEL();
 
     const uint16_t *getValues() const;
     uint8_t getIsBlackCode() const;
@@ -42,9 +43,14 @@ public:
     bool valueIsBlack(uint16_t value) const;
     bool isBlack(uint8_t sensorID) const;
 
+    bool isShouldUpdateDel() const;
+
+    void setShouldUpdateDel(bool shouldUpdateDel);
+
 private:
     uint16_t values[SENSOR_COUNT] = {0, 0, 0, 0, 0};
     uint16_t blackValue;
+    bool shouldUpdateDEL = true;
     DEL del;
 
 };

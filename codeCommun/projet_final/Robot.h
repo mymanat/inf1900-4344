@@ -12,6 +12,9 @@
 #include "wait.h"
 #include "Component.h"
 
+//todo
+#include "../lib/Component.h"
+
 
 class Robot : public Component {
 
