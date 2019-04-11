@@ -6,7 +6,7 @@ const int TOLERANCE = 3;
 
 void IRTransceiver::transmit(int command, int channel)
 {
-    char commandeBinaire[LONGUEUR_COMMANDE_IR];
+//    char commandeBinaire[LONGUEUR_COMMANDE_IR];
 
     int message = command | (channel << 7);
 
@@ -36,7 +36,7 @@ void IRTransceiver::transmit(int command, int channel)
     case 5:
         strcpy(commandeBinaire, "000010100001");
         break;
-    }/*
+    }*/
 
     /* Initialiser la communication avec un signal haut de 2.4ms suivi d'un signal bas de 0.6ms */
     speaker_.playFrequency();

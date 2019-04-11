@@ -7,19 +7,21 @@
 
 #include "../Robot.h"
 #include "DEL.h"
-#include "moteurs.h"
+#include "Motors.h"
 #include "TrackerSensor.h"
-#include "IRTransceiver.h"
 
 #include "Speaker.h"
+
+#include "IRTransceiver.h"
 
 //todo
 #include "../../lib/DEL.h"
 #include "../../lib/Timer.h"
-#include "../../lib/moteurs.h"
+#include "../../lib/Motors.h"
 #include "../../lib/TrackerSensor.h"
 #include "../../lib/Button.h"
 #include "../../lib/Speaker.h"
+#include "../../lib/IRTransceiver.h"
 
 #define DELTA_V 20
 
@@ -32,11 +34,16 @@ class Robot1 : public Robot
 
     void run() override;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
     virtual bool evaluateState(uint8_t code);
 
     virtual void evaluateAction(uint8_t code);
 
     bool suivreLigne(char code);
+
     bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
 
     void transitionState();
@@ -44,10 +51,6 @@ class Robot1 : public Robot
     uint8_t receiveData();
 
     // Getters & Setters
-
-    void setSection(uint8_t section);
-
-    uint8_t getSection() const;
 
     uint8_t getVitesse() const;
 
@@ -57,6 +60,10 @@ class Robot1 : public Robot
 
     void setShouldGoStraight(bool shouldGoStraight);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
     //todo Remvoe
     void changeStateSound()
     {
@@ -72,7 +79,7 @@ class Robot1 : public Robot
   protected:
     DEL del;
     Timer timer;
-    moteurs moteur;
+    Motors moteur;
     TrackerSensor trackerSensor;
     Button button;
     Speaker speaker;
@@ -84,9 +91,16 @@ class Robot1 : public Robot
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
+<<<<<<< HEAD
     uint8_t section = 0;
 
     uint8_t vitesse = VITESSE_MAX;
+=======
+
+    uint8_t vitesse = MOTOR_MAX_SPEED;
+
+
+>>>>>>> refs/remotes/origin/master
 };
 
 #endif //MAIN_ROBOT1_H

@@ -11,9 +11,6 @@ Robot1::Robot1() {
 
 void Robot1::init() {
 
-//    setSection(receiveData());
-//    del.eteindre();
-//    del.allumer(section);
 }
 
 /**
@@ -39,7 +36,7 @@ void Robot1::transitionState() {
         else
         {
             /* Virage */
-            moteur.ajustementMoteur(0, VITESSE_LENT);
+            moteur.adjust(0, MOTOR_SLOW_SPEED);
             if (compareBits(code, "00100"))
             {
                 state++;
@@ -48,7 +45,7 @@ void Robot1::transitionState() {
 
 
     } while (state < 3);
-    moteur.arreterMoteurs();
+    moteur.stop();
 }
 
 void Robot1::run() {
@@ -87,16 +84,16 @@ void Robot1::evaluateAction(uint8_t code) {
 bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     if (compareBits(code, "00xzz"))
     {
-        moteur.ajustementMoteur(slowWheelSpeed, speed);
+        moteur.adjust(slowWheelSpeed, speed);
     }
     else if (compareBits(code, "zzx00"))
     {
-        moteur.ajustementMoteur(speed, slowWheelSpeed);
+        moteur.adjust(speed, slowWheelSpeed);
     }
     else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
-        moteur.avancer(speed);
+        moteur.goForward(speed);
     }
 
     return compareBits(code, "00100");
@@ -110,7 +107,6 @@ bool Robot1::suivreLigne(char code) {
 
 
 uint8_t Robot1::receiveData() {
-
     timer.init();
 
     button.init();
@@ -118,8 +114,24 @@ uint8_t Robot1::receiveData() {
 
     timer.setDurationSec(2);
     uint8_t compteur = 0;
+
+    IRTransceiver ir;
+    int message = 0;
+    int channel = 0;
+    int command = 0;
+
     while (true)
     {
+        message = ir.receive();
+        if(message != 0){
+            channel = ir.getChannel(message);
+            if(channel == 1){
+                command = ir.getCommand(message);
+                if(command >= 1 && command <= 4){
+                    return command;
+                }                
+            }
+        }
 
         if (button.getState())
         {
@@ -137,7 +149,6 @@ uint8_t Robot1::receiveData() {
         {
             return compteur;
         }
-        //todo: receive from ir
     }
 
     return compteur;
@@ -146,11 +157,10 @@ uint8_t Robot1::receiveData() {
 }
 
 
+
+
 /* Getters & Setters */
 
-uint8_t Robot1::getSection() const {
-    return section;
-}
 
 
 uint8_t Robot1::getVitesse() const {
@@ -161,10 +171,6 @@ void Robot1::setVitesse(uint8_t vitesse) {
     Robot1::vitesse = vitesse;
 }
 
-
-void Robot1::setSection(uint8_t section) {
-    Robot1::section = section;
-}
 
 bool Robot1::isShouldGoStraight() const {
     return shouldGoStraight;
