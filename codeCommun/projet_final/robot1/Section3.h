@@ -40,11 +40,8 @@ public:
 
 
 private:
-    uint8_t numeroDroite = 0;
-    uint8_t state2 = 0;
     uint16_t loopCounter = 0;
     bool leftFirst;
-    bool shouldCount = false;
 
 };
 
