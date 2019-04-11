@@ -34,6 +34,7 @@ public:
 private:
     uint8_t numeroDroite = 0;
     uint8_t loopCounter = 0;
+    bool impair;
 
 };
 

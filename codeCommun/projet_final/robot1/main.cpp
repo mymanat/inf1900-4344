@@ -17,8 +17,8 @@ int main() {
 //
 //    del.allumer();
     initialisationUART();
-    Section4 section4;
-    section4.run();
+    Section3 section3;
+    section3.run();
 
 
 
@@ -27,8 +27,8 @@ int main() {
 
 
 
-   Section4 section4;
-   section4.run();
+   //Section4 section4;
+   //section4.run();
 
 
     //Speaker speaker;
