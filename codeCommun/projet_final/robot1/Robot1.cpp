@@ -16,29 +16,55 @@ void Robot1::init() {
 //    del.allumer(section);
 }
 
+/**
+ * Le robot va suivre la ligne jusqu´au virage à gauche. Il va effectuer ce virage de 90 degrés et s'arrêter
+ */
 void Robot1::transitionState() {
+    state = 0;
+    uint8_t code = 0;
     do
     {
-        convertisseur.update();
-        moteur.ajustementMoteur(0, VITESSE_LENT);
-    } while (!compareBits(convertisseur.getIsBlackCode(), "00100"));
+
+        trackerSensor.update();
+        code = trackerSensor.getIsBlackCode();
+        if (state == 0)
+        {
+            /* Suit la ligne jusqu'au virage */
+            suivreLigne(code);
+            if (compareBits(code, "00xx1"))
+            {
+                state++;
+            }
+        }
+        else
+        {
+            /* Virage */
+            moteur.ajustementMoteur(0, VITESSE_LENT);
+            if (compareBits(code, "00100"))
+            {
+                state++;
+            }
+        }
+
+
+    } while (state < 3);
     moteur.arreterMoteurs();
 }
 
 void Robot1::run() {
     moteur.init();
-    convertisseur.init();
+    trackerSensor.init();
     bool shouldLoop = true;
     while (shouldLoop)
     {
-        transmissionUART(state);
 
-        convertisseur.update();
+        trackerSensor.update();
 
 
-        evaluateAction(convertisseur.getIsBlackCode());
-        shouldLoop = evaluateState(convertisseur.getIsBlackCode());
+        evaluateAction(trackerSensor.getIsBlackCode());
+        shouldLoop = evaluateState(trackerSensor.getIsBlackCode());
     }
+
     transitionState();
 }
 
@@ -59,19 +85,15 @@ void Robot1::evaluateAction(uint8_t code) {
  * @return
  */
 bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
-//    transmissionUART(state);
-//    transmissionUART(speed);
-//    transmissionUART(slowWheelSpeed);
-//    transmissionUART(0xff);
-    if (code & 0b00011)
+    if (compareBits(code, "00xzz"))
     {
         moteur.ajustementMoteur(slowWheelSpeed, speed);
     }
-    else if (code & 0b11000)
+    else if (compareBits(code, "zzx00"))
     {
         moteur.ajustementMoteur(speed, slowWheelSpeed);
     }
-    else if (code & 0b00100 || (shouldGoStraight))
+    else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
         moteur.avancer(speed);

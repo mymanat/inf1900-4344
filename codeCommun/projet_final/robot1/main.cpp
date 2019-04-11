@@ -19,6 +19,11 @@ int main() {
     initialisationUART();
     Section3 section3;
     section3.run();
+    Section4 section4;
+    section4.run();
+//    moteurs moteur;
+//    moteur.arreterMoteurs();
+
 
 
 

@@ -14,6 +14,8 @@
  * 2: suivre ligne
  * 3: boite2:
  * 4: suivre ligne
+ * 5: boite3
+ *
  */
 class Section4 : public Robot1 {
 public:
@@ -23,7 +25,7 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
-    void changementBoite();
+    void changeBox();
 };
 
 
