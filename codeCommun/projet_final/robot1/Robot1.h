@@ -9,10 +9,9 @@
 #include "DEL.h"
 #include "moteurs.h"
 #include "TrackerSensor.h"
-#include "IRTransciever.h"
+#include "IRTransceiver.h"
 
 #include "Speaker.h"
-
 
 //todo
 #include "../../lib/DEL.h"
@@ -22,26 +21,20 @@
 #include "../../lib/Button.h"
 #include "../../lib/Speaker.h"
 
-
-#define VITESSE_MAX 200
-#define VITESSE_LENT 150
 #define DELTA_V 20
 
-
-class Robot1 : public Robot {
-public:
-
+class Robot1 : public Robot
+{
+  public:
     Robot1();
 
     void init() override;
 
     void run() override;
 
-
-    virtual bool evaluateState(uint8_t code) ;
+    virtual bool evaluateState(uint8_t code);
 
     virtual void evaluateAction(uint8_t code);
-
 
     bool suivreLigne(char code);
     bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
@@ -49,7 +42,6 @@ public:
     void transitionState();
 
     uint8_t receiveData();
-
 
     // Getters & Setters
 
@@ -65,10 +57,9 @@ public:
 
     void setShouldGoStraight(bool shouldGoStraight);
 
-
-
     //todo Remvoe
-    void changeStateSound() {
+    void changeStateSound()
+    {
         speaker.jouerSon(80);
         wait(50);
         speaker.arreterSon();
@@ -78,10 +69,7 @@ public:
         speaker.arreterSon();
     }
 
-
-protected:
-
-
+  protected:
     DEL del;
     Timer timer;
     moteurs moteur;
@@ -89,22 +77,16 @@ protected:
     Button button;
     Speaker speaker;
 
-
     uint8_t state = 0;
 
-private:
-
+  private:
     /**
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
     uint8_t section = 0;
 
-
     uint8_t vitesse = VITESSE_MAX;
-
-
 };
-
 
 #endif //MAIN_ROBOT1_H

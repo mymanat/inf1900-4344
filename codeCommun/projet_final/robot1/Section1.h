@@ -23,6 +23,9 @@ class Section1 : public Robot1
     int channel;
     int command;
     IRTransceiver ir;
+
+    int tempsMovementX[3] = {3000, 2000, 1000};
+    int tempsMovementY[3] = {3000, 2000, 1000};
 };
 
 #endif //MAIN_SECTION1_H
