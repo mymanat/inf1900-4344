@@ -21,8 +21,6 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
-    void suivreLigneBoite(uint8_t code);
-
     void changementBoite();
 };
 

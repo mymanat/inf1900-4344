@@ -36,7 +36,7 @@ bool Section3::evaluateState(uint8_t code) {
             if (button.getState())
             {
                 moteur.init();
-                if (state == 3)
+                if (state == 3)//todo
                 {
                     return false;
                 }
