@@ -118,8 +118,24 @@ uint8_t Robot1::receiveData() {
 
     timer.setDurationSec(2);
     uint8_t compteur = 0;
+
+    IRTransceiver ir;
+    int message = 0;
+    int channel = 0;
+    int command = 0;
+
     while (true)
     {
+        message = ir.receive();
+        if(message != 0){
+            channel = ir.getChannel(message);
+            if(channel == 1){
+                command = ir.getCommand(message);
+                if(command >= 1 && command <= 4){
+                    return command;
+                }                
+            }
+        }
 
         if (button.getState())
         {
@@ -137,7 +153,6 @@ uint8_t Robot1::receiveData() {
         {
             return compteur;
         }
-        //todo: receive from ir
     }
 
     return compteur;
