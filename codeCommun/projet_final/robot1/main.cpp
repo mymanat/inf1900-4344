@@ -1,45 +1,13 @@
 #include <avr/io.h>
 
 #include "Robot1.h"
-#include "Section3.h"
+#include "Section1.h"
 #include "Section2.h"
+#include "Section3.h"
 #include "Section4.h"
 
-
-int main() {
-
-//    Button button;
-//    button.init();
-
-//    while (!button.getState()) {
-
-//    }
-//
-//    del.allumer();
-    initialisationUART();
-    Section4 section4;
-    section4.run();
-
-
-
-//todo: sectio2 wtf
-
-
-
-
-   Section4 section4;
-   section4.run();
-
-
-    //Speaker speaker;
-    //speaker.jouerSon(RE);
-    //del.allumer();
-    //wait(500);
-    //speaker.arreterSon();
-    //del.eteindre();
-    //wait(500);
-    //del.allumer();
-    //moteurs moteurs;
-    //moteurs.arreterMoteurs();
-
+int main()
+{
+    Section1 section1;
+    section1.run();
 }
