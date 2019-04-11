@@ -5,9 +5,7 @@
 #include "Section3.h"
 
 Section3::Section3() {
-    setVitesse(VITESSE_LENT);
-    speaker.jouerSon(MI4);
-    wait(500);
+    setVitesse(MOTOR_SLOW_SPEED);
 }
 
 
@@ -19,7 +17,7 @@ Section3::Section3() {
 bool Section3::followLineSection3(uint8_t code) {
     if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
     {
-        moteur.avancer(getVitesse());
+        moteur.goForward(getVitesse());
         return true;
     }
     return suivreLigne(code);
@@ -36,7 +34,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 0:
             if (compareBits(code, "11111"))
             {
-                moteur.arreterMoteurs();
+                moteur.stop();
                 button.init();
                 state++;
 
@@ -82,7 +80,7 @@ bool Section3::evaluateState(uint8_t code) {
             transmissionUART(a);
             transmissionUART(b);
 #endif
-                moteur.arreterMoteurs();
+                moteur.stop();
                 trackerSensor.setShouldUpdateDel(false);
 
                 evaluateLine();

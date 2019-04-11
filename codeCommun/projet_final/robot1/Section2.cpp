@@ -5,8 +5,6 @@
 #include "Section2.h"
 
 Section2::Section2() {
-    speaker.jouerSon(RE);
-    wait(500);
     setShouldGoStraight(true);
 }
 
@@ -17,8 +15,8 @@ bool Section2::evaluateState(uint8_t code) {
 
         case 0:
             if (hitCount > 1) {
-                setVitesse(VITESSE_LENT);
-                moteur.arreterMoteurs();
+                setVitesse(MOTOR_SLOW_SPEED);
+                moteur.stop();
                 changeStateSound();
                 state = 1;
             }
@@ -26,13 +24,13 @@ bool Section2::evaluateState(uint8_t code) {
 
             if (hitCount <= 1)
             {
-                setVitesse(VITESSE_MAX);
+                setVitesse(MOTOR_MAX_SPEED);
                 state = 0;
             }
 
             if (compareBits(code, "11100")) {
 
-                setVitesse(VITESSE_LENT);
+                setVitesse(MOTOR_SLOW_SPEED);
 
                 state++;
             }
@@ -41,7 +39,7 @@ bool Section2::evaluateState(uint8_t code) {
             break;
         case 2:
             if (compareBits(code, "00100")) {
-                setVitesse(VITESSE_MAX);
+                setVitesse(MOTOR_MAX_SPEED);
                 state++;
             }
             break;
@@ -83,7 +81,7 @@ void Section2::evaluateAction(uint8_t code) {
 
     switch (state) {
         case 2:
-            moteur.ajustementMoteur(VITESSE_MAX, 0);
+            moteur.adjust(MOTOR_MAX_SPEED, 0);
             break;
         default:
             suivreLigne(code);

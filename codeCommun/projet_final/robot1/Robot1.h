@@ -7,7 +7,7 @@
 
 #include "../Robot.h"
 #include "DEL.h"
-#include "moteurs.h"
+#include "Motors.h"
 #include "TrackerSensor.h"
 
 
@@ -19,7 +19,7 @@
 //todo
 #include "../../lib/DEL.h"
 #include "../../lib/Timer.h"
-#include "../../lib/moteurs.h"
+#include "../../lib/Motors.h"
 #include "../../lib/TrackerSensor.h"
 #include "../../lib/Button.h"
 #include "../../lib/Speaker.h"
@@ -86,7 +86,7 @@ protected:
 
     DEL del;
     Timer timer;
-    moteurs moteur;
+    Motors moteur;
     TrackerSensor trackerSensor;
     Button button;
     Speaker speaker;
@@ -101,7 +101,7 @@ private:
      */
     bool shouldGoStraight = false;
 
-    uint8_t vitesse = VITESSE_MAX;
+    uint8_t vitesse = MOTOR_MAX_SPEED;
 
 
 };

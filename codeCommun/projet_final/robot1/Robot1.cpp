@@ -36,7 +36,7 @@ void Robot1::transitionState() {
         else
         {
             /* Virage */
-            moteur.ajustementMoteur(0, VITESSE_LENT);
+            moteur.adjust(0, MOTOR_SLOW_SPEED);
             if (compareBits(code, "00100"))
             {
                 state++;
@@ -45,7 +45,7 @@ void Robot1::transitionState() {
 
 
     } while (state < 3);
-    moteur.arreterMoteurs();
+    moteur.stop();
 }
 
 void Robot1::run() {
@@ -84,16 +84,16 @@ void Robot1::evaluateAction(uint8_t code) {
 bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     if (compareBits(code, "00xzz"))
     {
-        moteur.ajustementMoteur(slowWheelSpeed, speed);
+        moteur.adjust(slowWheelSpeed, speed);
     }
     else if (compareBits(code, "zzx00"))
     {
-        moteur.ajustementMoteur(speed, slowWheelSpeed);
+        moteur.adjust(speed, slowWheelSpeed);
     }
     else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
-        moteur.avancer(speed);
+        moteur.goForward(speed);
     }
 
     return compareBits(code, "00100");

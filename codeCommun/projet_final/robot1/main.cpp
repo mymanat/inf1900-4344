@@ -66,6 +66,7 @@ void start(Robot1 & robot1) {
 
 int main() {
 
+    initialisationUART();
     Robot1 robot1;
     start(robot1);
 

@@ -36,7 +36,7 @@ void Section1::evaluateAction(uint8_t code)
         break;
     case 1:
         //Stop the motors and wait for a command
-        moteur.arreterMoteurs();
+        moteur.stop();
             message = ir.receive();
         break;
     case 2:
