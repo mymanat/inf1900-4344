@@ -1,5 +1,5 @@
 #include <avr/io.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "Utils.h"
@@ -8,6 +8,8 @@
 #include "wait.h"
 #include "LOG.h"
 #include "can.h"
+#include "IRTransciever.h"
+#include "DEL.h"
 
 int main()
 {
@@ -27,10 +29,55 @@ int main()
     char str[16];
     initialisationUART();
 
+    IRTransciever ir;
+    int message = 0;
+    int channel = 0;
+    int command = 0;
+
+    DEL del;
 
     while (1)
     {
-        irSensor = convertisseur.lecture(6);
+        message = ir.recevoir();
+        command = ir.getCommand(message);
+        channel = ir.getChannel(message);
+
+        /*if(message != 0){
+            transmissionUART(message);
+            transmissionUART(channel);
+            transmissionUART(command);
+        }   */     
+
+        if(channel == 1){
+            switch(command){
+                case 0:
+                    del.eteindre();
+                break;
+                case 1:
+                    del.allumer(1);
+                break;
+                case 2:
+                    del.allumer(2);
+                break;
+                case 3:
+                    del.allumer(3);
+                break;
+                case 4:
+                    del.allumer(4);
+                break;
+                case 5:
+                    del.allumer(5);
+                break;
+            }
+        }
+
+        /*if(message == 0x21){
+            PORTC = 0x05;
+        }*/
+            
+
+
+        /*irSensor = convertisseur.lecture(6);
 
         itoa(irSensor, str, 10);
 
@@ -43,7 +90,9 @@ int main()
         }
         else{
             setBit(&PORTC, 0, POSITION_DEL_5);
-        }
+        }*/
+
+
 
     }
 

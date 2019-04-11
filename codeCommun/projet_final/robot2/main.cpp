@@ -16,6 +16,7 @@
 
 int main() {
     DDRA = MODE_ENTREE;
+    DDRC = MODE_SORTIE;
 
     can convertisseur;
 
@@ -26,11 +27,25 @@ int main() {
     initialisationUART();
 
     IRTransciever transmetteur;
-    transmetteur.transmettre(1);
+    int cpt = 0;
 
+    while(1){
+
+        for(int i = 0; i < 4; ++i){
+            transmetteur.transmettre(cpt, 1);
+        }
+        
+        //_delay_ms(50);
+        cpt++;
+        cpt %= 6;
+    }
     int reponse;
     IRTransciever receveur;
-    reponse = receveur.recevoir();
+    //reponse = receveur.recevoir();
+
+
+
+
     // Speaker sp;
     // sp.playFrequency();
     // while (1)
