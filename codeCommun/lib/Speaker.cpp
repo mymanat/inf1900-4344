@@ -9,7 +9,7 @@ void Speaker::arreterSon() {
 void Speaker::initialisationSpeaker(void) {
     cli();
 
-    DDR_SPEAKER = MODE_SORTIE;
+    DDR_SPEAKER = MODE_OUTPUT;
 
     sei();
 }
@@ -823,85 +823,85 @@ void Speaker::jouerMelodie2() {
 
 
 void Speaker::jouerMelodie3(){
-    DEL del;
+    LED del;
 
 
     NOIRE = 700;
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 8);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 2);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 2);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 2);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 8);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 8);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 8);
 
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 2);
 
     jouerSon(DO);
-    del.eteindre();
-    del.allumer(4);
+    del.turnOff();
+    del.turnOn(4);
 
     wait(NOIRE / 2);
 
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 2);
 
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 2);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 2);
 
     jouerSon(DO);
-    del.eteindre();
-    del.allumer(4);
+    del.turnOff();
+    del.turnOn(4);
 
     wait(NOIRE / 8);
 
@@ -910,62 +910,62 @@ void Speaker::jouerMelodie3(){
     wait(NOIRE / 8);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 8);
 
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 2);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 2);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 2);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 2);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 8);
 
     jouerSon(MI4);
-    del.eteindre();
-    del.allumer(2);
+    del.turnOff();
+    del.turnOn(2);
 
     wait(NOIRE / 4);
 
     jouerSon(FA4);
-    del.eteindre();
-    del.allumer(3);
+    del.turnOff();
+    del.turnOn(3);
 
     wait(NOIRE / 8);
 
     jouerSon(RE);
-    del.eteindre();
-    del.allumer(1);
+    del.turnOff();
+    del.turnOn(1);
 
     wait(NOIRE / 2);
 
     jouerSon(DO);
-    del.eteindre();
-    del.allumer(4);
+    del.turnOff();
+    del.turnOn(4);
 
     wait(NOIRE / 2);
     arreterSon();

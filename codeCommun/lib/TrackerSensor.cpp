@@ -5,23 +5,18 @@
 #include "TrackerSensor.h"
 
 TrackerSensor::TrackerSensor() {
-
-
     init();
-
 }
 
 void TrackerSensor::updateDEL() {
 
 
-    for (uint8_t i = 1; i < SENSOR_COUNT + 1; ++i) {
+    for (uint8_t i = 1; i < SENSOR_COUNT + 1; ++i)
+    {
         del.setState(isBlack(i), i);
     }
 }
 
-/**
- * Permet de mettre à jour les valeurs en mémoire ainsi que l'état des DELs
- */
 void TrackerSensor::update() {
     for (uint8_t i = 0; i < SENSOR_COUNT; ++i)
     {
@@ -40,11 +35,7 @@ bool TrackerSensor::valueIsBlack(uint16_t value) const {
     return value < blackValue + SENSOR_DELTA_BLACK;
 }
 
-/**
- * 54321
- * @return
- */
-uint8_t TrackerSensor::getIsBlackCode() const {
+uint8_t TrackerSensor::getSensorStateCode() const {
     uint8_t result = 0;
 
     for (char i = SENSOR_COUNT; i > 0; --i)
@@ -59,20 +50,7 @@ bool TrackerSensor::isBlack(uint8_t sensorID) const {
     return valueIsBlack(getValue(sensorID));
 }
 
-/**
- * Retourne le tableau contenant les valeurs.
- * Le capteur IR1 correspond à l'index 0
- */
-const uint16_t *TrackerSensor::getValues() const {
-    return values;
-}
 
-/**
- * Retourne la valeur en fonction de l'ID du capteur
- * le capteur IR1 correspond à l'ID 1
- * @param sensorID L'ID
- * @return la valeur du capteur
- */
 uint16_t TrackerSensor::getValue(uint8_t sensorID) const {
     return values[sensorID - 1];
 
@@ -88,7 +66,7 @@ void TrackerSensor::setBlackValue(uint16_t blackValue) {
 
 void TrackerSensor::init() {
 
-    DDR_TRACKER_SENSOR = MODE_ENTREE;
+    DDR_TRACKER_SENSOR = MODE_INPUT;
     blackValue = getValue(SENSOR_MIDDLE_POS);
 }
 

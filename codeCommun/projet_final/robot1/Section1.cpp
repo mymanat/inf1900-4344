@@ -41,7 +41,7 @@ void Section1::evaluateAction(uint8_t code)
         break;
     case 1:
         //Stop the motors and wait for a command
-        moteur.arreterMoteurs();
+        moteur.stop();
         message = ir.receive();
         break;
     case 2:
@@ -66,9 +66,9 @@ void Section1::evaluateAction(uint8_t code)
 
             wait(500);
 
-            moteur.avancer(VITESSE_MAX);
+            moteur.goForward(MOTOR_MAX_SPEED);
             wait(tempsMovementX[x]);
-            moteur.arreterMoteurs();
+            moteur.stop();
 
             wait(500);
 
@@ -76,9 +76,9 @@ void Section1::evaluateAction(uint8_t code)
 
             wait(500);
 
-            moteur.avancer(VITESSE_MAX);
+            moteur.goForward(MOTOR_MAX_SPEED);
             wait(tempsMovementY[y]);
-            moteur.arreterMoteurs();
+            moteur.stop();
 
             speaker.jouerSon(RE);
             wait(1000);

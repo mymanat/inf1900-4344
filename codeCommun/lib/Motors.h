@@ -4,7 +4,6 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "PWM.h"
 #include "Utils.h"
 #include "Component.h"
 
@@ -20,7 +19,10 @@
  */
 #define MOTOR_ROTATION_DURATION_90 1400
 
-#define COEFFICIENT_MOTEUR_TROP_VITE 0.9
+/**
+ * Coefficient pour modifier la vitesse du moteur qui tourne plus rapidement que l'autre
+ */
+#define MOTOR_IMBALANCE_COEFFICIENT 0.9
 
 #define MOTOR_MAX_SPEED 170
 #define MOTOR_SLOW_SPEED 130

@@ -7,6 +7,7 @@
 
 
 #include "Robot1.h"
+
 /**
  * States:
  * 0: avance jusqu´à la courbe
@@ -14,7 +15,6 @@
  * 2: Suivre ligne normal
  * 3:Demi-lune
  */
-
 class Section2 : public Robot1 {
 public:
 

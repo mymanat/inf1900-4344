@@ -55,9 +55,9 @@ void start(uint8_t section) {
 void start(Robot1 & robot1) {
     uint8_t section = robot1.receiveData();
 
-    DEL del;
-    del.eteindre();
-    del.allumer(section);
+    LED del;
+    del.turnOff();
+    del.turnOn(section);
     wait(3000);
 
     start(section);

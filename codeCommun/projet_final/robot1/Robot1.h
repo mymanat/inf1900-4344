@@ -6,7 +6,7 @@
 #define MAIN_ROBOT1_H
 
 #include "../Robot.h"
-#include "DEL.h"
+#include "LED.h"
 #include "Motors.h"
 #include "TrackerSensor.h"
 
@@ -15,7 +15,7 @@
 #include "IRTransceiver.h"
 
 //todo
-#include "../../lib/DEL.h"
+#include "../../lib/LED.h"
 #include "../../lib/Timer.h"
 #include "../../lib/Motors.h"
 #include "../../lib/TrackerSensor.h"
@@ -25,27 +25,36 @@
 
 #define DELTA_V 20
 
-class Robot1 : public Robot
-{
-  public:
+
+class Robot1 : public Robot {
+public:
+
     Robot1();
 
     void init() override;
 
+
     void run() override;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/master
     virtual bool evaluateState(uint8_t code);
 
     virtual void evaluateAction(uint8_t code);
 
     bool suivreLigne(char code);
 
+/**
+ * Suivre ligne
+ * @param code
+ * @param speed Vitesse des roues par defaut
+ * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
+ * @return
+ */
     bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
 
+/**
+ * Le robot va suivre la ligne jusqu´au virage à gauche. Il va effectuer ce virage de 90 degrés et s'arrêter
+ */
     void transitionState();
 
     uint8_t receiveData();
@@ -60,13 +69,9 @@ class Robot1 : public Robot
 
     void setShouldGoStraight(bool shouldGoStraight);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/master
     //todo Remvoe
-    void changeStateSound()
-    {
+    void changeStateSound() {
         speaker.jouerSon(80);
         wait(50);
         speaker.arreterSon();
@@ -76,8 +81,11 @@ class Robot1 : public Robot
         speaker.arreterSon();
     }
 
-  protected:
-    DEL del;
+
+protected:
+
+
+    LED del;
     Timer timer;
     Motors moteur;
     TrackerSensor trackerSensor;
@@ -86,21 +94,16 @@ class Robot1 : public Robot
 
     uint8_t state = 0;
 
-  private:
+private:
+
     /**
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
-<<<<<<< HEAD
-    uint8_t section = 0;
-
-    uint8_t vitesse = VITESSE_MAX;
-=======
 
     uint8_t vitesse = MOTOR_MAX_SPEED;
 
 
->>>>>>> refs/remotes/origin/master
 };
 
 #endif //MAIN_ROBOT1_H

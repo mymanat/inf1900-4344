@@ -2,7 +2,7 @@
 #include "LOG.h"
 
 
-void transmissionUART(const char donnee) {
+void transmissionUART(const uint8_t donnee) {
 
     /* Wait for empty transmit buffer */
     while (!(UCSR0A & (1 << UDRE0)));

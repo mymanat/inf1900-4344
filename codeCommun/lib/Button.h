@@ -15,7 +15,7 @@
 extern volatile uint8_t BTN_INT_STATE;
 
 
-class Button : public Component{
+class Button : public Component {
 public:
     Button();
 
@@ -23,7 +23,7 @@ public:
 
     bool getState() const;
 
-    static void setState(uint8_t state) ;
+    static void setState(uint8_t state);
 
 
 private:

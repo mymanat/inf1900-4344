@@ -33,9 +33,17 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
+/**
+ * Permet de suive la ligne sauf si les capteurs aux extrémités détectent du noirs (pour éviter de suive les lignes perpendiculaires)
+ * @param code le isBlack code
+ * @return Si le robot est centré sur la ligne
+ */
     bool followLineSection3(uint8_t code);
 
 
+/**
+ * Permet de déterminer la ligne (D1 D2 D3 ou D4) et d'allumer les DELs en conséquence
+ */
     void evaluateLine();
 
 

@@ -13,9 +13,6 @@ void Robot1::init() {
 
 }
 
-/**
- * Le robot va suivre la ligne jusqu´au virage à gauche. Il va effectuer ce virage de 90 degrés et s'arrêter
- */
 void Robot1::transitionState() {
     state = 0;
     uint8_t code = 0;
@@ -23,7 +20,7 @@ void Robot1::transitionState() {
     {
 
         trackerSensor.update();
-        code = trackerSensor.getIsBlackCode();
+        code = trackerSensor.getSensorStateCode();
         if (state == 0)
         {
             /* Suit la ligne jusqu'au virage */
@@ -58,8 +55,8 @@ void Robot1::run() {
         trackerSensor.update();
 
 
-        evaluateAction(trackerSensor.getIsBlackCode());
-        shouldLoop = evaluateState(trackerSensor.getIsBlackCode());
+        evaluateAction(trackerSensor.getSensorStateCode());
+        shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
 
     transitionState();
@@ -74,13 +71,6 @@ void Robot1::evaluateAction(uint8_t code) {
 
 }
 
-/**
- * Suivre ligne
- * @param code
- * @param speed Vitesse des roues par defaut
- * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
- * @return
- */
 bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     if (compareBits(code, "00xzz"))
     {

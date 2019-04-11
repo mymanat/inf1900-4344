@@ -9,11 +9,6 @@ Section3::Section3() {
 }
 
 
-/**
- * Permet de suive la ligne sauf si les capteurs aux extrémités détectent du noirs (pour éviter de suive les lignes perpendiculaires)
- * @param code le isBlack code
- * @return Si le robot est centré sur la ligne
- */
 bool Section3::followLineSection3(uint8_t code) {
     if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
     {
@@ -101,11 +96,8 @@ bool Section3::evaluateState(uint8_t code) {
     return true;
 }
 
-/**
- * Permet de déterminer la ligne (D1 D2 D3 ou D4) et d'allumer les DELs en conséquence
- */
 void Section3::evaluateLine() {
-    del.eteindre();
+    del.turnOff();
     uint8_t id = 0;
 
     if (loopCounter > DELTA_COUNTER)
@@ -119,7 +111,7 @@ void Section3::evaluateLine() {
         id = leftFirst ? 2 : 4;
     }
 
-    del.allumer(id);
+    del.turnOn(id);
 }
 
 void Section3::evaluateAction(uint8_t code) {

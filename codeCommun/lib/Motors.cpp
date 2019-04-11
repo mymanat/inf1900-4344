@@ -6,7 +6,7 @@ void Motors::adjustPWM(uint8_t a, uint8_t b) {
     // et valeur de TOP fixe à 0xFF (mode #1 de la table 17-6
     // page 177 de la description technique du ATmega324PA)
     OCR1A = a;
-    OCR1B = b * COEFFICIENT_MOTEUR_TROP_VITE;
+    OCR1B = b * MOTOR_IMBALANCE_COEFFICIENT;
     // division d'horloge par 8 - implique une frequence de PWM fixe
     TCCR1A = (1 << WGM10) | (1 << COM1B1) | (1 << COM1A1);
     TCCR1B = (1 << CS11);
@@ -24,7 +24,7 @@ void Motors::setDirection(bool direction) {
 }
 
 void Motors::setMotorDirection(bool direction, bool moteurNb) {
-    setBit(&PORT_MOTEUR, !direction, (moteurNb) ? PIN_MOTEUR_GAUCHE : PIN_MOTEUR_DROITE);
+    setBit(&PORT_MOTOR, !direction, (moteurNb) ? PIN_LEFT_MOTOR : PIN_RIGHT_MOTOR);
 }
 
 void Motors::goForward(int vitesse) {
@@ -78,7 +78,7 @@ void Motors::init() {
     // configurer et choisir les ports pour les entrées
     // et les sorties. DDRx... Initialisez bien vos variables
 
-    DDR_MOTEUR = MODE_SORTIE;
+    DDR_MOTOR = MODE_OUTPUT;
 
     // cette procédure ajuste le registre EIMSK
     // de l’ATmega324PA pour permettre les interruptions externes
