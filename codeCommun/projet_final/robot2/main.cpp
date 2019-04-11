@@ -28,7 +28,8 @@ int main() {
 
     IRTransceiver transmetteur;
 
-    uint8_t Robot1::receiveData() {
+        Timer timer;
+        Button button;
 
         timer.init();
 
@@ -66,7 +67,7 @@ int main() {
 
 
 
-    }
+
 
 
 
