@@ -18,6 +18,7 @@ void setBit(uint8_t *variable, bool valeur, uint8_t bitIndex) {
 
 /**
  * Test si les bits du monde match la compareString
+ * La chaine doit etre de longueur 5
  * Exemple: value=0b10011
  * compareString="100xx"
  * Retourne vrai
@@ -26,10 +27,12 @@ void setBit(uint8_t *variable, bool valeur, uint8_t bitIndex) {
  * @param compareString Chaine de 1,0, ou x (don't care)
  */
 bool compareBits(uint8_t value, char *compareString) {
-    for (uint8_t i = 0; compareString[i] != '\0'; i++)
+
+    for (uint8_t i = 0; compareString[i] != '\0'; ++i)
     {
-        bool a = 1 & (value >> i);
-        if (!(compareString[i] == 'x' || a == compareString[i] - 48))
+
+        bool a = 1 & (value >> 4 - i);
+        if (compareString[i] != 'x' && a != compareString[i] - 48)
         {
             return false;
         }

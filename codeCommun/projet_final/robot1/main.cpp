@@ -18,6 +18,9 @@ int main() {
 //    }
 //
 //    del.allumer();
+    initialisationUART();
+    Section4 section4;
+    section4.run();
 
 
 //todo: sectio2 wtf
@@ -26,23 +29,23 @@ int main() {
 
 //    Section4 section4;
 //    section4.run();
-    initialisationUART();
-    Section3 section3;;
-    section3.run();
+//    initialisationUART();
+//    Section3 section3;;
+//    section3.run();
 
 
 //    Section2 section2;
 //    section2.run();
 
     Speaker speaker;
-    //speaker.jouerSon(RE);
-    del.allumer();
+    speaker.jouerSon(RE);
+//    del.allumer();
     wait(500);
     speaker.arreterSon();
-    del.eteindre();
-    wait(500);
-    del.allumer();
-    moteurs moteurs;
-    moteurs.arreterMoteurs();
+//    del.eteindre();
+//    wait(500);
+//    del.allumer();
+//    moteurs moteurs;
+//    moteurs.arreterMoteurs();
 
 }

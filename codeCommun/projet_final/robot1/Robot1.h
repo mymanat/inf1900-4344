@@ -45,6 +45,8 @@ public:
     bool suivreLigne(char code);
     bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
 
+    void transitionState();
+
     uint8_t receiveData();
 
 
