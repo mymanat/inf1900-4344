@@ -22,7 +22,7 @@
 #include "../../lib/Speaker.h"
 
 
-#define VITESSE_MAX 170
+#define VITESSE_MAX 200
 #define VITESSE_LENT 150
 #define DELTA_V 20
 
@@ -63,6 +63,20 @@ public:
     bool isShouldGoStraight() const;
 
     void setShouldGoStraight(bool shouldGoStraight);
+
+
+
+    //todo Remvoe
+    void changeStateSound() {
+        speaker.jouerSon(80);
+        wait(50);
+        speaker.arreterSon();
+        wait(20);
+        speaker.jouerSon(70);
+        wait(50);
+        speaker.arreterSon();
+    }
+
 
 protected:
 

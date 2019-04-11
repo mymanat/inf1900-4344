@@ -25,6 +25,10 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
+private:
+    uint8_t hitCount = 0;
+    bool shouldIncrementHitCount = true;
+
 };
 
 

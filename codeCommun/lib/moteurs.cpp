@@ -1,6 +1,7 @@
 #include "moteurs.h"
 
-void moteurs::ajustementPWM(uint8_t a, uint8_t b) {
+void moteurs::ajustementPWM(uint8_t a, uint8_t b)
+{
 
     // mise à un des sorties OC1A et OC1B sur comparaison
 
@@ -12,7 +13,7 @@ void moteurs::ajustementPWM(uint8_t a, uint8_t b) {
 
     OCR1A = a;
 
-    OCR1B = b;
+    OCR1B = b * COEFFICIENT_MOTEUR_TROP_VITE;
 
     // division d'horloge par 8 - implique une frequence de PWM fixe
 
@@ -23,7 +24,8 @@ void moteurs::ajustementPWM(uint8_t a, uint8_t b) {
     TCCR1C = 0;
 }
 
-void moteurs::ajustementMoteur(uint8_t gauche, uint8_t droite) {
+void moteurs::ajustementMoteur(uint8_t gauche, uint8_t droite)
+{
     arreterMoteurs();
     ajustementPWM(droite, gauche);
 }
@@ -32,7 +34,8 @@ void moteurs::ajustementMoteur(uint8_t gauche, uint8_t droite) {
  * Permet de définir la direction des 2 moteurs en même temps
  * @param direction 1 pour avancer, 0 pour reculer
  */
-void moteurs::setDirection(bool direction) {
+void moteurs::setDirection(bool direction)
+{
     setDirectionMoteur(direction, MOTEUR_GAUCHE);
     setDirectionMoteur(direction, MOTEUR_DROITE);
 }
@@ -42,23 +45,27 @@ void moteurs::setDirection(bool direction) {
  * @param direction la direction
  * @param moteurNb Le numero du moteur
  */
-void moteurs::setDirectionMoteur(bool direction, bool moteurNb) {
+void moteurs::setDirectionMoteur(bool direction, bool moteurNb)
+{
     setBit(&PORT_MOTEUR, !direction, (moteurNb) ? PIN_MOTEUR_GAUCHE : PIN_MOTEUR_DROITE);
 }
 
-void moteurs::avancer(int vitesse) {
+void moteurs::avancer(int vitesse)
+{
     arreterMoteurs();
     setDirection(DIRECTION_AVANCER);
     ajustementPWM(vitesse, vitesse);
 }
 
-void moteurs::reculer(int vitesse) {
+void moteurs::reculer(int vitesse)
+{
     arreterMoteurs();
     setDirection(DIRECTION_RECULER);
     ajustementPWM(vitesse, vitesse);
 }
 
-void moteurs::tournerDroite() {
+void moteurs::tournerDroite()
+{
     arreterMoteurs();
     setDirectionMoteur(DIRECTION_AVANCER, MOTEUR_DROITE);
     int rotationSpeed = VITESSE_ROTATION;
@@ -67,7 +74,8 @@ void moteurs::tournerDroite() {
     arreterMoteurs();
 }
 
-void moteurs::tournerGauche() {
+void moteurs::tournerGauche()
+{
     arreterMoteurs();
     setDirectionMoteur(DIRECTION_AVANCER, MOTEUR_GAUCHE);
     int rotationSpeed = VITESSE_ROTATION;
@@ -76,15 +84,40 @@ void moteurs::tournerGauche() {
     arreterMoteurs();
 }
 
-void moteurs::arreterMoteurs() {
+void moteurs::tournerGauche90()
+{
+    setDirectionMoteur(DIRECTION_AVANCER, MOTEUR_GAUCHE);
+    setDirectionMoteur(DIRECTION_RECULER, MOTEUR_DROITE);
+    ajustementMoteur(VITESSE_MAX, VITESSE_MAX);
+    _delay_ms(150);
+    ajustementMoteur(VITESSE_LENT, VITESSE_LENT);
+    _delay_ms(TEMPS_ROTATION_90);
+    arreterMoteurs();
+}
+
+void moteurs::tournerDroite90()
+{
+    setDirectionMoteur(DIRECTION_RECULER, MOTEUR_GAUCHE);
+    setDirectionMoteur(DIRECTION_AVANCER, MOTEUR_DROITE);
+    ajustementMoteur(VITESSE_MAX, VITESSE_MAX);
+    _delay_ms(150);
+    ajustementMoteur(VITESSE_LENT, VITESSE_LENT);
+    _delay_ms(TEMPS_ROTATION_90);
+    arreterMoteurs();
+}
+
+void moteurs::arreterMoteurs()
+{
     ajustementPWM(0, 0);
 }
 
-moteurs::moteurs() {
+moteurs::moteurs()
+{
     init();
 }
 
-void moteurs::init() {
+void moteurs::init()
+{
     // cli est une routine qui bloque toutes les interruptions.
     // Il serait bien mauvais d'être interrompu alors que
     // le microcontroleur n'est pas prêt...
