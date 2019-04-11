@@ -5,7 +5,6 @@
 #ifndef MAIN_ROBOT1_H
 #define MAIN_ROBOT1_H
 
-#include <stdint-gcc.h>
 #include "../Robot.h"
 #include "DEL.h"
 #include "moteurs.h"
@@ -13,41 +12,83 @@
 
 #include "Speaker.h"
 
+
+//todo
+#include "../../lib/DEL.h"
+#include "../../lib/Timer.h"
+#include "../../lib/moteurs.h"
+#include "../../lib/TrackerSensor.h"
+#include "../../lib/Button.h"
+#include "../../lib/Speaker.h"
+
+
+#define VITESSE_MAX 170
+#define VITESSE_LENT 120
+#define DELTA_V 20
+
+
 class Robot1 : public Robot {
 public:
+
     Robot1();
 
     void init() override;
 
     void run() override;
 
-    void setSection(uint8_t section);
+
+    virtual bool evaluateState(uint8_t code) ;
+
+    virtual void evaluateAction(uint8_t code);
+
+
+    bool suivreLigne(char code);
+    bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
+
+    void transitionState();
 
     uint8_t receiveData();
 
-    bool suivreLigne();
 
-    void section4(int & changement);
+    // Getters & Setters
 
-    void faireSection();
+    void setSection(uint8_t section);
 
-    void changerSection();
+    uint8_t getSection() const;
 
-private:
-    bool shouldStop = false;
-    uint8_t section = 0;
+    uint8_t getVitesse() const;
+
+    void setVitesse(uint8_t vitesse);
+
+    bool isShouldGoStraight() const;
+
+    void setShouldGoStraight(bool shouldGoStraight);
+
+protected:
+
+
     DEL del;
     Timer timer;
     moteurs moteur;
     TrackerSensor convertisseur;
     Button button;
+    Speaker speaker;
 
-    uint8_t vitesse_max = 120;
-    uint8_t vitesse = vitesse_max;
 
-    uint8_t delta = 20;
-    uint8_t vitesse_lent = vitesse_max - delta;
-    uint8_t lastDirection = 0;//1, 2d, 3g
+    uint8_t state = 0;
+
+private:
+
+    /**
+     * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
+     */
+    bool shouldGoStraight = false;
+    uint8_t section = 0;
+
+
+    uint8_t vitesse = VITESSE_MAX;
+
+
 };
 
 

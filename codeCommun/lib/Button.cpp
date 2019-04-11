@@ -29,13 +29,14 @@ bool Button::getState() const{
     return BTN_INT_STATE;
 }
 
-void Button::setState(bool state) {
-    BTN_INT_STATE = static_cast<uint8_t>(state);
+void Button::setState(uint8_t state) {
+    BTN_INT_STATE = state;
 }
 
 void Button::init() {
     DDR_BTN_INTERRUPT = MODE_ENTREE;
     EICRA |= (1 << ISC00);
+    setState(false);
 
 }
 
