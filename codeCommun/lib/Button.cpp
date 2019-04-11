@@ -34,7 +34,7 @@ void Button::setState(uint8_t state) {
 }
 
 void Button::init() {
-    DDR_BTN_INTERRUPT = MODE_ENTREE;
+    DDR_INT_BTN = MODE_INPUT;
     EICRA |= (1 << ISC00);
     setState(false);
 

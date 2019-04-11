@@ -10,7 +10,7 @@ bool Section1::evaluateState(uint8_t code)
     {
     case 0:
         //If all sensors detect black, change state
-        if (compareBits(code, "11111"))
+        if (compareBits(code, "00000"))
         {
             ++state;
         }
@@ -22,7 +22,12 @@ bool Section1::evaluateState(uint8_t code)
             ++state;
         }
         break;
+    case 2:
+        break;
+    case 3:
+        break;
     }
+
     return true;
 }
 
@@ -36,43 +41,55 @@ void Section1::evaluateAction(uint8_t code)
         break;
     case 1:
         //Stop the motors and wait for a command
-        moteur.arreterMoteurs();
-        message = IRTransceiver.receive();
+        moteur.stop();
+        message = ir.receive();
         break;
     case 2:
         //Extract the channel out of the message
-        channel = ir.getChannel();
+        channel = ir.getChannel(message);
+        channel = 1;
 
         //If the channel matches the one we are trying to receive from
         if (channel == 1)
         {
 
             //Extract the command from the message
-            command = ir.getCommand();
+            command = ir.getCommand(message) - 1;
+            command = 1;
+
+            //Calculate values of x and y
+            int y = command / 3;
+            int x = command % 3;
 
             //Execute the movements needed to get on the point specified by the command
-            switch (command)
-            {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            }
+            moteur.tournerGauche90();
+
+            wait(500);
+
+            moteur.goForward(MOTOR_MAX_SPEED);
+            wait(tempsMovementX[x]);
+            moteur.stop();
+
+            wait(500);
+
+            moteur.tournerDroite90();
+
+            wait(500);
+
+            moteur.goForward(MOTOR_MAX_SPEED);
+            wait(tempsMovementY[y]);
+            moteur.stop();
+
+            speaker.jouerSon(RE);
+            wait(1000);
+            speaker.arreterSon();
+            ++state;
         }
+        break;
+    case 3:
+        while (1)
+        {
+        };
         break;
     }
 }

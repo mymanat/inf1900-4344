@@ -5,19 +5,14 @@
 #include "Section3.h"
 
 Section3::Section3() {
-    setVitesse(VITESSE_LENT);
+    setVitesse(MOTOR_SLOW_SPEED);
 }
 
 
-/**
- * Permet de suive la ligne sauf si les capteurs aux extrémités détectent du noirs (pour éviter de suive les lignes perpendiculaires)
- * @param code le isBlack code
- * @return Si le robot est centré sur la ligne
- */
 bool Section3::followLineSection3(uint8_t code) {
     if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
     {
-        moteur.avancer(getVitesse());
+        moteur.goForward(getVitesse());
         return true;
     }
     return suivreLigne(code);
@@ -34,7 +29,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 0:
             if (compareBits(code, "11111"))
             {
-                moteur.arreterMoteurs();
+                moteur.stop();
                 button.init();
                 state++;
 
@@ -80,7 +75,7 @@ bool Section3::evaluateState(uint8_t code) {
             transmissionUART(a);
             transmissionUART(b);
 #endif
-                moteur.arreterMoteurs();
+                moteur.stop();
                 trackerSensor.setShouldUpdateDel(false);
 
                 evaluateLine();
@@ -101,11 +96,8 @@ bool Section3::evaluateState(uint8_t code) {
     return true;
 }
 
-/**
- * Permet de déterminer la ligne (D1 D2 D3 ou D4) et d'allumer les DELs en conséquence
- */
 void Section3::evaluateLine() {
-    del.eteindre();
+    del.turnOff();
     uint8_t id = 0;
 
     if (loopCounter > DELTA_COUNTER)
@@ -119,7 +111,7 @@ void Section3::evaluateLine() {
         id = leftFirst ? 2 : 4;
     }
 
-    del.allumer(id);
+    del.turnOn(id);
 }
 
 void Section3::evaluateAction(uint8_t code) {

@@ -6,7 +6,7 @@
 
 
 Section4::Section4() {
-    setVitesse(VITESSE_LENT);
+    setVitesse(MOTOR_SLOW_SPEED);
     setShouldGoStraight(true);
 }
 
@@ -45,7 +45,7 @@ void Section4::evaluateAction(uint8_t code) {
     {
         if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
         {
-            moteur.avancer(getVitesse());
+            moteur.goForward(getVitesse());
 
         }
 
@@ -61,7 +61,7 @@ void Section4::evaluateAction(uint8_t code) {
         if (compareBits(code, "xx1xx"))
         {
 
-            moteur.avancer(getVitesse());
+            moteur.goForward(getVitesse());
         }
         else
         {

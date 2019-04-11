@@ -11,14 +11,8 @@ Robot1::Robot1() {
 
 void Robot1::init() {
 
-//    setSection(receiveData());
-//    del.eteindre();
-//    del.allumer(section);
 }
 
-/**
- * Le robot va suivre la ligne jusqu´au virage à gauche. Il va effectuer ce virage de 90 degrés et s'arrêter
- */
 void Robot1::transitionState() {
     state = 0;
     uint8_t code = 0;
@@ -26,7 +20,7 @@ void Robot1::transitionState() {
     {
 
         trackerSensor.update();
-        code = trackerSensor.getIsBlackCode();
+        code = trackerSensor.getSensorStateCode();
         if (state == 0)
         {
             /* Suit la ligne jusqu'au virage */
@@ -39,7 +33,7 @@ void Robot1::transitionState() {
         else
         {
             /* Virage */
-            moteur.ajustementMoteur(0, VITESSE_LENT);
+            moteur.adjust(0, MOTOR_SLOW_SPEED);
             if (compareBits(code, "00100"))
             {
                 state++;
@@ -48,7 +42,7 @@ void Robot1::transitionState() {
 
 
     } while (state < 3);
-    moteur.arreterMoteurs();
+    moteur.stop();
 }
 
 void Robot1::run() {
@@ -61,8 +55,8 @@ void Robot1::run() {
         trackerSensor.update();
 
 
-        evaluateAction(trackerSensor.getIsBlackCode());
-        shouldLoop = evaluateState(trackerSensor.getIsBlackCode());
+        evaluateAction(trackerSensor.getSensorStateCode());
+        shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
 
     transitionState();
@@ -77,26 +71,19 @@ void Robot1::evaluateAction(uint8_t code) {
 
 }
 
-/**
- * Suivre ligne
- * @param code
- * @param speed Vitesse des roues par defaut
- * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
- * @return
- */
 bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     if (compareBits(code, "00xzz"))
     {
-        moteur.ajustementMoteur(slowWheelSpeed, speed);
+        moteur.adjust(slowWheelSpeed, speed);
     }
     else if (compareBits(code, "zzx00"))
     {
-        moteur.ajustementMoteur(speed, slowWheelSpeed);
+        moteur.adjust(speed, slowWheelSpeed);
     }
     else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
-        moteur.avancer(speed);
+        moteur.goForward(speed);
     }
 
     return compareBits(code, "00100");
@@ -110,7 +97,6 @@ bool Robot1::suivreLigne(char code) {
 
 
 uint8_t Robot1::receiveData() {
-
     timer.init();
 
     button.init();
@@ -161,11 +147,10 @@ uint8_t Robot1::receiveData() {
 }
 
 
+
+
 /* Getters & Setters */
 
-uint8_t Robot1::getSection() const {
-    return section;
-}
 
 
 uint8_t Robot1::getVitesse() const {
@@ -176,10 +161,6 @@ void Robot1::setVitesse(uint8_t vitesse) {
     Robot1::vitesse = vitesse;
 }
 
-
-void Robot1::setSection(uint8_t section) {
-    Robot1::section = section;
-}
 
 bool Robot1::isShouldGoStraight() const {
     return shouldGoStraight;

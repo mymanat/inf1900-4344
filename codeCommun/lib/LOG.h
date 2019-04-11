@@ -4,13 +4,22 @@
 #include <avr/io.h>
 #include "string.h"
 
-void transmissionUART(const char donnee);
+/**
+ * Pour transmettre un seul charactère
+ * @param donnee La donnée
+ */
+void transmissionUART(const uint8_t donnee);
 
 char receptionUART();
+
 
 void initialisationUART(void);
 
 
+/**
+ * Pour transmettre une chaîne constantes
+ * @param mots La chaîne (ex: "test")
+ */
 void log_uart(const char mots[]);
 
 
