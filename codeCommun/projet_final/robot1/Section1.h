@@ -8,6 +8,10 @@
 
 #include "Robot1.h"
 
+/*  State 0 : SuivreLigne
+    State 1 : tourner gauche
+    State 2 : 
+*/
 class Section1 : public Robot1 {
 public:
     bool evaluateState(uint8_t code) override;

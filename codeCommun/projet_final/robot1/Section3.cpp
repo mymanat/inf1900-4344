@@ -9,14 +9,26 @@ Section3::Section3() {
 }
 
 
-bool Section3::suivreLigneSection3(uint8_t code) {
+/**
+ * Permet de suive la ligne sauf si les capteurs aux extrémités détectent du noirs (pour éviter de suive les lignes perpendiculaires)
+ * @param code le isBlack code
+ * @return Si le robot est centré sur la ligne
+ */
+bool Section3::followLineSection3(uint8_t code) {
+    if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
+    {
+        moteur.avancer(getVitesse());
+        return true;
+    }
     return suivreLigne(code);
 
 }
 
 bool Section3::evaluateState(uint8_t code) {
-    transmissionUART(code);
-    transmissionUART(compareBits(0b11111, "11111"));
+    if (state > 3 && state < 6)
+    {
+        loopCounter++;
+    }
     switch (state)
     {
         case 0:
@@ -24,70 +36,100 @@ bool Section3::evaluateState(uint8_t code) {
             {
                 moteur.arreterMoteurs();
                 button.init();
-
-                convertisseur.setShouldUpdateDel(false);//todo
-
                 state++;
 
             }
             break;
         case 1:
-        case 3:
             if (button.getState())
             {
                 moteur.init();
-                if (state == 3)
-                {
-                    return false;
-                }
-                else
-                {
-                    convertisseur.setShouldUpdateDel(true);//todo
-                }
                 state++;
             }
             break;
         case 2:
-
+            if (compareBits(code, "11111"))
+            {
+                state++;
+            }
+            break;
+        case 3:
+            if (compareBits(code, "00100"))
+            {
+                state++;
+            }
+            break;
+        case 4:
+            if (compareBits(code, "00111"))
+            {
+                leftFirst = true;
+                state++;
+            }
+            else if (compareBits(code, "11100"))
+            {
+                leftFirst = false;
+                state++;
+            }
+            break;
+        case 5:
             if (compareBits(code, "00000"))
             {
-
-                convertisseur.setShouldUpdateDel(false);
-                del.eteindre();
-                del.allumer(2);//todo
-
+#ifdef DEBUG
+                uint8_t a = loopCounter >> 8;
+            uint8_t b = loopCounter & 0xff;
+            transmissionUART(a);
+            transmissionUART(b);
+#endif
                 moteur.arreterMoteurs();
+                trackerSensor.setShouldUpdateDel(false);
+
+                evaluateLine();
                 button.init();
                 state++;
             }
             break;
+        case 6:
+            if (button.getState())
+            {
+                trackerSensor.setShouldUpdateDel(true);
+                moteur.init();
+                return false;
+            }
+            break;
+
     }
     return true;
 }
 
+/**
+ * Permet de déterminer la ligne (D1 D2 D3 ou D4) et d'allumer les DELs en conséquence
+ */
+void Section3::evaluateLine() {
+    del.eteindre();
+    uint8_t id = 0;
+
+    if (loopCounter > DELTA_COUNTER)
+    {
+        /* D1 ou D3 */
+        id = leftFirst ? 1 : 3;
+    }
+    else
+    {
+        /* D2 ou D4 */
+        id = leftFirst ? 2 : 4;
+    }
+
+    del.allumer(id);
+}
+
 void Section3::evaluateAction(uint8_t code) {
-    readData(code);
 
-    switch (state)
+    if (state != 6)
     {
-        case 0:
-            suivreLigne(code);
-            break;
-        case 1:
-        case 3:
-            break;
-        case 2:
-            suivreLigneSection3(code);
-            break;
+        followLineSection3(code);
+
     }
 
 }
 
-void Section3::readData(uint8_t code) {
-    if (compareBits(code, "1xxx1"))
-    {
-        transmissionUART(loopCounter);
 
-    }
-    loopCounter++;
-}

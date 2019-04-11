@@ -77,7 +77,6 @@ void moteurs::tournerGauche() {
 }
 
 void moteurs::arreterMoteurs() {
-    setDirection(1);
     ajustementPWM(0, 0);
 }
 

@@ -10,7 +10,7 @@ Section2::Section2() {
 
 bool Section2::evaluateState(uint8_t code) {
 
-    Speaker speaker;
+
 
     if (state == 0 && code & 0b00001)
     {

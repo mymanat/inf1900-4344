@@ -23,7 +23,7 @@
 
 
 #define VITESSE_MAX 170
-#define VITESSE_LENT 120
+#define VITESSE_LENT 150
 #define DELTA_V 20
 
 
@@ -70,7 +70,7 @@ protected:
     DEL del;
     Timer timer;
     moteurs moteur;
-    TrackerSensor convertisseur;
+    TrackerSensor trackerSensor;
     Button button;
     Speaker speaker;
 
