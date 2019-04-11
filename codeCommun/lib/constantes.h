@@ -32,10 +32,13 @@
 #define POSITION_DEL_4 3
 #define POSITION_DEL_5 4
 
+
+/** Nombre de sections au total */
+#define SECTION_COUNT 4
+
 #define LONGUEUR_COMMANDE_IR 12
 
-enum Couleur
-{
+enum Couleur {
     Rouge,
     Vert,
     Ambree,

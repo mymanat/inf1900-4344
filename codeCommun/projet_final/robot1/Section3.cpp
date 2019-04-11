@@ -6,6 +6,8 @@
 
 Section3::Section3() {
     setVitesse(VITESSE_LENT);
+    speaker.jouerSon(MI4);
+    wait(500);
 }
 
 

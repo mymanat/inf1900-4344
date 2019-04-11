@@ -9,9 +9,11 @@
 #include "DEL.h"
 #include "moteurs.h"
 #include "TrackerSensor.h"
-#include "IRTransciever.h"
+
 
 #include "Speaker.h"
+
+#include "IRTransceiver.h"
 
 
 //todo
@@ -21,10 +23,11 @@
 #include "../../lib/TrackerSensor.h"
 #include "../../lib/Button.h"
 #include "../../lib/Speaker.h"
+#include "../../lib/IRTransceiver.h"
 
 
-#define VITESSE_MAX 200
-#define VITESSE_LENT 150
+//#define VITESSE_MAX 200
+//#define VITESSE_LENT 150
 #define DELTA_V 20
 
 
@@ -35,27 +38,27 @@ public:
 
     void init() override;
 
+
     void run() override;
 
 
-    virtual bool evaluateState(uint8_t code) ;
+    virtual bool evaluateState(uint8_t code);
 
     virtual void evaluateAction(uint8_t code);
 
 
     bool suivreLigne(char code);
+
     bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
 
     void transitionState();
+
 
     uint8_t receiveData();
 
 
     // Getters & Setters
 
-    void setSection(uint8_t section);
-
-    uint8_t getSection() const;
 
     uint8_t getVitesse() const;
 
@@ -64,7 +67,6 @@ public:
     bool isShouldGoStraight() const;
 
     void setShouldGoStraight(bool shouldGoStraight);
-
 
 
     //todo Remvoe
@@ -98,8 +100,6 @@ private:
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
-    uint8_t section = 0;
-
 
     uint8_t vitesse = VITESSE_MAX;
 

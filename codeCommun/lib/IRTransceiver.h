@@ -15,7 +15,7 @@ public:
   IRTransceiver();
 
   void transmit(int command, int channel);
-  int receive();
+   int receive();
   //bool estMaintenu(bool up, int duree);
   int measureBurstLength();
   bool isSignalActive();

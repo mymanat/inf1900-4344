@@ -37,18 +37,18 @@ void Section1::evaluateAction(uint8_t code)
     case 1:
         //Stop the motors and wait for a command
         moteur.arreterMoteurs();
-        message = IRTransceiver.receive();
+            message = ir.receive();
         break;
     case 2:
         //Extract the channel out of the message
-        channel = ir.getChannel();
+        channel = ir.getChannel(message);
 
         //If the channel matches the one we are trying to receive from
         if (channel == 1)
         {
 
             //Extract the command from the message
-            command = ir.getCommand();
+            command = ir.getCommand(message);
 
             //Execute the movements needed to get on the point specified by the command
             switch (command)

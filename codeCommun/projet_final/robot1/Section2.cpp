@@ -5,6 +5,8 @@
 #include "Section2.h"
 
 Section2::Section2() {
+    speaker.jouerSon(RE);
+    wait(500);
     setShouldGoStraight(true);
 }
 

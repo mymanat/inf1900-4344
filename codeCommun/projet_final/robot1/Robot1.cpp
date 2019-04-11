@@ -11,9 +11,6 @@ Robot1::Robot1() {
 
 void Robot1::init() {
 
-//    setSection(receiveData());
-//    del.eteindre();
-//    del.allumer(section);
 }
 
 /**
@@ -110,7 +107,6 @@ bool Robot1::suivreLigne(char code) {
 
 
 uint8_t Robot1::receiveData() {
-
     timer.init();
 
     button.init();
@@ -161,11 +157,10 @@ uint8_t Robot1::receiveData() {
 }
 
 
+
+
 /* Getters & Setters */
 
-uint8_t Robot1::getSection() const {
-    return section;
-}
 
 
 uint8_t Robot1::getVitesse() const {
@@ -176,10 +171,6 @@ void Robot1::setVitesse(uint8_t vitesse) {
     Robot1::vitesse = vitesse;
 }
 
-
-void Robot1::setSection(uint8_t section) {
-    Robot1::section = section;
-}
 
 bool Robot1::isShouldGoStraight() const {
     return shouldGoStraight;

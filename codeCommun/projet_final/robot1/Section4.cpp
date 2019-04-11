@@ -6,6 +6,8 @@
 
 
 Section4::Section4() {
+    speaker.jouerSon(FA4);
+    wait(500);
     setVitesse(VITESSE_LENT);
     setShouldGoStraight(true);
 }
