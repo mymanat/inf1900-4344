@@ -14,10 +14,16 @@ int main() {
 //    while (!button.getState()) {
 
 //    }
+//
+//    del.allumer();
+    initialisationUART();
+    Section4 section4;
+    section4.run();
 
 
 
 //todo: sectio2 wtf
+
 
 
 

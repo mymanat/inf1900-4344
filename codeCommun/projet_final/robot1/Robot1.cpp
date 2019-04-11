@@ -16,6 +16,14 @@ void Robot1::init() {
 //    del.allumer(section);
 }
 
+void Robot1::transitionState() {
+    do
+    {
+        convertisseur.update();
+        moteur.ajustementMoteur(0, VITESSE_LENT);
+    } while (!compareBits(convertisseur.getIsBlackCode(), "00100"));
+    moteur.arreterMoteurs();
+}
 
 void Robot1::run() {
     moteur.init();
@@ -23,12 +31,15 @@ void Robot1::run() {
     bool shouldLoop = true;
     while (shouldLoop)
     {
+        transmissionUART(state);
+
         convertisseur.update();
-        shouldLoop = evaluateState(convertisseur.getIsBlackCode());
 
 
         evaluateAction(convertisseur.getIsBlackCode());
+        shouldLoop = evaluateState(convertisseur.getIsBlackCode());
     }
+    transitionState();
 }
 
 bool Robot1::evaluateState(uint8_t code) {
@@ -40,26 +51,38 @@ void Robot1::evaluateAction(uint8_t code) {
 
 }
 
-bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t turnSpeed) {
+/**
+ * Suivre ligne
+ * @param code
+ * @param speed Vitesse des roues par defaut
+ * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
+ * @return
+ */
+bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
+//    transmissionUART(state);
+//    transmissionUART(speed);
+//    transmissionUART(slowWheelSpeed);
+//    transmissionUART(0xff);
     if (code & 0b00011)
     {
-        moteur.ajustementMoteur(turnSpeed, speed);
+        moteur.ajustementMoteur(slowWheelSpeed, speed);
     }
     else if (code & 0b11000)
     {
-        moteur.ajustementMoteur(speed, turnSpeed);
+        moteur.ajustementMoteur(speed, slowWheelSpeed);
     }
-    else if (code & 0b00100)
+    else if (code & 0b00100 || (shouldGoStraight))
     {
-        moteur.avancer(speed);
 
+        moteur.avancer(speed);
     }
 
-    return true;
+    return compareBits(code, "00100");
+
 }
 
 bool Robot1::suivreLigne(char code) {
-    return suivreLigne(code, vitesse, vitesse / 2);
+    return suivreLigne(code, getVitesse(), getVitesse() / 2);
 
 }
 
@@ -119,5 +142,13 @@ void Robot1::setVitesse(uint8_t vitesse) {
 
 void Robot1::setSection(uint8_t section) {
     Robot1::section = section;
+}
+
+bool Robot1::isShouldGoStraight() const {
+    return shouldGoStraight;
+}
+
+void Robot1::setShouldGoStraight(bool shouldGoStraight) {
+    Robot1::shouldGoStraight = shouldGoStraight;
 }
 

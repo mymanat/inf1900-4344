@@ -43,7 +43,9 @@ public:
 
 
     bool suivreLigne(char code);
-    bool suivreLigne(char code, uint8_t speed, uint8_t turnSpeed);
+    bool suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed);
+
+    void transitionState();
 
     uint8_t receiveData();
 
@@ -58,6 +60,9 @@ public:
 
     void setVitesse(uint8_t vitesse);
 
+    bool isShouldGoStraight() const;
+
+    void setShouldGoStraight(bool shouldGoStraight);
 
 protected:
 
@@ -74,6 +79,10 @@ protected:
 
 private:
 
+    /**
+     * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
+     */
+    bool shouldGoStraight = false;
     uint8_t section = 0;
 
 
