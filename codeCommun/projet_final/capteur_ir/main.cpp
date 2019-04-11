@@ -8,7 +8,7 @@
 #include "wait.h"
 #include "LOG.h"
 #include "can.h"
-#include "IRTransciever.h"
+#include "IRTransceiver.h"
 #include "DEL.h"
 
 int main()
@@ -18,18 +18,17 @@ int main()
     DDRB = MODE_ENTREE;
     DDRD = MODE_SORTIE;
 
-    can convertisseur;
+    //can convertisseur;
 
-
-    uint16_t irSensor;
+    //uint16_t irSensor;
 
     PORTC = 0x00;
 
-    uint16_t valeurLue;
-    char str[16];
+    //uint16_t valeurLue;
+    //char str[16];
     initialisationUART();
 
-    IRTransciever ir;
+    IRTransceiver ir;
     int message = 0;
     int channel = 0;
     int command = 0;
@@ -38,7 +37,7 @@ int main()
 
     while (1)
     {
-        message = ir.recevoir();
+        message = ir.receive();
         command = ir.getCommand(message);
         channel = ir.getChannel(message);
 
@@ -74,8 +73,6 @@ int main()
         /*if(message == 0x21){
             PORTC = 0x05;
         }*/
-            
-
 
         /*irSensor = convertisseur.lecture(6);
 
@@ -91,8 +88,6 @@ int main()
         else{
             setBit(&PORTC, 0, POSITION_DEL_5);
         }*/
-
-
 
     }
 

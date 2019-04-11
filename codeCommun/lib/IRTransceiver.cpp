@@ -1,20 +1,19 @@
-#include "IRTransciever.h"
+#include "IRTransceiver.h"
 
-IRTransciever::IRTransciever() {}
+IRTransceiver::IRTransceiver() {}
 
 const int TOLERANCE = 3;
 
-void IRTransciever::transmettre(int commande, int canal)
+void IRTransceiver::transmit(int command, int channel)
 {
     char commandeBinaire[LONGUEUR_COMMANDE_IR];
 
-    int message = canal | (commande << 5);
+    int message = command | (channel << 7);
 
-
-    for(int i = LONGUEUR_COMMANDE_IR - 1; i >= 0; i--){
+    /*for(int i = LONGUEUR_COMMANDE_IR - 1; i >= 0; i--){
         commandeBinaire[i] = message & 1;
         message >>= 1;
-    }
+    }*/
 
     /* Trouver la commande voulue en binaire */
     /*switch (commande)
@@ -47,7 +46,7 @@ void IRTransciever::transmettre(int commande, int canal)
 
     for (int i = 0; i < LONGUEUR_COMMANDE_IR; ++i)
     {
-        if (commandeBinaire[i] == '1')
+        if (message & 1)
         {
             speaker_.playFrequency();
             _delay_ms(1.2);
@@ -61,90 +60,94 @@ void IRTransciever::transmettre(int commande, int canal)
             speaker_.arreterSon();
             _delay_ms(0.6);
         }
+
+        message >>= 1;
     }
 }
 
-int IRTransciever::recevoir()
+int IRTransceiver::receive()
 {
-    int longSignal = 0;
-    int cpt = 0;
+    int burstLength = 0;
+    int messageLength = 0;
     int message = 0;
 
-    if (signalActif()){
+    if (isSignalActive()){
         //PORTC = 0x05;
-        while(!respecteTolerance(longSignal, 24)){
-            longSignal = mesurerSignal();
-            //transmissionUART(longSignal);
-            while(!signalActif()){
+        while(!isWithinTolerance(burstLength, 24)){
+            burstLength = measureBurstLength();
+            //transmissionUART(burstLength);
+            while(!isSignalActive()){
                 //waits for next pulse
             }
             //PORTC = 0x00;
         }
         //PORTC = 0x05;
         do{
-            longSignal = mesurerSignal();
-            //transmissionUART(longSignal);
+            burstLength = measureBurstLength();
+            transmissionUART(burstLength);
 
-            if(respecteTolerance(longSignal, 6)){
-                message |= 0;       //inutile, mais clarifie le code
+            if(isWithinTolerance(burstLength, 6)){
+                message |= (0 << messageLength);       //inutile, mais clarifie le code
             }
-            else if(respecteTolerance(longSignal, 12)){
-                message |= 1;                
+            else if(isWithinTolerance(burstLength, 12)){
+                message |= (1 << messageLength);                
             }
-            while(!signalActif()){
+            while(!isSignalActive()){
                 //waits for next pulse
             }
-            message <<= 1;
-            cpt++;
-        }while(!respecteTolerance(longSignal, 24));
-        message >>= 1;
+            messageLength++;
+        }while(!isWithinTolerance(burstLength, 24));
+        //message >>= 1;
 
         /*if(cpt > 12)
             message = 0; */       
     }   
 
-    return message >> 1;
+    return message;
 }
 
-bool IRTransciever::estMaintenu(bool up, int duree){
+/*bool IRTransceiver::estMaintenu(bool up, int duree){
 
     duree -= 1;
     for(int i = 0; i < duree; i++){
-        if(signalActif() != up)
+        if(isSignalActive() != up)
             return false;
         _delay_ms(0.1);
     }
 
     return true;
-}
+}*/
 
-int IRTransciever::mesurerSignal(){
+int IRTransceiver::measureBurstLength(){
 
-    int cpt = 0;
-    while(signalActif()){
+    int length = 0;
+    while(isSignalActive()){
         _delay_ms(0.1);
-        cpt++;
+        length++;
     }
 
-    return cpt * 2;
+    return length;
 }
 
-bool IRTransciever::signalActif(){
-    return convertisseur_.lecture(7) < 500;
+bool IRTransceiver::isSignalActive(){
+    //transmissionUART(PINA);
+    //return converter_.lecture(7) < 500;
+    return !(PINA & 128);
 }
 
-bool IRTransciever::respecteTolerance(int val, int target){
-    bool retour = false;
+bool IRTransceiver::isWithinTolerance(int val, int target){
+
     if(val >= target - TOLERANCE && val <= target + TOLERANCE)
-        retour = true;
-    return retour;
+        return true;
+    else
+        return false;
         
 }
 
-int IRTransciever::getCommand(int message){
-    return message >> 5;
+int IRTransceiver::getCommand(int message){
+    return message & 0b1111111;
 }
 
-int IRTransciever::getChannel(int message){
-    return message & 0b11111;
+int IRTransceiver::getChannel(int message){
+    return message >> 7;
 }
