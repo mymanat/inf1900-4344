@@ -81,8 +81,7 @@ int IRTransciever::recevoir()
             //PORTC = 0x00;
         }
         //PORTC = 0x05;
-        longSignal = mesurerSignal();
-        while(!respecteTolerance(longSignal, 22)){
+        do{
             longSignal = mesurerSignal();
             //transmissionUART(longSignal);
 
@@ -97,7 +96,7 @@ int IRTransciever::recevoir()
             }
             message <<= 1;
             cpt++;
-        }
+        }while(!respecteTolerance(longSignal, 24));
         message >>= 1;
 
         /*if(cpt > 12)
