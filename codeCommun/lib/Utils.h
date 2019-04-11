@@ -8,7 +8,7 @@
 void setBit(uint8_t *variable, bool valeur, uint8_t bitIndex);
 void setBit(volatile uint8_t *variable, bool valeur, uint8_t bitIndex) ;
 
-bool compareBits(uint8_t value, char compareString[]);
+bool compareBits(uint8_t value, const char compareString[]);
 
 
 

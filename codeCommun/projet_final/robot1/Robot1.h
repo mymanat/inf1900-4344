@@ -60,7 +60,7 @@ class Robot1 : public Robot
     DEL del;
     Timer timer;
     moteurs moteur;
-    TrackerSensor convertisseur;
+    TrackerSensor trackerSensor;
     Button button;
     Speaker speaker;
 
