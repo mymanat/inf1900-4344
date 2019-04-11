@@ -12,35 +12,35 @@
 #include "Speaker.h"
 #include "can.h"
 #include "LOG.h"
-#include "IRTransciever.h"
+#include "IRTransceiver.h"
 
 int main() {
     DDRA = MODE_ENTREE;
     DDRC = MODE_SORTIE;
 
-    can convertisseur;
+    //can convertisseur;
 
-    uint16_t irSensor;
+    //uint16_t irSensor;
 
-    uint16_t valeurLue;
-    char str[16];
-    initialisationUART();
+    //uint16_t valeurLue;
+    //char str[16];
+    //initialisationUART();
 
-    IRTransciever transmetteur;
+    IRTransceiver transmetteur;
     int cpt = 0;
 
     while(1){
 
-        for(int i = 0; i < 4; ++i){
-            transmetteur.transmettre(cpt, 1);
+        for(int i = 0; i < 2; ++i){
+            transmetteur.transmit(cpt, 1);
         }
         
         //_delay_ms(50);
         cpt++;
         cpt %= 6;
     }
-    int reponse;
-    IRTransciever receveur;
+    //int reponse;
+    //IRTransceiver receveur;
     //reponse = receveur.recevoir();
 
 

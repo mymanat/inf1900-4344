@@ -5,72 +5,90 @@
 #include "Section2.h"
 
 Section2::Section2() {
-    state = 0;
+    setShouldGoStraight(true);
 }
 
 bool Section2::evaluateState(uint8_t code) {
 
-
-
-    if (state == 0 && code & 0b00001)
+    switch (state)
     {
-        moteur.arreterMoteurs();
-        wait(500);
 
-        state++;
+        case 0:
+            if (hitCount > 1) {
+                setVitesse(VITESSE_LENT);
+                moteur.arreterMoteurs();
+                changeStateSound();
+                state = 1;
+            }
+        case 1:
+
+            if (hitCount <= 1)
+            {
+                setVitesse(VITESSE_MAX);
+                state = 0;
+            }
+
+            if (compareBits(code, "11100")) {
+
+                setVitesse(VITESSE_LENT);
+
+                state++;
+            }
+
+
+            break;
+        case 2:
+            if (compareBits(code, "00100")) {
+                setVitesse(VITESSE_MAX);
+                state++;
+            }
+            break;
     }
 
-    else if (state == 1 && code & 0b10000)
-    {
-        moteur.arreterMoteurs();
-        wait(500);
-        state++;
-    }
-    else if (state == 2 && code & 0b00001)
-    {
-        state++;
-    }
-    else if (state == 3 && code == 0b11111)
-    {
-        moteur.arreterMoteurs();
 
-//        return false;
-    }
-
-    else
-    {
-        return true;
-    }
-
-    speaker.jouerSonDebugState(state);
     return true;//todo
 }
 
 void Section2::evaluateAction(uint8_t code) {
+
     switch (state)
     {
         case 0:
-            suivreLigne(code, getVitesse(), getVitesse());
-
         case 1:
-            if (code & 0b01100)
+            transmissionUART(hitCount);
+
+            if (shouldIncrementHitCount && compareBits(code, "x1xxx"))
             {
-                suivreLigne(code, VITESSE_LENT, VITESSE_LENT / 2);
+                if (hitCount != 0) {
+                    hitCount--;
 
-
+                }
+                shouldIncrementHitCount = false;
             }
-            else
+            else if (shouldIncrementHitCount && compareBits(code, "xxx1x"))
             {
-                moteur.ajustementMoteur(VITESSE_LENT / 3, VITESSE_LENT);
-
+                hitCount++;
+                shouldIncrementHitCount = false;
             }
-            break;
+            else if (compareBits(code, "00100"))
+            {
+                shouldIncrementHitCount = true;
+            }
 
-        default:
-//            suivreLigne(code, getVitesse(), getVitesse());
-//            suivreLigne(code);
-            suivreLigne(code, getVitesse(), getVitesse() - 10);
             break;
     }
 
+
+    switch (state) {
+        case 2:
+            moteur.ajustementMoteur(VITESSE_MAX, 0);
+            break;
+        default:
+            suivreLigne(code);
+            break;
+    }
+
+
 }
+
+

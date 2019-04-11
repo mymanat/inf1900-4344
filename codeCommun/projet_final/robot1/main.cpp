@@ -8,6 +8,10 @@
 
 int main()
 {
-    Section1 section1;
-    section1.run();
+    Section2 section2;
+    section2.run();
+    Section3 section3;
+    section3.run();
+    Section4 section4;
+    section4.run();
 }
