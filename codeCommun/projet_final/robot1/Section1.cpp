@@ -6,27 +6,73 @@
 
 bool Section1::evaluateState(uint8_t code)
 {
-    if (state != 1)
+    switch (state)
     {
-        state = 0;
+    case 0:
+        //If all sensors detect black, change state
+        if (compareBits(code, "11111"))
+        {
+            ++state;
+        }
+        break;
+    case 1:
+        //If a command is received, change state
+        if (message != 0)
+        {
+            ++state;
+        }
+        break;
     }
     return true;
 }
 
 void Section1::evaluateAction(uint8_t code)
 {
-    if (state == 0)
+    switch (state)
     {
-        moteur.tournerGauche90();
-        _delay_ms(1000);
-        moteur.avancer(VITESSE_MAX);
-        _delay_ms(2500);
+    case 0:
+        //Follow the line until the sensors detect the horizontal line
+        suivreLigne(code);
+        break;
+    case 1:
+        //Stop the motors and wait for a command
         moteur.arreterMoteurs();
-        _delay_ms(1000);
-        moteur.tournerDroite90();
-        state++;
-    }
-    if (state == 1)
-    {
+        message = IRTransceiver.receive();
+        break;
+    case 2:
+        //Extract the channel out of the message
+        channel = ir.getChannel();
+
+        //If the channel matches the one we are trying to receive from
+        if (channel == 1)
+        {
+
+            //Extract the command from the message
+            command = ir.getCommand();
+
+            //Execute the movements needed to get on the point specified by the command
+            switch (command)
+            {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+            }
+        }
+        break;
     }
 }
