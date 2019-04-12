@@ -15,7 +15,8 @@ bool Section2::evaluateState(uint8_t code) {
     {
 
         case 0:
-            if (compareBits(code, "xxxx1")) {
+            if (compareBits(code, "xxxx1"))
+            {
                 state++;
             }
 //               if (hitCount > 1)
@@ -54,8 +55,6 @@ bool Section2::evaluateState(uint8_t code) {
                 wait(500);
                 setSpeed(MOTOR_MAX_SPEED);
 
-                shouldIncrementHitCount = true;
-                hitCount = 0;
                 state++;
             }
             break;
@@ -75,50 +74,11 @@ bool Section2::evaluateState(uint8_t code) {
 
 void Section2::evaluateAction(uint8_t code) {
 
-    switch (state)
-    {
-        case 0:
-
-        case 1:
-        case 3:
-        case 4:
-//            transmissionUART(hitCount);
-
-            if (shouldIncrementHitCount && compareBits(code, "zzxxx"))
-            {
-                if (hitCount != 0)
-                {
-                    hitCount--;
-                    if (compareBits(code, "1xxxx"))
-                    {
-                        hitCount--;
-                    }
-
-                }
-                shouldIncrementHitCount = false;
-            }
-            else if (compareBits(code, "xxxx1") ||
-                     (shouldIncrementHitCount && compareBits(code, "xxx1x")))
-            {
-
-                if (hitCount != 10)
-                {
-                    hitCount++;
-
-                }
-                shouldIncrementHitCount = false;
-            }
-            else if (compareBits(code, "00100"))
-            {
-                shouldIncrementHitCount = true;
-            }
-
-            break;
-    }
 
     uint8_t speed1 = MOTOR_MAX_SPEED;
-    uint8_t speed2 = MOTOR_MAX_SPEED / 2;
-    switch (state) {
+    uint8_t speed2 = MOTOR_MAX_SPEED - 20;
+    switch (state)
+    {
         case 1:
             if (compareBits(code, "xxx10"))
             {
@@ -131,7 +91,8 @@ void Section2::evaluateAction(uint8_t code) {
                 speed2 = 0;
 
             }
-            else{
+            else
+            {
                 speed1 = 120;
                 speed2 = 120 / 2;
             }
@@ -152,6 +113,7 @@ void Section2::evaluateAction(uint8_t code) {
         case 1:
 
 
+
             followLine(code, speed1, speed2);
 
             break;
@@ -160,7 +122,8 @@ void Section2::evaluateAction(uint8_t code) {
             wait(20);
             break;
         default:
-            followLine(code);
+            followLine(code, speed1, speed2);
+//            followLine(code);
             break;
     }
 

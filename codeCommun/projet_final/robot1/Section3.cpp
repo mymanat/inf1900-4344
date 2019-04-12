@@ -124,7 +124,7 @@ void Section3::evaluateLine() {
     uint8_t id = 0;
 
 //    if (loopCounter > DELTA_COUNTER)
-    if (timeSecondLine - timeFirstLine > timeFirstLine * 2)
+    if (timeSecondLine - timeFirstLine > timeFirstLine * 2.2)
     {
 
         /* D1 ou D3 */

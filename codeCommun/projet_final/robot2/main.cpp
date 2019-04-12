@@ -8,7 +8,6 @@
 
 #include "Button.h"
 #include "wait.h"
-#include "PWM.h"
 #include "Speaker.h"
 #include "can.h"
 #include "LOG.h"
@@ -28,7 +27,7 @@ int main() {
 
     timer.setDurationSec(2);
 
-    u_int8_t counter;
+    uint8_t counter;
 
     while(true){
 

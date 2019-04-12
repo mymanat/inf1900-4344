@@ -69,11 +69,11 @@ int main() {
 
     initialisationUART();
 //    Robot1::transitionState();
-//    Robot1 robot1;
-//    start(robot1);
+    Robot1 robot1;
+    start(robot1);
 //    robot1.transitionState();
-    Section2 section2;
-    section2.run();
+//    Section2 section2;
+//    section2.run();
 
 //    Section4 section4;
 //    section4.run();

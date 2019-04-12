@@ -28,8 +28,6 @@ public:
 
 
 private:
-    uint8_t hitCount = 5;
-    bool shouldIncrementHitCount = true;
 
 };
 
