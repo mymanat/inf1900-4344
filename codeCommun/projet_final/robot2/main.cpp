@@ -8,15 +8,14 @@
 
 #include "Button.h"
 #include "wait.h"
-#include "PWM.h"
 #include "Speaker.h"
 #include "can.h"
 #include "LOG.h"
 #include "IRTransceiver.h"
 
 int main() {
-    DDRA = MODE_ENTREE;
-    DDRC = MODE_SORTIE;
+    DDRA = MODE_INPUT;
+    DDRC = MODE_OUTPUT;
 
     Timer timer;
     Button button;
@@ -28,15 +27,18 @@ int main() {
 
     timer.setDurationSec(2);
 
-    u_int8_t counter;
+    uint8_t counter = 0;
 
     while(true){
 
         if(button.getState()){
 
-            timer.startTimer();
+            
             counter = 1;
             button.setState(false);
+            timer.startTimer();
+
+            //_delay_ms(100);
             
             while(!timer.isDone()){
 
@@ -45,14 +47,16 @@ int main() {
                     button.setState(false);
                 }
             }
+
+            counter %= 10;
+            timer.startTimer();
+
+            while(!timer.isDone()){
+                ir.transmit(counter, 1);
+            }
         }
 
-        counter %= 10;
-        timer.startTimer();
-
-        while(!timer.isDone()){
-            ir.transmit(counter, 1);
-        }
+        
     }
 
 
@@ -96,8 +100,8 @@ int main() {
             }
             
         }
-
-
 */
+
+
 
 }
