@@ -13,7 +13,8 @@
  * 0: avance jusqu´à la courbe
  * 1: ralenti dans la courbe
  * 2: tourner droite 90
- * 3:Demi-lune
+ * 3: suivreLigne jusqu`à demi-lune
+ * 4: ralentir demi-lune
  */
 class Section2 : public Robot1 {
 public:
@@ -25,8 +26,9 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
+
 private:
-    uint8_t hitCount = 0;
+    uint8_t hitCount = 5;
     bool shouldIncrementHitCount = true;
 
 };

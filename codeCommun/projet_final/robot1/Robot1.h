@@ -86,9 +86,6 @@ public:
         speaker.arreterSon();
     }
 
-    uint8_t getTurnSpeed() const;
-
-    void setTurnSpeed(uint8_t turnSpeed);
 
 
 protected:
@@ -111,7 +108,6 @@ private:
     bool shouldGoStraight = false;
 
     uint8_t speed = MOTOR_MAX_SPEED;
-    uint8_t turnSpeed = speed / 2;
 
 
 

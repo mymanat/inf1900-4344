@@ -17,6 +17,8 @@ void Robot1::init() {
 
 void Robot1::transitionState() {
 
+    motor.init();
+    trackerSensor.init();
 
     shouldGoStraight = false;
     setSpeed(150);
@@ -110,7 +112,7 @@ bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed) {
 }
 
 bool Robot1::followLine(char code) {
-    return followLine(code, getSpeed(), turnSpeed);
+    return followLine(code, getSpeed(), getSpeed()/2);
 
 }
 
@@ -190,11 +192,4 @@ void Robot1::setShouldGoStraight(bool shouldGoStraight) {
     Robot1::shouldGoStraight = shouldGoStraight;
 }
 
-uint8_t Robot1::getTurnSpeed() const {
-    return turnSpeed;
-}
-
-void Robot1::setTurnSpeed(uint8_t turnSpeed) {
-    Robot1::turnSpeed = turnSpeed;
-}
 
