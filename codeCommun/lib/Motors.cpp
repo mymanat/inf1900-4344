@@ -44,7 +44,7 @@ void Motors::tournerGauche90() {
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_RIGHT);
     adjust(MOTOR_MAX_SPEED, MOTOR_MAX_SPEED);
-    _delay_ms(150);
+    _delay_ms(70);
     adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED);
     _delay_ms(MOTOR_ROTATION_DURATION_90);
     stop();
@@ -54,7 +54,7 @@ void Motors::tournerDroite90() {
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_RIGHT);
     adjust(MOTOR_MAX_SPEED, MOTOR_MAX_SPEED);
-    _delay_ms(150);
+    _delay_ms(70);
     adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED);
     _delay_ms(MOTOR_ROTATION_DURATION_90);
     stop();

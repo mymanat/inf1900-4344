@@ -25,7 +25,9 @@ bool Section1::evaluateState(uint8_t code)
     case 2:
         break;
     case 3:
+        return false;
         break;
+
     }
 
     return true;
@@ -83,13 +85,15 @@ void Section1::evaluateAction(uint8_t code)
             speaker.jouerSon(RE);
             wait(1000);
             speaker.arreterSon();
+            motor.tournerDroite90();
+            wait(500);
+            motor.goForward(MOTOR_MAX_SPEED);
+            wait(tempsMovementX[x]);
+            motor.tournerGauche90();
+            motor.goForward(MOTOR_MAX_SPEED);
+            wait(500);
             ++state;
         }
-        break;
-    case 3:
-        while (1)
-        {
-        };
         break;
     }
 }
