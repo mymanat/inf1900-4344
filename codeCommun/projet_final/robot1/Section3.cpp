@@ -5,22 +5,23 @@
 #include "Section3.h"
 
 Section3::Section3() {
-    setVitesse(MOTOR_SLOW_SPEED);
+    setSpeed(MOTOR_SLOW_SPEED);
+
 }
 
 
 bool Section3::followLineSection3(uint8_t code) {
     if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
     {
-        moteur.goForward(getVitesse());
+        motor.goForward(getSpeed());
         return true;
     }
-    return suivreLigne(code);
+    return followLine(code);
 
 }
 
 bool Section3::evaluateState(uint8_t code) {
-    if (state > 3 && state < 6)
+    if (state > 3 && state < 8)
     {
         loopCounter++;
     }
@@ -29,7 +30,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 0:
             if (compareBits(code, "11111"))
             {
-                moteur.stop();
+                motor.stop();
                 button.init();
                 state++;
 
@@ -38,7 +39,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 1:
             if (button.getState())
             {
-                moteur.init();
+                motor.init();
                 state++;
             }
             break;
@@ -49,33 +50,37 @@ bool Section3::evaluateState(uint8_t code) {
             }
             break;
         case 3:
-            if (compareBits(code, "00100"))
+            if (compareBits(code, "0y1y0"))
             {
                 state++;
             }
             break;
         case 4:
-            if (compareBits(code, "00111"))
+        case 6:
+            checkLineDetection(code);
+            break;
+        case 5:
+            if (compareBits(code, "0x1x0"))
             {
-                leftFirst = true;
-                state++;
-            }
-            else if (compareBits(code, "11100"))
-            {
-                leftFirst = false;
                 state++;
             }
             break;
-        case 5:
+        case 7:
             if (compareBits(code, "00000"))
             {
 #ifdef DEBUG
-                uint8_t a = loopCounter >> 8;
-            uint8_t b = loopCounter & 0xff;
-            transmissionUART(a);
-            transmissionUART(b);
+                uint8_t time1a = timeFirstLine >> 8;
+                uint8_t time1b = timeFirstLine & 0xff;
+                uint8_t time2a = timeSecondLine >> 8;
+                uint8_t time2b = timeSecondLine & 0xff;
+
+                transmissionUART(time1a);
+                transmissionUART(time1b);
+                transmissionUART(0xff);
+                transmissionUART(time2a);
+                transmissionUART(time2b);
 #endif
-                moteur.stop();
+                motor.stop();
                 trackerSensor.setShouldUpdateDel(false);
 
                 evaluateLine();
@@ -83,11 +88,11 @@ bool Section3::evaluateState(uint8_t code) {
                 state++;
             }
             break;
-        case 6:
+        case 8:
             if (button.getState())
             {
                 trackerSensor.setShouldUpdateDel(true);
-                moteur.init();
+                motor.init();
                 return false;
             }
             break;
@@ -96,12 +101,37 @@ bool Section3::evaluateState(uint8_t code) {
     return true;
 }
 
+void Section3::checkLineDetection(uint8_t code) {
+    if (compareBits(code, "0xxx0"))
+    {
+        return;
+
+    }
+    if (timeFirstLine == 0)
+    {
+        timeFirstLine = loopCounter;
+
+        leftFirst = compareBits(code, "00xx1");
+    }
+
+    else
+    {
+        timeSecondLine = loopCounter;
+    }
+
+
+    state++;
+
+}
+
 void Section3::evaluateLine() {
-    del.turnOff();
+    led.turnOff();
     uint8_t id = 0;
 
-    if (loopCounter > DELTA_COUNTER)
+//    if (loopCounter > DELTA_COUNTER)
+    if (timeSecondLine - timeFirstLine > timeFirstLine * 2)
     {
+
         /* D1 ou D3 */
         id = leftFirst ? 1 : 3;
     }
@@ -111,12 +141,12 @@ void Section3::evaluateLine() {
         id = leftFirst ? 2 : 4;
     }
 
-    del.turnOn(id);
+    led.turnOn(id);
 }
 
 void Section3::evaluateAction(uint8_t code) {
 
-    if (state != 6)
+    if (state != 8)
     {
         followLineSection3(code);
 

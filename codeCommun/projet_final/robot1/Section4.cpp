@@ -6,7 +6,8 @@
 
 
 Section4::Section4() {
-    setVitesse(MOTOR_SLOW_SPEED);
+//    setSpeed(MOTOR_SLOW_SPEED);
+    setSpeed(120);//todo
     setShouldGoStraight(true);
 }
 
@@ -14,9 +15,9 @@ bool Section4::evaluateState(uint8_t code) {
 
     if (state % 2 == 0)
     {
-        if (compareBits(code, "x000x"))
+        if (compareBits(code, "yy0yy"))
         {
-            changeBox();
+            soundEnterBox();
             state++;
         }
     }
@@ -24,10 +25,11 @@ bool Section4::evaluateState(uint8_t code) {
     {
         if (compareBits(code, "11111"))
         {
-            changeBox();
+            soundExitBox();
             state++;
             if (state == 6)
             {
+                wait(200);
                 return false;
             }
         }
@@ -43,29 +45,39 @@ void Section4::evaluateAction(uint8_t code) {
 
     if (state % 2 == 0)
     {
-        if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
+        if (!(compareBits(code, "1xxxx") || compareBits(code, "xxxx1")))
         {
-            moteur.goForward(getVitesse());
+//            setSpeed(120);
+//
+//            setTurnSpeed(120 - 40);
+            followLine(code);
 
-        }
-
-        else
-        {
-            suivreLigne(code, getVitesse(), getVitesse() / 2);
+//            followLine(code, getSpeed(), getSpeed() - 40);
 
         }
     }
     else
     {
 
-        if (compareBits(code, "xx1xx"))
+        if (!compareBits(code, "xx1xx"))
         {
+//            setTurnSpeed(120);
+//            setSpeed(120);
+            uint8_t invertedCode = 0;
 
-            moteur.goForward(getVitesse());
+            invertedCode |= ((code >> 4) & 1) << 0;
+            invertedCode |= ((code >> 3) & 1) << 1;
+            invertedCode |= ((code >> 2) & 1) << 2;
+            invertedCode |= ((code >> 1) & 1) << 3;
+            invertedCode |= ((code >> 0) & 1) << 4;
+
+//            followLine(code, getSpeed() - 40, getSpeed());
+//            followLine(code);
+            followLine(invertedCode);
         }
         else
         {
-            suivreLigne(code, getVitesse() - 20, getVitesse());
+            motor.goForward(getSpeed());
         }
     }
 
@@ -73,10 +85,7 @@ void Section4::evaluateAction(uint8_t code) {
 }
 
 
-/**
- * Permet de jouer le son lors du changement de boite
- */
-void Section4::changeBox() {
+void Section4::soundEnterBox() {
     speaker.jouerSon(80);
     wait(50);
     speaker.arreterSon();
@@ -86,5 +95,14 @@ void Section4::changeBox() {
     speaker.arreterSon();
 }
 
+void Section4::soundExitBox() {
+    speaker.jouerSon(70);
+    wait(50);
+    speaker.arreterSon();
+    wait(20);
+    speaker.jouerSon(80);
+    wait(50);
+    speaker.arreterSon();
+}
 
 

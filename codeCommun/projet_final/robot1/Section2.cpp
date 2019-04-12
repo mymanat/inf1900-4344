@@ -15,8 +15,8 @@ bool Section2::evaluateState(uint8_t code) {
 
         case 0:
             if (hitCount > 1) {
-                setVitesse(MOTOR_SLOW_SPEED);
-                moteur.stop();
+                setSpeed(MOTOR_SLOW_SPEED);
+                motor.stop();
                 changeStateSound();
                 state = 1;
             }
@@ -24,13 +24,13 @@ bool Section2::evaluateState(uint8_t code) {
 
             if (hitCount <= 1)
             {
-                setVitesse(MOTOR_MAX_SPEED);
+                setSpeed(MOTOR_MAX_SPEED);
                 state = 0;
             }
 
             if (compareBits(code, "11100")) {
 
-                setVitesse(MOTOR_SLOW_SPEED);
+                setSpeed(MOTOR_SLOW_SPEED);
 
                 state++;
             }
@@ -39,10 +39,15 @@ bool Section2::evaluateState(uint8_t code) {
             break;
         case 2:
             if (compareBits(code, "00100")) {
-                setVitesse(MOTOR_MAX_SPEED);
+                setSpeed(MOTOR_MAX_SPEED);
                 state++;
             }
             break;
+        case 3:
+            motor.stop();
+            return false;
+
+
     }
 
 
@@ -55,7 +60,7 @@ void Section2::evaluateAction(uint8_t code) {
     {
         case 0:
         case 1:
-            transmissionUART(hitCount);
+//            transmissionUART(hitCount);
 
             if (shouldIncrementHitCount && compareBits(code, "x1xxx"))
             {
@@ -81,10 +86,10 @@ void Section2::evaluateAction(uint8_t code) {
 
     switch (state) {
         case 2:
-            moteur.adjust(MOTOR_MAX_SPEED, 0);
+            motor.adjust(MOTOR_MAX_SPEED, 0);
             break;
         default:
-            suivreLigne(code);
+            followLine(code);
             break;
     }
 

@@ -22,7 +22,7 @@
 /**
  * Coefficient pour modifier la vitesse du moteur qui tourne plus rapidement que l'autre
  */
-#define MOTOR_IMBALANCE_COEFFICIENT 0.9
+#define MOTOR_IMBALANCE_COEFFICIENT 0.98
 
 #define MOTOR_MAX_SPEED 170
 #define MOTOR_SLOW_SPEED 130

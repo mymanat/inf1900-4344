@@ -18,10 +18,13 @@
  * 0: Avance jusqu'à la ligne S5
  * 1: Attend btn interrupt
  * 2:suivreligne jusqu'a ligne noire
- * 3: sortie ligne noire
- * 4: Premiere ligne
- * 5: deuxieme ligne
- * 6: wait for press
+ * 3: attend sortie ligne noire
+ * 4: attend Premiere ligne
+ * 5: attend sortie premiere ligne
+ *
+ * 6: attend deuxieme ligne
+ * 6: attend white
+ * 7: attend btn
  */
 class Section3 : public Robot1 {
 
@@ -46,9 +49,12 @@ public:
  */
     void evaluateLine();
 
+    void checkLineDetection(uint8_t code);
 
 private:
     uint16_t loopCounter = 0;
+    uint16_t  timeFirstLine = 0;
+    uint16_t timeSecondLine = 0;
     bool leftFirst;
 
 };

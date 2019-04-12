@@ -37,11 +37,11 @@ void Section1::evaluateAction(uint8_t code)
     {
     case 0:
         //Follow the line until the sensors detect the horizontal line
-        suivreLigne(code);
+        followLine(code);
         break;
     case 1:
         //Stop the motors and wait for a command
-        moteur.stop();
+        motor.stop();
         message = ir.receive();
         break;
     case 2:
@@ -62,23 +62,23 @@ void Section1::evaluateAction(uint8_t code)
             int x = command % 3;
 
             //Execute the movements needed to get on the point specified by the command
-            moteur.tournerGauche90();
+            motor.tournerGauche90();
 
             wait(500);
 
-            moteur.goForward(MOTOR_MAX_SPEED);
+            motor.goForward(MOTOR_MAX_SPEED);
             wait(tempsMovementX[x]);
-            moteur.stop();
+            motor.stop();
 
             wait(500);
 
-            moteur.tournerDroite90();
+            motor.tournerDroite90();
 
             wait(500);
 
-            moteur.goForward(MOTOR_MAX_SPEED);
+            motor.goForward(MOTOR_MAX_SPEED);
             wait(tempsMovementY[y]);
-            moteur.stop();
+            motor.stop();
 
             speaker.jouerSon(RE);
             wait(1000);

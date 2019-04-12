@@ -46,10 +46,11 @@ void start(uint8_t section) {
             }
 
 
-            ++section;
             section = (section == 4) ? 0 : section + 1;
         }
     }
+    Motors motors;
+    motors.stop();
 }
 
 void start(Robot1 & robot1) {
@@ -67,7 +68,12 @@ void start(Robot1 & robot1) {
 int main() {
 
     initialisationUART();
+//    Robot1::transitionState();
     Robot1 robot1;
     start(robot1);
+//    Section4 section4;
+//    section4.run();
+//            start(robot1);
+//    start(2);
 
 }

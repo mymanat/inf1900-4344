@@ -12,7 +12,7 @@
  * States:
  * 0: avance jusqu´à la courbe
  * 1: ralenti dans la courbe
- * 2: Suivre ligne normal
+ * 2: tourner droite 90
  * 3:Demi-lune
  */
 class Section2 : public Robot1 {

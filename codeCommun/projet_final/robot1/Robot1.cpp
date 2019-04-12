@@ -7,6 +7,8 @@
 
 Robot1::Robot1() {
     init();
+
+
 }
 
 void Robot1::init() {
@@ -14,6 +16,17 @@ void Robot1::init() {
 }
 
 void Robot1::transitionState() {
+
+
+    shouldGoStraight = false;
+    setSpeed(150);
+
+
+    motor.stop();
+
+    changeStateSound();//todo
+
+    wait(500);
     state = 0;
     uint8_t code = 0;
     do
@@ -24,16 +37,17 @@ void Robot1::transitionState() {
         if (state == 0)
         {
             /* Suit la ligne jusqu'au virage */
-            suivreLigne(code);
+            followLine(code);
             if (compareBits(code, "00xx1"))
             {
+                motor.adjust(40, 100);
+                wait(1000);
                 state++;
             }
         }
         else
         {
             /* Virage */
-            moteur.adjust(0, MOTOR_SLOW_SPEED);
             if (compareBits(code, "00100"))
             {
                 state++;
@@ -42,15 +56,18 @@ void Robot1::transitionState() {
 
 
     } while (state < 3);
-    moteur.stop();
+
+    motor.stop();
+    wait(500);
 }
 
 void Robot1::run() {
-    moteur.init();
+    motor.init();
     trackerSensor.init();
     bool shouldLoop = true;
     while (shouldLoop)
     {
+        //transmissionUART(state);//todo
 
         trackerSensor.update();
 
@@ -67,31 +84,33 @@ bool Robot1::evaluateState(uint8_t code) {
 }
 
 void Robot1::evaluateAction(uint8_t code) {
-    suivreLigne(code);
+    followLine(code);
 
 }
 
-bool Robot1::suivreLigne(char code, uint8_t speed, uint8_t slowWheelSpeed) {
+
+bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed) {
+
     if (compareBits(code, "00xzz"))
     {
-        moteur.adjust(slowWheelSpeed, speed);
+        motor.adjust(slowWheelSpeed, speed);
     }
     else if (compareBits(code, "zzx00"))
     {
-        moteur.adjust(speed, slowWheelSpeed);
+        motor.adjust(speed, slowWheelSpeed);
     }
     else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
-        moteur.goForward(speed);
+        motor.goForward(speed);
     }
 
     return compareBits(code, "00100");
 
 }
 
-bool Robot1::suivreLigne(char code) {
-    return suivreLigne(code, getVitesse(), getVitesse() / 2);
+bool Robot1::followLine(char code) {
+    return followLine(code, getSpeed(), turnSpeed);
 
 }
 
@@ -113,13 +132,16 @@ uint8_t Robot1::receiveData() {
     while (true)
     {
         message = ir.receive();
-        if(message != 0){
+        if (message != 0)
+        {
             channel = ir.getChannel(message);
-            if(channel == 1){
+            if (channel == 1)
+            {
                 command = ir.getCommand(message);
-                if(command >= 1 && command <= 4){
+                if (command >= 1 && command <= 4)
+                {
                     return command;
-                }                
+                }
             }
         }
 
@@ -147,18 +169,16 @@ uint8_t Robot1::receiveData() {
 }
 
 
-
-
 /* Getters & Setters */
 
 
 
-uint8_t Robot1::getVitesse() const {
-    return vitesse;
+uint8_t Robot1::getSpeed() const {
+    return speed;
 }
 
-void Robot1::setVitesse(uint8_t vitesse) {
-    Robot1::vitesse = vitesse;
+void Robot1::setSpeed(uint8_t speed) {
+    Robot1::speed = speed;
 }
 
 
@@ -168,5 +188,13 @@ bool Robot1::isShouldGoStraight() const {
 
 void Robot1::setShouldGoStraight(bool shouldGoStraight) {
     Robot1::shouldGoStraight = shouldGoStraight;
+}
+
+uint8_t Robot1::getTurnSpeed() const {
+    return turnSpeed;
+}
+
+void Robot1::setTurnSpeed(uint8_t turnSpeed) {
+    Robot1::turnSpeed = turnSpeed;
 }
 
