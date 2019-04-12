@@ -11,11 +11,6 @@ Section3::Section3() {
 
 
 bool Section3::followLineSection3(uint8_t code) {
-    if (compareBits(code, "1xxxx") || compareBits(code, "xxxx1"))
-    {
-        motor.goForward(getSpeed());
-        return true;
-    }
     return followLine(code);
 
 }
