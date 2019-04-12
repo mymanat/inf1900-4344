@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Utils.h"
-#include "DEL.h"
+#include "LED.h"
 #include "Timer.h"
 #include <util/delay.h>
 
@@ -18,13 +18,45 @@ int main() {
     DDRA = MODE_ENTREE;
     DDRC = MODE_SORTIE;
 
-    //can convertisseur;
+    Timer timer;
+    Button button;
 
-    //uint16_t irSensor;
+    IRTransceiver ir;
 
-    //uint16_t valeurLue;
-    //char str[16];
-    //initialisationUART();
+    timer.init();
+    button.init();
+
+    timer.setDurationSec(2);
+
+    u_int8_t counter;
+
+    while(true){
+
+        if(button.getState()){
+
+            timer.startTimer();
+            counter = 1;
+            button.setState(false);
+            
+            while(!timer.isDone()){
+
+                if(button.getState()){                    
+                    counter++;
+                    button.setState(false);
+                }
+            }
+        }
+
+        counter %= 10;
+        timer.startTimer();
+
+        while(!timer.isDone()){
+            ir.transmit(counter, 1);
+        }
+    }
+
+
+/*
 
     IRTransceiver transmetteur;
 
@@ -66,39 +98,6 @@ int main() {
         }
 
 
+*/
 
-
-
-
-
-    /*int cpt = 0;
-
-    while(1){
-
-        for(int i = 0; i < 2; ++i){
-            transmetteur.transmit(cpt, 1);
-        }
-        
-        //_delay_ms(50);
-        cpt++;
-        cpt %= 6;
-    }*/
-    //int reponse;
-    //IRTransceiver receveur;
-    //reponse = receveur.recevoir();
-
-
-
-
-    // Speaker sp;
-    // sp.playFrequency();
-    // while (1)
-    // {
-    //     irSensor = convertisseur.lecture(1);
-
-    //     itoa(irSensor, str, 10);
-
-    //     log_uart(str);
-    //     log_uart("\n");
-    // }
 }
