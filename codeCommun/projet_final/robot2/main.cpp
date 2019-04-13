@@ -13,9 +13,10 @@
 #include "LOG.h"
 #include "IRTransceiver.h"
 
+
 int main() {
-    DDRA = MODE_ENTREE;
-    DDRC = MODE_SORTIE;
+    DDRA = MODE_INPUT;
+    DDRC = MODE_OUTPUT;
 
     Timer timer;
     Button button;
@@ -27,35 +28,41 @@ int main() {
 
     timer.setDurationSec(2);
 
-    uint8_t counter;
+    uint8_t counter = 0;
 
-    while(true){
+    while (true)
+    {
 
-        if(button.getState()){
+        if (button.getState())
+        {
 
-            timer.startTimer();
             counter = 1;
             button.setState(false);
-            
-            while(!timer.isDone()){
+            timer.startTimer();
 
-                if(button.getState()){                    
+            //_delay_ms(100);
+
+            while (!timer.isDone())
+            {
+
+                if (button.getState())
+                {
                     counter++;
                     button.setState(false);
                 }
             }
-        }
 
-        counter %= 10;
-        timer.startTimer();
+            counter %= 10;
+            timer.startTimer();
 
-        while(!timer.isDone()){
-            ir.transmit(counter, 1);
+            while (!timer.isDone())
+            {
+                ir.transmit(counter, 1);
+            }
         }
     }
 
-
-/*
+    /*
 
     IRTransceiver transmetteur;
 
@@ -95,8 +102,5 @@ int main() {
             }
             
         }
-
-
 */
-
 }

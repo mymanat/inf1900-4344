@@ -9,14 +9,14 @@
 #include "LOG.h"
 #include "can.h"
 #include "IRTransceiver.h"
-#include "DEL.h"
+#include "LED.h"
 
 int main()
 {
-    DDRA = MODE_ENTREE;
-    DDRC = MODE_SORTIE;
-    DDRB = MODE_ENTREE;
-    DDRD = MODE_SORTIE;
+    DDRA = MODE_INPUT;
+    DDRC = MODE_OUTPUT;
+    DDRB = MODE_INPUT;
+    DDRD = MODE_OUTPUT;
 
     //can convertisseur;
 
@@ -33,7 +33,7 @@ int main()
     int channel = 0;
     int command = 0;
 
-    DEL del;
+    LED led;
 
     while (1)
     {
@@ -50,22 +50,22 @@ int main()
         if(channel == 1){
             switch(command){
                 case 0:
-                    del.eteindre();
+                    led.turnOff();
                 break;
                 case 1:
-                    del.allumer(1);
+                    led.turnOn(1);
                 break;
                 case 2:
-                    del.allumer(2);
+                    led.turnOn(2);
                 break;
                 case 3:
-                    del.allumer(3);
+                    led.turnOn(3);
                 break;
                 case 4:
-                    del.allumer(4);
+                    led.turnOn(4);
                 break;
                 case 5:
-                    del.allumer(5);
+                    led.turnOn(5);
                 break;
             }
         }
@@ -88,7 +88,5 @@ int main()
         else{
             setBit(&PORTC, 0, POSITION_DEL_5);
         }*/
-
     }
-
 }
