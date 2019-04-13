@@ -49,15 +49,13 @@ void Section1::evaluateAction(uint8_t code)
         wait(1000);
         //Extract the channel out of the message
         channel = ir.getChannel(message);
-        channel = 1;
+
+        //Extract the command from the message
+        command = ir.getCommand(message) - 1;
 
         //If the channel matches the one we are trying to receive from
         if (channel == 1)
         {
-
-            //Extract the command from the message
-            command = ir.getCommand(message) - 1;
-            command = 1;
 
             //Calculate values of x and y
             int y = command / 3;
@@ -66,30 +64,39 @@ void Section1::evaluateAction(uint8_t code)
             //Execute the movements needed to get on the point specified by the command
             motor.tournerGauche90();
 
-            wait(500);
+            wait(2000);
 
-            motor.goForward(MOTOR_MAX_SPEED);
+            motor.goForward(255);
             wait(tempsMovementX[x]);
             motor.stop();
 
-            wait(500);
+            wait(2000);
 
             motor.tournerDroite90();
 
-            wait(500);
+            wait(2000);
 
-            motor.goForward(MOTOR_MAX_SPEED);
+            motor.goForward(255);
             wait(tempsMovementY[y]);
             motor.stop();
 
             speaker.jouerSon(RE);
-            wait(1000);
+            wait(2000);
             speaker.arreterSon();
+
             motor.tournerDroite90();
-            wait(500);
+            wait(2000);
+
             motor.goForward(MOTOR_MAX_SPEED);
             wait(tempsMovementX[x]);
+            motor.stop();
+
+            wait(2000);
+
             motor.tournerGauche90();
+
+            wait(2000);
+
             motor.goForward(MOTOR_MAX_SPEED);
             wait(500);
             ++state;
