@@ -88,7 +88,5 @@ int main()
         else{
             setBit(&PORTC, 0, POSITION_DEL_5);
         }*/
-
     }
-
 }
