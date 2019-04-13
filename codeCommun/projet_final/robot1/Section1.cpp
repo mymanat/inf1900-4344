@@ -9,11 +9,17 @@ bool Section1::evaluateState(uint8_t code)
     switch (state)
     {
     case 0:
+
+        motor.tournerDroite90();
         //If all sensors detect black, change state
-        if (compareBits(code, "00000"))
-        {
-            ++state;
-        }
+        // if (compareBits(code, "00000"))
+        // {
+        //     ++state;
+        // }
+        wait(3000);
+
+        motor.tournerGauche90();
+        wait(3000);
         break;
     case 1:
         //If a command is received, change state
@@ -27,7 +33,6 @@ bool Section1::evaluateState(uint8_t code)
     case 3:
         return false;
         break;
-
     }
 
     return true;
@@ -47,6 +52,7 @@ void Section1::evaluateAction(uint8_t code)
         message = ir.receive();
         break;
     case 2:
+        wait(1000);
         //Extract the channel out of the message
         channel = ir.getChannel(message);
         channel = 1;

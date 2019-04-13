@@ -25,17 +25,14 @@
 
 #define DELTA_V 20
 
-
-class Robot1 : public Robot {
-public:
-
+class Robot1 : public Robot
+{
+  public:
     Robot1();
 
     void init() override;
 
-
     void run() override;
-
 
     virtual bool evaluateState(uint8_t code);
 
@@ -43,7 +40,7 @@ public:
 
     bool followLine(char code);
 
-/**
+    /**
  * Suivre ligne
  * @param code
  * @param speed Vitesse des roues par defaut
@@ -52,8 +49,7 @@ public:
  */
     bool followLine(char code, uint8_t speed, uint8_t slowWheelSpeed);
 
-
-/**
+    /**
  * Le robot va suivre la ligne jusqu´au virage à gauche. Il va effectuer ce virage de 90 degrés et s'arrêter
  */
     void transitionState();
@@ -70,9 +66,9 @@ public:
 
     void setShouldGoStraight(bool shouldGoStraight);
 
-
     //todo Remvoe
-    static void changeStateSound() {
+    static void changeStateSound()
+    {
         Speaker speaker;
         speaker.jouerSon(80);
         wait(100);
@@ -86,11 +82,7 @@ public:
         speaker.arreterSon();
     }
 
-
-
-protected:
-
-
+  protected:
     LED led;
     Timer timer;
     Motors motor;
@@ -100,19 +92,13 @@ protected:
 
     uint8_t state = 0;
 
-private:
-
+  private:
     /**
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
 
     uint8_t speed = MOTOR_MAX_SPEED;
-
-
-
-
-
 };
 
 #endif //MAIN_ROBOT1_H

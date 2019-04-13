@@ -1,6 +1,7 @@
 #include "Motors.h"
 
-void Motors::adjustPWM(uint8_t a, uint8_t b) {
+void Motors::adjustPWM(uint8_t a, uint8_t b)
+{
     // mise à un des sorties OC1A et OC1B sur comparaison
     // réussie en mode PWM 8 bits, phase correcte
     // et valeur de TOP fixe à 0xFF (mode #1 de la table 17-6
@@ -13,62 +14,67 @@ void Motors::adjustPWM(uint8_t a, uint8_t b) {
     TCCR1C = 0;
 }
 
-void Motors::adjust(uint8_t gauche, uint8_t droite) {
+void Motors::adjust(uint8_t gauche, uint8_t droite)
+{
     stop();
     adjustPWM(droite, gauche);
 }
 
-void Motors::setDirection(bool direction) {
+void Motors::setDirection(bool direction)
+{
     setMotorDirection(direction, MOTOR_LEFT);
     setMotorDirection(direction, MOTOR_RIGHT);
 }
 
-void Motors::setMotorDirection(bool direction, bool moteurNb) {
+void Motors::setMotorDirection(bool direction, bool moteurNb)
+{
     setBit(&PORT_MOTOR, !direction, (moteurNb) ? PIN_LEFT_MOTOR : PIN_RIGHT_MOTOR);
 }
 
-void Motors::goForward(int vitesse) {
+void Motors::goForward(int vitesse)
+{
     stop();
     setDirection(MOTOR_DIRECTION_FORWARD);
     adjustPWM(vitesse, vitesse);
 }
 
-void Motors::goBackward(int vitesse) {
+void Motors::goBackward(int vitesse)
+{
     stop();
     setDirection(MOTOR_DIRECTION_BACKWARD);
     adjustPWM(vitesse, vitesse);
 }
 
-
-void Motors::tournerGauche90() {
+void Motors::tournerGauche90()
+{
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_RIGHT);
-    adjust(MOTOR_MAX_SPEED, MOTOR_MAX_SPEED);
-    _delay_ms(70);
-    adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED);
-    _delay_ms(MOTOR_ROTATION_DURATION_90);
+    adjust(255, 255);
+    _delay_ms(MOTOR_ROTATION_DURATION_90_L);
     stop();
 }
 
-void Motors::tournerDroite90() {
+void Motors::tournerDroite90()
+{
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_RIGHT);
-    adjust(MOTOR_MAX_SPEED, MOTOR_MAX_SPEED);
-    _delay_ms(70);
-    adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED);
-    _delay_ms(MOTOR_ROTATION_DURATION_90);
+    adjust(255, 255);
+    _delay_ms(MOTOR_ROTATION_DURATION_90_R);
     stop();
 }
 
-void Motors::stop() {
+void Motors::stop()
+{
     adjustPWM(0, 0);
 }
 
-Motors::Motors() {
+Motors::Motors()
+{
     init();
 }
 
-void Motors::init() {
+void Motors::init()
+{
     // cli est une routine qui bloque toutes les interruptions.
     // Il serait bien mauvais d'être interrompu alors que
     // le microcontroleur n'est pas prêt...
