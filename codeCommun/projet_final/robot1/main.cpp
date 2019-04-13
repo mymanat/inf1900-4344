@@ -68,13 +68,13 @@ void start(Robot1 &robot1)
 int main()
 {
 
-    initialisationUART();
+    //initialisationUART();
     //    Robot1::transitionState();
-    //Robot1 robot1;
-    //start(robot1);
+    Robot1 robot1;
+    start(robot1);
 
-    Section1 s1;
-    s1.run();
+    //Section1 s1;
+    //s1.run();
 
     //    robot1.transitionState();
     //    Section2 section2;

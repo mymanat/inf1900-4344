@@ -14,8 +14,8 @@
 #include "IRTransceiver.h"
 
 int main() {
-    DDRA = MODE_ENTREE;
-    DDRC = MODE_SORTIE;
+    DDRA = MODE_INPUT;
+    DDRC = MODE_OUTPUT;
 
     Timer timer;
     Button button;

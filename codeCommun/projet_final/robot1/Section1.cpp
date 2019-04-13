@@ -9,17 +9,11 @@ bool Section1::evaluateState(uint8_t code)
     switch (state)
     {
     case 0:
-
-        motor.tournerDroite90();
         //If all sensors detect black, change state
-        // if (compareBits(code, "00000"))
-        // {
-        //     ++state;
-        // }
-        wait(3000);
-
-        motor.tournerGauche90();
-        wait(3000);
+        if (compareBits(code, "00000"))
+        {
+            ++state;
+        }
         break;
     case 1:
         //If a command is received, change state
