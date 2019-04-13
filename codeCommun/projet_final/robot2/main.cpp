@@ -29,9 +29,11 @@ int main() {
 
     uint8_t counter = 0;
 
-    while(true){
+    while (true)
+    {
 
-        if(button.getState()){
+        if (button.getState())
+        {
 
             
             counter = 1;
@@ -42,7 +44,11 @@ int main() {
             
             while(!timer.isDone()){
 
-                if(button.getState()){                    
+            while (!timer.isDone())
+            {
+
+                if (button.getState())
+                {
                     counter++;
                     button.setState(false);
                 }
@@ -59,8 +65,7 @@ int main() {
         
     }
 
-
-/*
+    /*
 
     IRTransceiver transmetteur;
 
@@ -101,7 +106,6 @@ int main() {
             
         }
 */
-
 
 
 }

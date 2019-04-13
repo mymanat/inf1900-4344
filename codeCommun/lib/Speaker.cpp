@@ -2,11 +2,13 @@
 
 int NOIRE;
 
-void Speaker::arreterSon() {
+void Speaker::arreterSon()
+{
     TCCR0A = 0;
 }
 
-void Speaker::initialisationSpeaker(void) {
+void Speaker::initialisationSpeaker(void)
+{
     cli();
 
     DDR_SPEAKER = MODE_OUTPUT;
@@ -14,38 +16,39 @@ void Speaker::initialisationSpeaker(void) {
     sei();
 }
 
-void Speaker::jouerSonDebugState(uint8_t state) {
+void Speaker::jouerSonDebugState(uint8_t state)
+{
     //0: C3
     uint8_t note = 0;
-    switch (state) {
-        case 0:
-            note = MI3;
-            break;
-        case 1:
-            note = FA3;
-            break;
-        case 2:
-            note = SOL3;
-            break;
-        case 3:
-            note = LA;
-            break;
-        case 4:
-            note = SI;
-            break;
-        case 5:
-            note = DO;
-            break;
-
+    switch (state)
+    {
+    case 0:
+        note = MI3;
+        break;
+    case 1:
+        note = FA3;
+        break;
+    case 2:
+        note = SOL3;
+        break;
+    case 3:
+        note = LA;
+        break;
+    case 4:
+        note = SI;
+        break;
+    case 5:
+        note = DO;
+        break;
     }
-
 
     jouerSon(note);
     wait(200);
     arreterSon();
 }
 
-void Speaker::jouerSon(int note) {
+void Speaker::jouerSon(int note)
+{
     if (note == 1)
     {
         jouerMelodie();
@@ -79,16 +82,17 @@ void Speaker::jouerSon(int note) {
     }
 }
 
-void Speaker::playFrequency() {
+void Speaker::playFrequency()
+{
 
     arreterSon();
 
     wait(10);
 
-//        double freq = Notes[note - 45];
+    //        double freq = Notes[note - 45];
     double freq = 38100;
 
-    double tempsCalcule = F_CPU * (1 / freq) / 2 ;
+    double tempsCalcule = F_CPU * (1 / freq) / 2;
 
     OCR0A = tempsCalcule;
 
@@ -98,24 +102,25 @@ void Speaker::playFrequency() {
 
     // Prescaler 256
 
-        //TCCR0B = (1 << CS01) | (1 << CS00);
-        TCCR0B = (1 << CS00);
-        //TCCR0B = (1 << CS02);
+    //TCCR0B = (1 << CS01) | (1 << CS00);
+    TCCR0B = (1 << CS00);
+    //TCCR0B = (1 << CS02);
 
     TCCR1C = 0;
-
 }
 
-
-double Speaker::trouverFrequence(int note) {
+double Speaker::trouverFrequence(int note)
+{
     return 0;
 }
 
-Speaker::Speaker() {
+Speaker::Speaker()
+{
     initialisationSpeaker();
 }
 
-void Speaker::jouerMelodie() {
+void Speaker::jouerMelodie()
+{
     NOIRE = 700;
     jouerSon(RE);
 
@@ -616,7 +621,8 @@ void Speaker::jouerMelodie() {
     arreterSon();
 }
 
-void Speaker::jouerMelodie2() {
+void Speaker::jouerMelodie2()
+{
     NOIRE = 350;
     jouerSon(LA);
 
@@ -821,10 +827,9 @@ void Speaker::jouerMelodie2() {
     arreterSon();
 }
 
-
-void Speaker::jouerMelodie3(){
+void Speaker::jouerMelodie3()
+{
     LED del;
-
 
     NOIRE = 700;
     jouerSon(RE);

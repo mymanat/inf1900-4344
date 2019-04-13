@@ -25,7 +25,8 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
-    void changeBox();
+    void soundEnterBox();
+    void soundExitBox();
 };
 
 

@@ -13,19 +13,19 @@
 */
 class Section1 : public Robot1
 {
-  public:
-    bool evaluateState(uint8_t code) override;
+public:
+  bool evaluateState(uint8_t code) override;
 
-    void evaluateAction(uint8_t code) override;
+  void evaluateAction(uint8_t code) override;
 
-  private:
-    int message;
-    int channel;
-    int command;
-    IRTransceiver ir;
+private:
+  int message;
+  int channel;
+  int command;
+  IRTransceiver ir;
 
-    int tempsMovementX[3] = {3000, 2000, 1000};
-    int tempsMovementY[3] = {3000, 2000, 1000};
+  int tempsMovementX[3] = {1400, 1000, 750};
+  int tempsMovementY[3] = {1400, 1000, 600};
 };
 
 #endif //MAIN_SECTION1_H

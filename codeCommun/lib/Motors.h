@@ -13,24 +13,25 @@
 #define MOTOR_DIRECTION_FORWARD 1
 #define MOTOR_DIRECTION_BACKWARD 0
 
-
 /**
  * Durée de rotation pour faire 90 degrés
  */
-#define MOTOR_ROTATION_DURATION_90 1400
+#define MOTOR_ROTATION_DURATION_90_R 500
+#define MOTOR_ROTATION_DURATION_90_L 500
 
 /**
  * Coefficient pour modifier la vitesse du moteur qui tourne plus rapidement que l'autre
  */
-#define MOTOR_IMBALANCE_COEFFICIENT 0.9
+#define MOTOR_IMBALANCE_COEFFICIENT 0.94
 
 #define MOTOR_MAX_SPEED 170
 #define MOTOR_SLOW_SPEED 130
 
-#define MOTOR_ULTRA_SPEED 220//VITESSE_MAX_ULTRA
+#define MOTOR_ULTRA_SPEED 220 //VITESSE_MAX_ULTRA
 
-class Motors : public Component {
-public:
+class Motors : public Component
+{
+  public:
     Motors();
 
     void init() override;
@@ -47,7 +48,7 @@ public:
 
     void tournerGauche90();
 
-/**
+    /**
  * Permet de définir la direction d'un moteur spécifique
  * @param direction la direction
  * @param moteurNb Le numero du moteur
@@ -60,7 +61,7 @@ public:
      */
     void setDirection(bool direction);
 
-private:
+  private:
     void adjustPWM(uint8_t a, uint8_t b);
 };
 
