@@ -97,7 +97,7 @@ bool Section3::evaluateState(uint8_t code) {
 }
 
 void Section3::checkLineDetection(uint8_t code) {
-    if (compareBits(code, "0xxx0"))
+    if (loopCounter < 100 ||  compareBits(code, "0xxx0"))
     {
         return;
 
