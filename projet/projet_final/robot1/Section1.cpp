@@ -9,7 +9,6 @@ Section1::Section1() {
     setSpeed(MOTOR_SLOW_SPEED);
 }
 
-}
 
 bool Section1::evaluateState(uint8_t code) {
     switch (state)
