@@ -52,8 +52,16 @@ bool Section3::evaluateState(uint8_t code) {
     switch (state)
     {
         case 0:
-            if (compareBits(code, "11111") || compareBits(code, "00000"))
+            if (compareBits(code, "111xx") || compareBits(code, "xx111"))
             {
+                do
+                {
+
+                    trackerSensor.update();
+                    code = trackerSensor.getSensorStateCode();
+                    followLine(code);
+
+                } while (!compareBits(code, "00000"));
 
                 led.setStateOnboardLED(LED_ONBOARD_RED);
                 motor.stop();
@@ -73,7 +81,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 2:
             led.setStateOnboardLED(LED_ONBOARD_OFF);
 
-            if (compareBits(code, "11111"))
+            if (compareBits(code, "1xxx1"))
             {
                 DEBUG_SOUND();
                 state++;
