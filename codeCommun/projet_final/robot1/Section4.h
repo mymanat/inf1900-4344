@@ -37,6 +37,9 @@ public:
     void soundEnterBox();
 
     void soundExitBox();
+
+private:
+    uint16_t loopCount = 0;
 };
 
 

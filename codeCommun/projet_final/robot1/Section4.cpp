@@ -42,13 +42,17 @@ bool Section4::evaluateState(uint8_t code) {
             if (compareBits(code, "0zzz0"))
             {
                 state++;
-                if (state == 12)
-                {
-                    led.setStateOnboardLED(LED_ONBOARD_RED);
-                    motor.goForward(MOTOR_MAX_SPEED);
-                    wait(TRANSITION_DELAY_2);
-                    return false;
-                }
+
+            }
+            break;
+        case 12:
+            if (loopCount >= TRANSITION_DELAY_2)
+            {
+
+                led.setStateOnboardLED(LED_ONBOARD_RED);
+                motor.goForward(MOTOR_MAX_SPEED);
+                wait(TRANSITION_DELAY_2);
+                return false;
             }
             break;
             /* else */
@@ -98,6 +102,13 @@ bool Section4::evaluateState(uint8_t code) {
 }
 
 void Section4::evaluateAction(uint8_t code) {
+    if (state == 12)
+    {
+        loopCount++;
+        followLine(code);
+        return;
+
+    }
 
 
     /* Correspond aux états 0, 4, 8. Les états où il fait suivre la ligne */

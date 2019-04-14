@@ -62,10 +62,6 @@ private:
     bool leftFirst;
 
 };
-//389 :  1129 = 740 _ 1.9
-//483 : 1901
-//2.9358
-//1.9023
 #endif //MAIN_SECTION3_H
 
 //583 : 100
