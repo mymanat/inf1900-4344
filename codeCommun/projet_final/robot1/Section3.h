@@ -52,9 +52,10 @@ public:
     void checkLineDetection(uint8_t code);
 
 private:
-    uint16_t loopCounter = 0;
     uint16_t  timeFirstLine = 0;
     uint16_t timeSecondLine = 0;
+    uint16_t loopCounter = 0;
+
     bool leftFirst;
 
 };

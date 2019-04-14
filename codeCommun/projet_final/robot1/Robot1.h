@@ -25,9 +25,8 @@
 
 #define DELTA_V 20
 
-class Robot1 : public Robot
-{
-  public:
+class Robot1 : public Robot {
+public:
     Robot1();
 
     void init() override;
@@ -67,8 +66,7 @@ class Robot1 : public Robot
     void setShouldGoStraight(bool shouldGoStraight);
 
     //todo Remvoe
-    static void changeStateSound()
-    {
+    static void changeStateSound() {
         Speaker speaker;
         speaker.jouerSon(80);
         wait(100);
@@ -82,7 +80,7 @@ class Robot1 : public Robot
         speaker.arreterSon();
     }
 
-  protected:
+protected:
     LED led;
     Timer timer;
     Motors motor;
@@ -90,9 +88,11 @@ class Robot1 : public Robot
     Button button;
     Speaker speaker;
 
+
+
     uint8_t state = 0;
 
-  private:
+private:
     /**
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */

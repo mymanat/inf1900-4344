@@ -8,14 +8,9 @@
 
 #include "Robot1.h"
 
-/**
- * States:
- * 0: avance jusqu´à la courbe
- * 1: ralenti dans la courbe
- * 2: tourner droite 90
- * 3: suivreLigne jusqu`à demi-lune
- * 4: ralentir demi-lune
- */
+
+
+
 class Section2 : public Robot1 {
 public:
 
@@ -26,8 +21,10 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
+    void evaluateCurve(uint8_t code);
 
 private:
+    int16_t hitCount = 500;
 
 };
 
