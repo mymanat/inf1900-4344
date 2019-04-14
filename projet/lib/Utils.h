@@ -1,10 +1,20 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "constantes.h"
+#include <util/delay.h>
+#include "Constantes.h"
 #include "LOG.h"
-#include "wait.h"
+
+
 #include "Speaker.h"
+
+
+/**
+ * Fonction prise du code source de _delay_ms(double __ms) et adaptée pour accepter les paramètres variables
+ * https://www.nongnu.org/avr-libc/user-manual/delay_8h_source.html
+ *
+ */
+void wait(double __ms);
 
 
 /**

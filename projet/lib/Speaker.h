@@ -8,7 +8,6 @@
 #define F_CPU 8000000
 
 #include "Utils.h"
-#include "wait.h"
 #include "LED.h"
 
 #define MI4 64
@@ -44,7 +43,6 @@ public:
     void jouerMelodie();
 
 
-
     void arreterSon();
 
     void initialisationSpeaker(void);
@@ -53,14 +51,8 @@ public:
 
     void playFrequency();
 
-    static void debugSound(){
-        Speaker speaker;
-        speaker.jouerSon(80);
-        wait(40);
-        speaker.jouerSon(70);
-        wait(40);
-        speaker.arreterSon();
-    }
+    static void debugSound();
+
 
     double Notes[37] = {
             110,            //A2

@@ -135,14 +135,11 @@ uint8_t Robot1::receiveData() {
         message = ir.receive();
         if (message != 0)
         {
-            channel = ir.getChannel(message);
+            channel = ir.getChannel();
             if (channel == 1)
             {
-                command = ir.getCommand(message);
-                if (command >= 1 && command <= 4)
-                {
-                    return command;
-                }
+                command = ir.getCommand();
+                return command;
             }
         }
 

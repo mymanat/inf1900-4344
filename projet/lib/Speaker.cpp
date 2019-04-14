@@ -14,6 +14,15 @@ void Speaker::initialisationSpeaker(void) {
     sei();
 }
 
+void Speaker::debugSound() {
+    Speaker speaker;
+    speaker.jouerSon(80);
+    wait(40);
+    speaker.jouerSon(70);
+    wait(40);
+    speaker.arreterSon();
+}
+
 void Speaker::jouerSonDebugState(uint8_t state) {
     //0: C3
     uint8_t note = 0;

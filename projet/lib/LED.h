@@ -13,8 +13,7 @@
 
 
 /**
- * Classe Permettant de contrôler la DEL.
- * Celle-ci doit être branchée sur le PORTC (comme défini dans constantes.h), avec le + connecté au bit 1, et le - au bit 2 (pour la première DEL)
+ * Classe Permettant de contrôler les DELs.
  */
 class LED {
 
@@ -25,8 +24,8 @@ public:
     uint8_t getLEDPosition(uint8_t numLED) const;
 
 /**
- * Permet d'allumer en rouge la DEL branchée sur la pin "numeroDEL" du PORTA
- * @param numLED Le numero de la DEL à allumer
+ * Permet d'allumer en rouge la DEL avec un index
+ * @param numLED Le numero de la DEL à allumer (1 à 5)
  */
     void turnOn(uint8_t numLED) const;
 
