@@ -59,7 +59,9 @@ void start(uint8_t section) {
         Motors motors;
         motors.stop();
         Speaker speaker;
-        speaker.jouerMelodie2();
+        speaker.jouerSon(LA4);
+        wait(500);
+        speaker.jouerMelodie();
     }
 }
 
