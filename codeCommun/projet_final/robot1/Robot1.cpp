@@ -4,26 +4,22 @@
 
 #include "Robot1.h"
 
-Robot1::Robot1()
-{
+Robot1::Robot1() {
     init();
 }
 
-void Robot1::init()
-{
+void Robot1::init() {
 }
 
-void Robot1::transitionState()
-{
+void Robot1::transitionState() {
 
     motor.init();
     trackerSensor.init();
 
     shouldGoStraight = false;
-    setSpeed(150);
+    setSpeed(MOTOR_MAX_SPEED);
 
     motor.stop();
-
 
 
     wait(500);
@@ -37,11 +33,9 @@ void Robot1::transitionState()
         if (state == 0)
         {
             /* Suit la ligne jusqu'au virage */
-            followLine(code);
-            if (compareBits(code, "00xx1"))
+            if (!followLine(code) || compareBits(code, "00xx1"))
             {
                 motor.adjust(40, 100);
-                wait(1000);
                 state++;
             }
         }
@@ -60,8 +54,7 @@ void Robot1::transitionState()
     wait(500);
 }
 
-void Robot1::run()
-{
+void Robot1::run() {
     motor.init();
     trackerSensor.init();
     bool shouldLoop = true;
@@ -78,18 +71,15 @@ void Robot1::run()
     transitionState();
 }
 
-bool Robot1::evaluateState(uint8_t code)
-{
+bool Robot1::evaluateState(uint8_t code) {
     return true;
 }
 
-void Robot1::evaluateAction(uint8_t code)
-{
+void Robot1::evaluateAction(uint8_t code) {
     followLine(code);
 }
 
-bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed)
-{
+bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed) {
 
     if (compareBits(code, "00xzz"))
     {
@@ -105,16 +95,14 @@ bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed)
         motor.goForward(speed);
     }
 
-    return compareBits(code, "00100");
+    return compareBits(code, "00000");
 }
 
-bool Robot1::followLine(char code)
-{
+bool Robot1::followLine(char code) {
     return followLine(code, getSpeed(), getSpeed() / 2);
 }
 
-uint8_t Robot1::receiveData()
-{
+uint8_t Robot1::receiveData() {
     timer.init();
 
     button.init();
@@ -166,22 +154,18 @@ uint8_t Robot1::receiveData()
 
 /* Getters & Setters */
 
-uint8_t Robot1::getSpeed() const
-{
+uint8_t Robot1::getSpeed() const {
     return speed;
 }
 
-void Robot1::setSpeed(uint8_t speed)
-{
+void Robot1::setSpeed(uint8_t speed) {
     Robot1::speed = speed;
 }
 
-bool Robot1::isShouldGoStraight() const
-{
+bool Robot1::isShouldGoStraight() const {
     return shouldGoStraight;
 }
 
-void Robot1::setShouldGoStraight(bool shouldGoStraight)
-{
+void Robot1::setShouldGoStraight(bool shouldGoStraight) {
     Robot1::shouldGoStraight = shouldGoStraight;
 }

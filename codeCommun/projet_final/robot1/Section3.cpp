@@ -10,10 +10,6 @@ Section3::Section3() {
 }
 
 
-bool Section3::followLineSection3(uint8_t code) {
-    return followLine(code);
-
-}
 
 bool Section3::evaluateState(uint8_t code) {
 
@@ -76,6 +72,7 @@ bool Section3::evaluateState(uint8_t code) {
         case 4:
         case 6:
             checkLineDetection(code);
+            state++;
             break;
         case 5:
             if (compareBits(code, "0x1x0"))
@@ -84,7 +81,7 @@ bool Section3::evaluateState(uint8_t code) {
             }
             break;
 
-        case 8:
+        case 7:
             if (button.getState())
             {
                 trackerSensor.setShouldUpdateDel(true);
@@ -116,7 +113,6 @@ void Section3::checkLineDetection(uint8_t code) {
     }
 
 
-    state++;
 
 }
 
@@ -142,9 +138,9 @@ void Section3::evaluateLine() {
 
 void Section3::evaluateAction(uint8_t code) {
 
-    if (state != 8)
+    if (state != 7)
     {
-        followLineSection3(code);
+        followLine(code);
 
     }
 
