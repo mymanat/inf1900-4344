@@ -10,7 +10,6 @@
 #include <util/delay.h>
 #include "Component.h"
 
-#define BTN_PRESSED PIND & 0x04
 
 extern volatile uint8_t BTN_INT_STATE;
 

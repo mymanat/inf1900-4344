@@ -19,6 +19,11 @@
 
 #define DDR_INT_BTN DDRD
 
+/**
+ *
+ */
+#define BTN_PRESSED PIND & 0x04
+
 #define DDR_SPEAKER DDRB
 
 #define MODE_OUTPUT 0xff
