@@ -61,7 +61,7 @@ bool Section2::evaluateState(uint8_t code) {
     {
 
         case 0:
-            if (compareBits(code, "11100"))
+            if (compareBits(code, "111x0"))
             {
                 motor.stop();
                 DEBUG_SOUND();

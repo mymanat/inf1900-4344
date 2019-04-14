@@ -42,7 +42,7 @@ void Robot1::transitionState() {
                 else
                 {
 
-                    motor.adjust(0, MOTOR_SLOW_SPEED);
+                    motor.adjust(MOTOR_SLOW_SPEED/4, MOTOR_SLOW_SPEED);
                     state = 2;
                 }
 
