@@ -23,7 +23,7 @@ private:
     int cpt = 0;
 
     int tempsMovementX[3] = {1150, 1000, 550};
-    int tempsMovementY[3] = {1150, 900, 550};
+    int tempsMovementY[3] = {1050, 900, 550};
 };
 
 #endif //MAIN_SECTION1_H
