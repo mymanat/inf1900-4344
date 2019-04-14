@@ -1,11 +1,15 @@
 //
-// Created by simon on 4/3/19.
+// Created by simon tran on 4/3/19.
 //
 
 #ifndef MAIN_ROBOT1_H
 #define MAIN_ROBOT1_H
 
-#include "../Robot.h"
+#include "Utils.h"
+
+#include "Timer.h"
+#include "Button.h"
+
 #include "LED.h"
 #include "Motors.h"
 #include "TrackerSensor.h"
@@ -14,14 +18,28 @@
 
 #include "IRTransceiver.h"
 
-
-class Robot1 : public Robot {
+/**
+ * Classe qui contient les méthodes utiles à l'exécution du parcourt. Les 4 classes de section héritent de celle-ci.
+ *
+ * Elle possède la boucle d'exécution dans la méthode "run()". Celle-ci met à jours les capteurs et les DELs.
+ * Ensuite, elle appelle la méthode evaluateAction(), puis evaluateState();
+ */
+class Robot1 {
 public:
-    Robot1();
 
-    void init() override;
 
-    void run() override;
+    /**
+     * Retourne la valeur reçue soit par code infrarouge où à l'aide du bouton poussoir
+     * @return La valeur
+     */
+    static uint8_t receiveData();
+
+
+    /**
+     * Démarre la boucle principale d'actions. Cette méthode appelle les méthodes virtuelles "evaluateAction()" et "evaluateStat()".
+     *
+     */
+    virtual void run();
 
     /**
      * Permet d'évaluer si un changement d'état est nécessaire dans la machine à état
@@ -36,6 +54,11 @@ public:
      */
     virtual void evaluateAction(uint8_t code);
 
+    /**
+     * Simple algorithme permettant de suivre une ligne
+     * @param code Code binaire représentant l'état des capteurs
+     * @return Vrai si le capteur n'observe aucune ligne
+     */
     bool followLine(char code);
 
     /**
@@ -52,7 +75,7 @@ public:
  */
     void transitionState();
 
-    static uint8_t receiveData();
+
 
     // Getters & Setters
 
@@ -64,44 +87,6 @@ public:
 
     void setShouldGoStraight(bool shouldGoStraight);
 
-    //todo Remvoe
-    static void changeStateSound() {
-        Speaker speaker;
-        speaker.jouerSon(80);
-        wait(100);
-        speaker.arreterSon();
-        wait(20);
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-    }
-
-    static void changeSectionSound() {
-        Speaker speaker;
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-        wait(20);
-        speaker.jouerSon(80);
-        wait(100);
-        speaker.arreterSon();
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-        wait(20);
-        speaker.jouerSon(80);
-        wait(100);
-        speaker.arreterSon();
-        speaker.jouerSon(70);
-        wait(100);
-        speaker.arreterSon();
-    }
 
     bool isShouldTransition() const;
 
@@ -115,15 +100,20 @@ protected:
     Button button;
     Speaker speaker;
 
-
+    /**
+     * Définie l'état de la machine à état
+     */
     uint8_t state = 0;
 
 private:
-    /**
-     * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
-     */
+/**
+ * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
+ */
     bool shouldGoStraight = false;
 
+    /**
+     * Défini si le robot devrait effectuer une rotation de 90 degrés lors de la transition
+     */
     bool shouldTurnAfterTransition = true;
 
     uint8_t speed = MOTOR_FAST_SPEED;

@@ -23,13 +23,5 @@ void initUART(void);
 void log_uart(const char words[]);
 
 
-#ifdef DEBUG
-#define DEBUG_PRINT(x)   log_uart(x)
-#define DEBUG_TRANSMIT(x) transmitUART(x)
-#else
-# define DEBUG_PRINT(x) do {} while (0) // code mort
-#define DEBUG_TRANSMIT(x) do{} while(0)
-#endif
-
 
 #endif 

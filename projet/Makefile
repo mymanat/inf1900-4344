@@ -1,2 +1,2 @@
 all:
-	./script2
+	./install_script.sh

@@ -53,6 +53,14 @@ public:
 
     void playFrequency();
 
+    static void debugSound(){
+        Speaker speaker;
+        speaker.jouerSon(80);
+        wait(40);
+        speaker.jouerSon(70);
+        wait(40);
+        speaker.arreterSon();
+    }
 
     double Notes[37] = {
             110,            //A2

@@ -2,15 +2,8 @@
 // Created by simon on 4/3/19.
 //
 
-#include <stdint.h>
 #include "Robot1.h"
 
-Robot1::Robot1() {
-    init();
-}
-
-void Robot1::init() {
-}
 
 void Robot1::transitionState() {
 
@@ -25,7 +18,7 @@ void Robot1::transitionState() {
     speaker.jouerSon(SOL3);
     led.setStateOnboardLED(LED_ONBOARD_RED);
 
-    wait(500);
+    wait(TRANSITION_DELAY_LONG);
     speaker.arreterSon();
     state = 0;
     uint8_t code = 0;
@@ -41,7 +34,8 @@ void Robot1::transitionState() {
             if (followLine(code) || compareBits(code, "0xzz1"))
             {
                 motor.stop();
-                changeStateSound();
+                DEBUG_SOUND();
+
                 motor.adjust(0, MOTOR_SLOW_SPEED);
                 state++;
                 if (!shouldTurnAfterTransition)
@@ -65,7 +59,8 @@ void Robot1::transitionState() {
     led.setStateOnboardLED(LED_ONBOARD_OFF);
     speaker.jouerSon(MI4);
     motor.stop();
-    wait(500);
+    wait(TRANSITION_DELAY_LONG);
+
     speaker.arreterSon();
 }
 
@@ -156,7 +151,7 @@ uint8_t Robot1::receiveData() {
 
             button.setState(false);
             led.setStateOnboardLED(LED_ONBOARD_RED);
-            wait(100);
+            wait(TRANSITION_DELAY_1);
             led.setStateOnboardLED(LED_ONBOARD_OFF);
             compteur++;
             led.turnOff();

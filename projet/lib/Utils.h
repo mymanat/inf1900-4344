@@ -3,6 +3,8 @@
 
 #include "constantes.h"
 #include "LOG.h"
+#include "wait.h"
+#include "Speaker.h"
 
 
 /**
@@ -47,6 +49,24 @@ bool compareBits(uint8_t value, const char compareString[]);
  * @param length Nombre de bits dans le nombre
  * @return La valeur avec les positions des bits inversées
  */
-uint8_t invertBitsPos(uint8_t value, uint8_t length) ;
+uint8_t invertBitsPos(uint8_t value, uint8_t length);
+
+
+
+void changeSectionSound();
+
+void changeStateSound();
+
+#ifdef DEBUG
+#define DEBUG_PRINT(x)   log_uart(x)
+#define DEBUG_TRANSMIT(x) transmitUART(x)
+
+#define DEBUG_SOUND(x) Speaker::debugSound(x)
+#else
+# define DEBUG_PRINT(x) do {} while (0) // code mort
+#define DEBUG_TRANSMIT(x) do{} while(0)
+#define DEBUG_SOUND(x) do {} while(0)
+#endif
+
 
 #endif

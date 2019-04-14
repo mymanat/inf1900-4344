@@ -66,3 +66,4 @@ uint8_t invertBitsPos(uint8_t value, uint8_t length) {
     return invertedValue;
 
 }
+

@@ -1,5 +1,5 @@
 //
-// Created by simon on 4/1/19.
+// Simon Tran
 //
 
 #ifndef MAIN_BUTTON_H

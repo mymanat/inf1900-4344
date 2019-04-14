@@ -64,7 +64,7 @@ bool Section2::evaluateState(uint8_t code) {
             if (compareBits(code, "11100"))
             {
                 motor.stop();
-                changeStateSound();
+                DEBUG_SOUND();
                 wait(TRANSITION_DELAY_1);
                 motor.adjust(getSpeed(), 0);
 
@@ -77,7 +77,7 @@ bool Section2::evaluateState(uint8_t code) {
             if (compareBits(code, "00100"))
             {
                 motor.stop();
-                changeStateSound();
+                DEBUG_SOUND();
                 wait(TRANSITION_DELAY_1);
 
                 hitCount = hitCountHalf;
@@ -89,7 +89,7 @@ bool Section2::evaluateState(uint8_t code) {
             {
                 motor.stop();
                 motor.adjust(0, MOTOR_FAST_SPEED);
-                changeStateSound();
+                DEBUG_SOUND();
                 return false;
 
             }
