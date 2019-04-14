@@ -18,6 +18,7 @@ public:
 
     void evaluateAction(uint8_t code) override;
 
+
 private:
     uint8_t command;
     int cpt = 0;

@@ -11,6 +11,7 @@ bool Section1::evaluateState(uint8_t code) {
             //If all sensors detect black, change state
             if (compareBits(code, "00000"))
             {
+
                 //Stop the motors and wait for a command
                 motor.stop();
                 command = receiveData() - 1;
@@ -98,16 +99,16 @@ void Section1::evaluateAction(uint8_t code) {
         }
             break;
         case 2:
-        motor.setDirection(MOTOR_DIRECTION_FORWARD);
+            motor.setDirection(MOTOR_DIRECTION_FORWARD);
             if (cpt <= 2500)
             {
                 if (cpt < 1250)
                 {
-                    motor.adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED/2);
+                    motor.adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED / 2);
                 }
                 else
                 {
-                    motor.adjust(MOTOR_SLOW_SPEED/2, MOTOR_SLOW_SPEED);
+                    motor.adjust(MOTOR_SLOW_SPEED / 2, MOTOR_SLOW_SPEED);
                 }
                 ++cpt;
             }
@@ -119,3 +120,5 @@ void Section1::evaluateAction(uint8_t code) {
             break;
     }
 }
+
+

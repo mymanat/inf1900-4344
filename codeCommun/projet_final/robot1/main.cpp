@@ -108,6 +108,7 @@ int main() {
 
 //    start();
     start();
+//    section1.realign();
 //    Motors motors;
 //    motors.tournerDroite90();
 //    while (true) {

@@ -42,7 +42,7 @@ void Robot1::transitionState() {
             {
                 motor.stop();
                 changeStateSound();
-                motor.adjust(MOTOR_SLOW_SPEED / 3, MOTOR_SLOW_SPEED);
+                motor.adjust(0, MOTOR_SLOW_SPEED);
                 state++;
                 if (!shouldTurnAfterTransition)
                 {
@@ -105,7 +105,8 @@ bool Robot1::followLine(char code, uint8_t speed, uint8_t slowWheelSpeed) {
     else if (compareBits(code, "xx1xx") || (shouldGoStraight))
     {
 
-        motor.goForward(speed);
+        motor.adjust(speed, speed);
+
     }
 
     return compareBits(code, "00000");
