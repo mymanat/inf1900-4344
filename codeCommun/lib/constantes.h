@@ -7,7 +7,7 @@
 
 #define DDR_MOTOR DDRD
 
-#define BATTERY_MULTIPLIER 1.3
+#define BATTERY_MULTIPLIER 1
 
 
 #define PORT_MOTOR PORTD

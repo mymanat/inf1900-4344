@@ -52,7 +52,7 @@ bool Section3::evaluateState(uint8_t code) {
     switch (state)
     {
         case 0:
-            if (compareBits(code, "11111"))
+            if (compareBits(code, "11111") || compareBits(code, "00000"))
             {
 
                 motor.stop();
@@ -188,13 +188,10 @@ void Section3::evaluateLine() {
 
 void Section3::evaluateAction(uint8_t code) {
 
+    motor.goForward(MOTOR_SLOW_SPEED);
     if (compareBits(code, "0xxx0"))
     {
         followLine(code);
-    }
-    else
-    {
-        motor.goForward(MOTOR_SLOW_SPEED);
     }
 
 }
