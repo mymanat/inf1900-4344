@@ -7,11 +7,6 @@
 volatile uint8_t TIMER1_DONE;
 
 
-Timer::Timer(uint16_t duration) : Timer() {
-
-    Timer::duration = duration;
-}
-
 Timer::Timer() {
     init();
 
@@ -39,6 +34,7 @@ void Timer::init() {
 
 void Timer::startTimer() {
 
+    //TODO
     // mode CTC du timer 1 avec horloge divisée par 1024
     // interruption après la durée spécifiée
 
@@ -68,7 +64,7 @@ void Timer::setDuration(uint16_t duration) {
 }
 
 void Timer::setDurationSec(uint16_t durationSec) {
-    setDuration(durationSec * DUREE_1S);
+    setDuration(durationSec * TIMER_1S_DURATION);
 }
 
 uint16_t Timer::getValue() {

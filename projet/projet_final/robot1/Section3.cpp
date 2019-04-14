@@ -41,7 +41,7 @@ bool Section3::evaluateState(uint8_t code) {
 
 
             motor.stop();
-            trackerSensor.setShouldUpdateDel(false);
+            trackerSensor.setShouldUpdateLED(false);
 
             evaluateLine();
             button.init();
@@ -108,7 +108,7 @@ bool Section3::evaluateState(uint8_t code) {
                     led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 }
                 led.setStateOnboardLED(LED_ONBOARD_OFF);
-                trackerSensor.setShouldUpdateDel(true);
+                trackerSensor.setShouldUpdateLED(true);
                 motor.init();
                 return false;
             }

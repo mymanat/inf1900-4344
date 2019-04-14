@@ -9,8 +9,6 @@ TrackerSensor::TrackerSensor() {
 }
 
 void TrackerSensor::updateDEL() {
-
-
     for (uint8_t i = 1; i < SENSOR_COUNT + 1; ++i)
     {
         del.setState(isBlack(i), i);
@@ -23,7 +21,7 @@ void TrackerSensor::update() {
         uint16_t value = lecture(i);
         values[i] = value;
 
-        if (shouldUpdateDEL)
+        if (shouldUpdateLED)
         {
             bool delState = valueIsBlack(value);
             del.setState(delState, i + 1);
@@ -69,15 +67,15 @@ void TrackerSensor::init() {
     can::init();
     DDR_TRACKER_SENSOR = MODE_INPUT;
     blackValue = getValue(SENSOR_MIDDLE_POS);
-    setShouldUpdateDel(true);
+    setShouldUpdateLED(true);
 }
 
-bool TrackerSensor::isShouldUpdateDel() const {
-    return shouldUpdateDEL;
+bool TrackerSensor::isShouldUpdateLED() const {
+    return shouldUpdateLED;
 }
 
-void TrackerSensor::setShouldUpdateDel(bool shouldUpdateDel) {
-    shouldUpdateDEL = shouldUpdateDel;
+void TrackerSensor::setShouldUpdateLED(bool shouldUpdateLED) {
+    shouldUpdateLED = shouldUpdateLED;
 }
 
 

@@ -1,5 +1,5 @@
 //
-// Created by simon on 4/3/19.
+// Created by Simon Tran
 //
 
 #ifndef MAIN_TRACKERSENSOR_H
@@ -28,7 +28,11 @@
  */
 #define SENSOR_COUNT 5
 
-class TrackerSensor : public can{
+
+/**
+ * Classe permettant de contrôler le capteur de lignes
+ */
+class TrackerSensor : public can {
 
 public:
     TrackerSensor();
@@ -41,6 +45,9 @@ public:
  */
     void update();
 
+    /**
+     * Permet de mettre à jour les LEDs
+     */
     void updateDEL();
 
 
@@ -68,14 +75,24 @@ public:
  */
     bool valueIsBlack(uint16_t value) const;
 
+    /**
+     * Permet de déterminer si un capteur voit du noir
+     * @param sensorID ID du capteur
+     * @return Si il voit du noir
+     */
     bool isBlack(uint8_t sensorID) const;
-
-    bool isShouldUpdateDel() const;
-
-    void setShouldUpdateDel(bool shouldUpdateDel);
 
 
     /* Getters & Setters */
+
+    bool isShouldUpdateLED() const;
+
+    /**
+     * Permet de définir si les DELs devraient être  mises-à-jour en même temps que le capteur
+     * @param shouldUpdateLED Si les DELs devraient être mises-à-jour
+     */
+    void setShouldUpdateLED(bool shouldUpdateLED);
+
 
     uint16_t getBlackValue() const;
 
@@ -84,7 +101,7 @@ public:
 private:
     uint16_t values[SENSOR_COUNT] = {0, 0, 0, 0, 0};
     uint16_t blackValue = 0;
-    bool shouldUpdateDEL = true;
+    bool shouldUpdateLED = true;
     LED del;
 
 };

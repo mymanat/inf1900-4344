@@ -185,23 +185,23 @@ void Section4::evaluateAction(uint8_t code) {
 
 
 void Section4::soundEnterBox() {
-    speaker.jouerSon(LA4);
+    speaker.playSound(LA4);
     wait(50);
-    speaker.arreterSon();
+    speaker.stopSound();
     wait(20);
-    speaker.jouerSon(LA5);
+    speaker.playSound(LA5);
     wait(50);
-    speaker.arreterSon();
+    speaker.stopSound();
 }
 
 void Section4::soundExitBox() {
-    speaker.jouerSon(LA5);
+    speaker.playSound(LA5);
     wait(50);
-    speaker.arreterSon();
+    speaker.stopSound();
     wait(20);
-    speaker.jouerSon(LA4);
+    speaker.playSound(LA4);
     wait(50);
-    speaker.arreterSon();
+    speaker.stopSound();
 }
 
 

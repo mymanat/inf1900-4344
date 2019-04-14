@@ -1,19 +1,16 @@
-//
-// Created by simon on 4/1/19.
-//
+/*Class that represent a button.
+/ Created by Simon, Maxime, Simon and Samuel
+/ Date : February 15, 2019
+*/
 
 #include "Button.h"
 #include "Utils.h"
 
 volatile uint8_t BTN_INT_STATE = 0;
 
-
-
 Button::Button() {
     init();
 }
-
-
 
 ISR(INT0_vect) {
     // Debounce

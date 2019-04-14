@@ -1,4 +1,7 @@
-
+/*
+/ Created by Simon, Maxime, Simon and Samuel
+/ Date : February 15, 2019
+*/
 #include "LOG.h"
 
 
@@ -10,6 +13,7 @@ void transmitUART(const uint8_t data) {
     UDR0 = data;
 
 }
+
 char receptUART() {
     /* Wait for empty transmit buffer */
 
@@ -45,11 +49,13 @@ void initUART(void) {
 }
 
 void log_uart(const char words[]) {
-    for (uint8_t i = 0; i < strlen(words); i++) {
+    for (uint8_t i = 0; i < strlen(words); i++)
+    {
 
-        unsigned char character= words[i];
+        unsigned char character = words[i];
         transmitUART(character);
-        if(character == '\0'){
+        if (character == '\0')
+        {
             break;
         }
     }

@@ -1,5 +1,7 @@
 #include "Motors.h"
-
+/*
+/ A appeler lorsqu'on veut modifier la puissance avec laquelle les roues tournent.
+*/
 void Motors::adjustPWM(uint8_t a, uint8_t b)
 {
     // mise à un des sorties OC1A et OC1B sur comparaison
@@ -45,7 +47,7 @@ void Motors::goBackward(int speed)
     adjustPWM(speed, speed);
 }
 
-void Motors::tournerGauche90()
+void Motors::turnLeft90()
 {
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_RIGHT);
@@ -54,7 +56,7 @@ void Motors::tournerGauche90()
     stop();
 }
 
-void Motors::tournerDroite90()
+void Motors::turnRight90()
 {
     setMotorDirection(MOTOR_DIRECTION_BACKWARD, MOTOR_LEFT);
     setMotorDirection(MOTOR_DIRECTION_FORWARD, MOTOR_RIGHT);

@@ -63,10 +63,6 @@ uint8_t invertBitsPos(uint8_t value, uint8_t length);
 
 
 
-void changeSectionSound();
-
-void changeStateSound();
-
 #ifdef DEBUG
 #define DEBUG_PRINT(x)   log_uart(x)
 #define DEBUG_TRANSMIT(x) transmitUART(x)

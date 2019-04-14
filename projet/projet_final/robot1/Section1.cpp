@@ -26,7 +26,7 @@ bool Section1::evaluateState(uint8_t code) {
         case 2:
             if (!compareBits(code, "00000"))
             {
-                //speaker.jouerSon(RE);
+                //speaker.playSound(RE);
 
                 ++state;
             }
@@ -54,7 +54,7 @@ void Section1::evaluateAction(uint8_t code) {
             int x = command % 3;
 
             //Execute the movements needed to get on the point specified by the command
-            motor.tournerGauche90();
+            motor.turnLeft90();
 
             wait(TRANSITION_DELAY_LONG);
 
@@ -64,7 +64,7 @@ void Section1::evaluateAction(uint8_t code) {
 
             wait(TRANSITION_DELAY_LONG);
 
-            motor.tournerDroite90();
+            motor.turnRight90();
 
             wait(TRANSITION_DELAY_LONG);
 
@@ -72,18 +72,18 @@ void Section1::evaluateAction(uint8_t code) {
             wait(tempsMovementY[y]);
             motor.stop();
 
-            speaker.jouerSon(RE);
+            speaker.playSound(RE);
             wait(3 * DELAY_1_SEC);
-            speaker.arreterSon();
+            speaker.stopSound();
 
-            motor.tournerDroite90();
+            motor.turnRight90();
 
             wait(TRANSITION_DELAY_LONG);
-            speaker.jouerSon(RE);
+            speaker.playSound(RE);
             wait(3 * DELAY_1_SEC);
 
 
-            speaker.arreterSon();
+            speaker.stopSound();
 
             motor.goForward(MOTOR_MAXIMUM_SPEED);
             wait(tempsMovementX[x]);
@@ -91,7 +91,7 @@ void Section1::evaluateAction(uint8_t code) {
 
             wait(TRANSITION_DELAY_LONG);
 
-            motor.tournerGauche90();
+            motor.turnLeft90();
 
             wait(TRANSITION_DELAY_LONG);
 

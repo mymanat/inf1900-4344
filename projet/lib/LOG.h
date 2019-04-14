@@ -1,3 +1,10 @@
+/*
+ *
+ * Fonctions qui permettent de communiquer avec le PC
+ *
+/ Created by Simon, Maxime, Simon and Samuel
+/ Date : February 15, 2019
+*/
 #ifndef LOG_H
 #define LOG_H
 

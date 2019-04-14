@@ -26,7 +26,8 @@ void start(uint8_t section) {
                 case 1:
                 {
                     Section1 section1;
-                    if (i == 3) {
+                    if (i == 3)
+                    {
                         section1.setShouldTransition(false);
                     }
                     section1.run();
@@ -35,7 +36,8 @@ void start(uint8_t section) {
                 case 2:
                 {
                     Section2 section2;
-                    if (i == 3) {
+                    if (i == 3)
+                    {
                         section2.setShouldTransition(false);
                     }
                     section2.run();
@@ -44,7 +46,8 @@ void start(uint8_t section) {
                 case 3:
                 {
                     Section3 section3;
-                    if (i == 3) {
+                    if (i == 3)
+                    {
                         section3.setShouldTransition(false);
                     }
                     section3.run();
@@ -53,7 +56,8 @@ void start(uint8_t section) {
                 case 4:
                 {
                     Section4 section4;
-                    if (i == 3) {
+                    if (i == 3)
+                    {
                         section4.setShouldTransition(false);
                     }
                     section4.run();
@@ -71,9 +75,9 @@ void start(uint8_t section) {
         Motors motors;
         motors.stop();
         Speaker speaker;
-        speaker.jouerSon(LA4);
+        speaker.playSound(LA4);
         wait(500);
-        speaker.jouerMelodie();
+        speaker.playSong();
     }
 }
 
@@ -100,34 +104,8 @@ void start() {
 
 int main() {
 
-
+#ifdef DEBUG
     initUART();
-    //    Robot1::transitionState();
-//    start(2);
-//start()            changeSectionSound();;
-
-
-
-//    start();
+#endif
     start();
-//    section1.realign();
-//    Motors motors;
-//    motors.tournerDroite90();
-//    while (true) {
-//        motors.adjust(255, 255);
-//
-
-//    start(1);
-
-
-//s1.run();
-
-//    robot1.transitionState();
-//    Section2 section2;
-//    section2.run();
-
-//    Section4 section4;
-//    section4.run();
-//            start(robot1);
-//    start(2);
 }

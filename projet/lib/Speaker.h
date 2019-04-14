@@ -9,45 +9,47 @@
 
 #include "Utils.h"
 #include "LED.h"
+#include "Component.h"
 
-#define MI4 64
+/* On définit certaines notes de musique */
 
-#define MI3 52
+enum MusicNotes {
+    MI4 = 64,
+    MI3 = 52,
+    RE = 62,
+    FA4 = 65,
+    FA3 = 53,
+    DO = 60,
+    SOL4 = 67,
+    SOL3 = 55,
+    SI = 59,
+    LA = 57,
+    LA4 = 69,
+    LA5 = 81
+};
 
-#define RE 62
-
-#define FA4 65
-
-#define FA3 53
-
-#define DO 60
-
-#define SOL4 67
-
-
-#define SOL3 55
-
-#define SI 59
-
-#define LA 57
-
-#define LA4 69
-#define LA5 81
-
-class Speaker {
+class Speaker : public Component {
 public:
     Speaker();
 
-    void jouerSonDebugState(uint8_t state);
+    void init() override;
 
-    void jouerMelodie();
+    /**
+     * Permet de jouer une mélodie avec des LEDs qui clignotes
+     */
+    void playSong();
+
+    /**
+     * Arrête tous les sons
+     */
+    void stopSound();
 
 
-    void arreterSon();
-
-    void initialisationSpeaker(void);
-
-    void jouerSon(int note);
+    /**
+     * Joue une note
+     * @param note
+     */
+    void playSound(MusicNotes note);
 
     void playFrequency();
 

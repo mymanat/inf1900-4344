@@ -24,6 +24,9 @@
  */
 #define MOTOR_IMBALANCE_COEFFICIENT 1.0
 
+/**
+ * Vitesse maximale et minimale utilisée.
+ */
 #define MOTOR_FAST_SPEED 170
 #define MOTOR_SLOW_SPEED 130
 
@@ -34,21 +37,45 @@
 class Motors : public Component
 {
 public:
+  /*
+  / Constructeur par défaut de la classe objet Motors.
+  */
   Motors();
 
+  /*
+  / Override de la méthode init().
+  */
   void init() override;
 
+  /*
+  / Méthode pour ajuster la vitesse des roues séparement.
+  */
   void adjust(uint8_t left, uint8_t right);
 
+  /*
+  / Méthode pour faire avancer le robot tout droit devant.
+  */
   void goForward(int speed);
 
+  /*
+  / Méthode pour faire reculer le robot.
+  */
   void goBackward(int speed);
 
+  /*
+  / Méthode pour faire arreter le robot.
+  */
   void stop();
 
-  void tournerDroite90();
+  /*
+  / Méthode pour faire tourner le robot de 90 degrés vers la droite.
+  */
+  void turnRight90();
 
-  void tournerGauche90();
+  /*
+  / Méthode pour faire tourner le robot de 90 degrés vers la gauche.
+  */
+  void turnLeft90();
 
   /**
  * Permet de définir la direction d'un moteur spécifique
@@ -63,6 +90,9 @@ public:
      */
   void setDirection(bool direction);
 
+  /*
+  / Méthode qui permet d'ajuster la puissance des moteurs.
+  */
 private:
   void adjustPWM(uint8_t a, uint8_t b);
 };

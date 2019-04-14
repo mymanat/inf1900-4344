@@ -12,7 +12,7 @@ void IRTransceiver::transmit(int command, int channel)
     /* Initialize transmission with a high signal for 2.4 ms and a low signal for 0.6 ms */
     speaker_.playFrequency();
     _delay_ms(2.4);
-    speaker_.arreterSon();
+    speaker_.stopSound();
     _delay_ms(0.6);
 
     for (int i = 0; i < LONGUEUR_COMMANDE_IR; ++i)
@@ -29,7 +29,7 @@ void IRTransceiver::transmit(int command, int channel)
             _delay_ms(0.6);
         }
         //low signal for 0.6 ms
-        speaker_.arreterSon();
+        speaker_.stopSound();
             _delay_ms(0.6);
 
         //once the LSB is sent, shift right to prepare for next bit
@@ -39,7 +39,7 @@ void IRTransceiver::transmit(int command, int channel)
 
 int IRTransceiver::receive()
 {
-    message = 0;
+    message_ = 0;
     int burstLength = 0;    //length (in 0.1 ms increments) of last high signal
     int messageLength = 0;  //current message length in bits
 

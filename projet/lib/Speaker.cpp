@@ -1,70 +1,37 @@
 #include "Speaker.h"
 
+/**
+ * Représente la durée d'une noire ou d'un battement de la mélodie
+ */
 int NOIRE;
 
-void Speaker::arreterSon() {
+void Speaker::stopSound() {
     TCCR0A = 0;
 }
 
-void Speaker::initialisationSpeaker(void) {
-    cli();
-
-    DDR_SPEAKER = MODE_OUTPUT;
-
-    sei();
-}
 
 void Speaker::debugSound() {
     Speaker speaker;
-    speaker.jouerSon(80);
+    speaker.playSound(LA5);
     wait(40);
-    speaker.jouerSon(70);
+    speaker.playSound(SOL4);
     wait(40);
-    speaker.arreterSon();
+    speaker.stopSound();
 }
 
-void Speaker::jouerSonDebugState(uint8_t state) {
-    //0: C3
-    uint8_t note = 0;
-    switch (state)
-    {
-        case 0:
-            note = MI3;
-            break;
-        case 1:
-            note = FA3;
-            break;
-        case 2:
-            note = SOL3;
-            break;
-        case 3:
-            note = LA;
-            break;
-        case 4:
-            note = SI;
-            break;
-        case 5:
-            note = DO;
-            break;
-    }
 
-    jouerSon(note);
-    wait(200);
-    arreterSon();
-}
-
-void Speaker::jouerSon(int note) {
+void Speaker::playSound(MusicNotes note) {
 
 
-    arreterSon();
+    stopSound();
 
     wait(10);
 
     double freq = Notes[note - 45];
 
-    double tempsCalcule = F_CPU * (1 / freq) / 2 / 256;
+    double calculatedTime = F_CPU * (1 / freq) / 2 / 256;
 
-    OCR0A = tempsCalcule;
+    OCR0A = calculatedTime;
 
     // Mode 1 de Waveform Generation Mode, clear on compare match
 
@@ -79,16 +46,16 @@ void Speaker::jouerSon(int note) {
 
 void Speaker::playFrequency() {
 
-    arreterSon();
+    stopSound();
 
     wait(10);
 
     //        double freq = Notes[note - 45];
     double freq = 38100;
 
-    double tempsCalcule = F_CPU * (1 / freq) / 2;
+    double calculatedTime = F_CPU * (1 / freq) / 2;
 
-    OCR0A = tempsCalcule;
+    OCR0A = calculatedTime;
 
     // Mode 1 de Waveform Generation Mode, clear on compare match
 
@@ -105,155 +72,163 @@ void Speaker::playFrequency() {
 
 
 Speaker::Speaker() {
-    initialisationSpeaker();
+    init();
 }
 
+void Speaker::init() {
+    cli();
+    DDR_SPEAKER = MODE_OUTPUT;
+    sei();
 
-void Speaker::jouerMelodie() {
+}
+
+void Speaker::playSong() {
     LED del;
 
     NOIRE = 700;
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 8);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 2);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 2);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 2);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 8);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 8);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 8);
 
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 2);
 
-    jouerSon(DO);
+    playSound(DO);
     del.turnOff();
     del.turnOn(4);
 
     wait(NOIRE / 2);
 
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 2);
 
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 2);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 2);
 
-    jouerSon(DO);
+    playSound(DO);
     del.turnOff();
     del.turnOn(4);
 
     wait(NOIRE / 8);
 
-    jouerSon(SOL4);
+    playSound(SOL4);
 
     wait(NOIRE / 8);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 8);
 
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 2);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 2);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 2);
 
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 2);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 8);
 
-    jouerSon(MI4);
+    playSound(MI4);
     del.turnOff();
     del.turnOn(2);
 
     wait(NOIRE / 4);
 
-    jouerSon(FA4);
+    playSound(FA4);
     del.turnOff();
     del.turnOn(3);
 
     wait(NOIRE / 8);
 
-    jouerSon(RE);
+    playSound(RE);
     del.turnOff();
     del.turnOn(1);
 
     wait(NOIRE / 2);
 
-    jouerSon(DO);
+    playSound(DO);
     del.turnOff();
     del.turnOn(4);
 
     wait(NOIRE / 2);
-    arreterSon();
+    stopSound();
 }
+
+

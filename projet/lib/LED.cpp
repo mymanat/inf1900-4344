@@ -1,6 +1,7 @@
-//
-// Created by simon on 3/18/19.
-//
+/*
+/ Created by Simon, Maxime, Simon and Samuel
+/ Date : February 15, 2019
+*/
 
 #include "LED.h"
 

@@ -1,5 +1,5 @@
 //
-// Created by simon on 4/1/19.
+// Created by Simon Tran
 //
 
 #ifndef MAIN_TIMER_H
@@ -8,10 +8,13 @@
 #include <avr/interrupt.h>
 #include "Component.h"
 
-#define DUREE_1S 7812
+/**
+ * La durée d'une seconde en fonction du prescaler
+ */
+#define TIMER_1S_DURATION 7812
 
 
-extern volatile uint8_t TIMER1_DONE ;
+extern volatile uint8_t TIMER1_DONE;
 
 
 /**
@@ -23,34 +26,46 @@ public:
     Timer();
 
     void init() override;
-    Timer(uint16_t duration);
 
+    /**
+     * Démarre le compteur
+     */
     void startTimer();
 
-    uint16_t getDuration() const;
 
-    void setDurationSec(uint16_t durationSec);
-    void setDuration(uint16_t duration);
-    uint16_t getValue();
+    /**
+     * Permet de savoir si le compteur a terminé
+     * @return Si le compteur a terminé
+     */
     bool isDone();
 
 
+    /**
+     * Permet de définir la durée du compteur en secondes
+     * @param durationSec Nombre de secondes
+     */
+    void setDurationSec(uint16_t durationSec);
 
 
+    /**
+     * Retourne la valeur du registre du compteur
+     * @return La valeur du compteur
+     */
+    uint16_t getValue();
 
+
+    /* Getters & Setters */
+
+    void setDuration(uint16_t duration);
+
+    uint16_t getDuration() const;
 
 private:
 
     uint16_t duration;
 
 
-
-
 };
-
-
-
-
 
 
 #endif //MAIN_TIMER_H

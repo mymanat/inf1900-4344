@@ -15,11 +15,11 @@ void Robot1::transitionState() {
 
     motor.stop();
 
-    speaker.jouerSon(SOL3);
+    speaker.playSound(SOL3);
     led.setStateOnboardLED(LED_ONBOARD_RED);
 
     wait(TRANSITION_DELAY_LONG);
-    speaker.arreterSon();
+    speaker.stopSound();
     state = 0;
     uint8_t code = 0;
     do
@@ -57,11 +57,11 @@ void Robot1::transitionState() {
     } while (state < 3);
 
     led.setStateOnboardLED(LED_ONBOARD_OFF);
-    speaker.jouerSon(MI4);
+    speaker.playSound(MI4);
     motor.stop();
     wait(TRANSITION_DELAY_LONG);
 
-    speaker.arreterSon();
+    speaker.stopSound();
 }
 
 void Robot1::run() {

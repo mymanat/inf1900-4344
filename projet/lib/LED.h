@@ -1,6 +1,7 @@
-//
-// Created by simon on 3/18/19.
-//
+/*
+/ Created by Simon, Maxime, Simon and Samuel
+/ Date : February 15, 2019
+*/
 
 #ifndef MAIN_LED_H
 #define MAIN_LED_H
@@ -14,6 +15,7 @@
 
 /**
  * Classe Permettant de contrôler les DELs.
+ * La DEL doit être connectée au PORTC
  */
 class LED {
 
@@ -21,6 +23,11 @@ class LED {
 public:
     LED();
 
+    /**
+     * Permet d'obtenir la position d'une DEL en fonction de son numéro
+     * @param numLED Numéro (1 à 5)
+     * @return Position sur le PORTC (0 à 7)
+     */
     uint8_t getLEDPosition(uint8_t numLED) const;
 
 /**
@@ -29,8 +36,15 @@ public:
  */
     void turnOn(uint8_t numLED) const;
 
+    /**
+     * Allume toutes les DEL
+     */
     void turnOn() const;
 
+    /**
+     * Éteint une DEL
+     * @param numLED Numero de la DEL
+     */
     void turnOff(uint8_t numLED) const;
 
 /**
