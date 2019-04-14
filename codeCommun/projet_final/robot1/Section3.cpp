@@ -12,6 +12,7 @@ Section3::Section3() {
 
 bool Section3::evaluateState(uint8_t code) {
 
+
     if (state > 3 && state < 8)
     {
         loopCounter++;
@@ -94,7 +95,6 @@ bool Section3::evaluateState(uint8_t code) {
                 state++;
             }
             break;
-
         case 7:
 
             break;
@@ -118,8 +118,8 @@ bool Section3::evaluateState(uint8_t code) {
     return true;
 }
 
-void Section3::checkLineDetection(uint8_t code) {
-    if (loopCounter < 200 || compareBits(code, "0xxx0"))
+void Section3::detectLine(uint8_t code) {
+    if (loopCounter < SECTION3_LINE_EXIT_DELAY || compareBits(code, "0xxx0"))
     {
         return;
 
