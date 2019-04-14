@@ -7,7 +7,7 @@
 
 #define DDR_MOTOR DDRD
 
-#define BATTERY_MULTIPLIER 1.2
+#define BATTERY_MULTIPLIER 1.3
 
 
 #define PORT_MOTOR PORTD
@@ -47,5 +47,8 @@
  * Délais pour s'assurer de la précision des mouvements
  */
 #define TRANSITION_DELAY_1 100
+#define TRANSITION_DELAY_2 200
+
+#define DELAY_1_SEC 1000
 
 #endif

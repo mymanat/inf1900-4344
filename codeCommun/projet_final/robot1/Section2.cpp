@@ -21,14 +21,8 @@ void Section2::evaluateCurve(uint8_t code) {
             hitCount = hitCountHalf;
         }
 
-        if (compareBits(code, "00xx1"))
-        {
-            hitCount += 5 * SECTION2_DECEL_FACTOR;
-        }
-        else if (compareBits(code, "00x1x"))
-        {
-            hitCount += 1 * SECTION2_DECEL_FACTOR;
-        }
+        hitCount += SECTION2_DECEL_FACTOR *
+                    (compareBits(code, "00xx1") ? SECTION2_HARD_TURN_SPEED_FACTOR : 1);
     }
     else
     {
@@ -36,14 +30,9 @@ void Section2::evaluateCurve(uint8_t code) {
         {
             hitCount = hitCountHalf;
         }
-        if (compareBits(code, "1xx00"))
-        {
-            hitCount -= 5 * SECTION2_DECEL_FACTOR;
-        }
-        else if (compareBits(code, "x1x00"))
-        {
-            hitCount -= 1 * SECTION2_DECEL_FACTOR;
-        }
+
+        hitCount -= SECTION2_DECEL_FACTOR *
+                    (compareBits(code, "1xx00") ? SECTION2_HARD_TURN_SPEED_FACTOR : 1);
     }
 
     /*

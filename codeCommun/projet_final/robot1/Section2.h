@@ -15,6 +15,11 @@
  */
 #define SECTION2_DECEL_FACTOR 15
 
+/**
+ * Permet de décélérer la vitesse plus rapidement lorsque les capteurs aux extrémités détectent une ligne
+ */
+#define SECTION2_HARD_TURN_SPEED_FACTOR 5
+
 
 /**
  *

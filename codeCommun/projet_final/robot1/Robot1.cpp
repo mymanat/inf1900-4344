@@ -37,7 +37,7 @@ void Robot1::transitionState() {
         {
             motor.goForward(getSpeed());
             /* Suit la ligne jusqu'au virage */
-            if (followLine(code) || compareBits(code, "0xxx1"))
+            if (followLine(code) || compareBits(code, "0xzz1"))
             {
                 motor.stop();
                 changeStateSound();
@@ -69,7 +69,6 @@ void Robot1::run() {
     bool shouldLoop = true;
     while (shouldLoop)
     {
-        //transmissionUART(state);//todo
 
         trackerSensor.update();
 

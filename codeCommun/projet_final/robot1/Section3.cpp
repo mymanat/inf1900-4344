@@ -2,6 +2,7 @@
 // Created by simon on 4/9/19.
 //
 
+#include <stdint-gcc.h>
 #include "Section3.h"
 
 Section3::Section3() {
@@ -23,12 +24,21 @@ bool Section3::evaluateState(uint8_t code) {
                 uint8_t time2a = timeSecondLine >> 8;
                 uint8_t time2b = timeSecondLine & 0xff;
 
+                int16_t a = (timeSecondLine - timeFirstLine) / timeFirstLine;
+                int8_t a1 = a >> 8;
+                int8_t a2 = a & 0xff;
+
                 transmitUART(time1a);
                 transmitUART(time1b);
                 transmitUART(0xff);
                 transmitUART(time2a);
                 transmitUART(time2b);
+            transmitUART(a1);
+            transmitUART(a2);
+            transmitUART(0x00);
 #endif
+
+
             motor.stop();
             trackerSensor.setShouldUpdateDel(false);
 
@@ -44,7 +54,6 @@ bool Section3::evaluateState(uint8_t code) {
             if (compareBits(code, "11111"))
             {
 
-                led.setStateOnboardLED(LED_ONBOARD_RED);
                 motor.stop();
                 button.init();
                 state++;
@@ -58,13 +67,12 @@ bool Section3::evaluateState(uint8_t code) {
                 motor.init();
                 state = 2;
             }
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
             break;
         case 2:
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
 
             if (compareBits(code, "11111"))
             {
-                led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 state++;
             }
             break;
@@ -77,7 +85,7 @@ bool Section3::evaluateState(uint8_t code) {
             break;
         case 4:
         case 6:
-            checkLineDetection(code);
+            detectLine(code);
             break;
         case 5:
             if (compareBits(code, "0x1x0"))
@@ -116,20 +124,45 @@ void Section3::checkLineDetection(uint8_t code) {
         return;
 
     }
-    if (timeFirstLine == 0)
+    if (timeFirstLine == 0 && compareBits(code, "zxxxz"))
     {
+
         timeFirstLine = loopCounter;
-
-        leftFirst = compareBits(code, "00xx1");
+        if (compareBits(code, "xxxx1"))
+        {
+            //gauche
+            led.setStateOnboardLED(LED_ONBOARD_RED);
+            leftFirst = true;
+        }
+        else
+        {
+            led.setStateOnboardLED(LED_ONBOARD_GREEN);
+            leftFirst = false;
+        }
+        state++;
     }
 
-    else
+    else if (compareBits(code, "zxxxz"))
     {
-        timeSecondLine = loopCounter;
-    }
-    led.setStateOnboardLED(LED_ONBOARD_GREEN);
 
-    state++;
+        bool lineSide = compareBits(code, "xxxx1");
+
+        if (lineSide != leftFirst)
+        {
+
+            state++;
+            timeSecondLine = loopCounter;
+            if (lineSide)
+            {
+                led.setStateOnboardLED(LED_ONBOARD_RED);
+            }
+            else
+            {
+
+                led.setStateOnboardLED(LED_ONBOARD_GREEN);
+            }
+        }
+    }
 
 
 }
@@ -138,7 +171,7 @@ void Section3::evaluateLine() {
     led.turnOff();
     uint8_t id = 0;
 
-    if (timeSecondLine - timeFirstLine > timeFirstLine * 2.2)
+    if (timeSecondLine - timeFirstLine > timeFirstLine * DELTA_FACTOR)
     {
 
         /* D1 ou D3 */
@@ -155,7 +188,14 @@ void Section3::evaluateLine() {
 
 void Section3::evaluateAction(uint8_t code) {
 
-    followLine(code);
+    if (compareBits(code, "0xxx0"))
+    {
+        followLine(code);
+    }
+    else
+    {
+        motor.goForward(MOTOR_SLOW_SPEED);
+    }
 
 }
 

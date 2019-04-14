@@ -16,7 +16,6 @@ void setBit(uint8_t *variable, bool valeur, uint8_t bitIndex) {
 }
 
 
-
 bool compareBits(uint8_t value, const char *compareString) {
 
     bool hasACorrectYValue = false;
@@ -51,4 +50,19 @@ bool compareBits(uint8_t value, const char *compareString) {
     }
 
     return hasNoYorZ || hasACorrectYValue || hasACorrectZValue;
+}
+
+uint8_t invertBitsPos(uint8_t value, uint8_t length) {
+    uint8_t invertedValue = 0;
+    uint8_t j = 0;
+    for (uint8_t i = 0; i < length; ++i)
+    {
+
+        j = length - i - 1;
+        invertedValue |= ((value >> j) & 1) << i;
+
+    }
+
+    return invertedValue;
+
 }

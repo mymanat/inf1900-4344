@@ -38,4 +38,15 @@ void setBit(volatile uint8_t *variable, bool valeur, uint8_t bitIndex);
 bool compareBits(uint8_t value, const char compareString[]);
 
 
+/**
+ * Permet de faire une rotation complète des bits
+ * Ex: 0b11000 devient 0b00011
+ * Le bit 5 prend la place du bit 1 et vis-versa
+ * Le bit 4 prend la place du bit 2 et vis-versa
+ * @param value Valeur originale
+ * @param length Nombre de bits dans le nombre
+ * @return La valeur avec les positions des bits inversées
+ */
+uint8_t invertBitsPos(uint8_t value, uint8_t length) ;
+
 #endif

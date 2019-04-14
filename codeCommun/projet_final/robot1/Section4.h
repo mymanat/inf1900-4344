@@ -7,16 +7,25 @@
 
 
 #include "Robot1.h"
+
 /**
- * States:
- * 0: suivre ligne
- * 1: boite1
- * 2: suivre ligne
- * 3: boite2:
- * 4: suivre ligne
- * 5: boite3
+ * 0: Suivre ligne jusqu'à la ligne perpendiculaire
+ * 1: Sur la ligne perpendiculaire jusqu'à dans la boîte
+ * 2: Dans la boîte jusqu'à la ligne  perpendiculaire
+ * 3: Dans la ligne perpediculaire jusqu'à ce que le robot trouve la ligne de trajectoire
+ *
+ * 4: Suivre ligne jusqu'à la ligne perpendiculaire
+ * 5: Sur la ligne perpendiculaire jusqu'à dans la boîte
+ * 6: Dans la boîte jusqu'à la ligne  perpendiculaire
+ * 7: Dans la ligne perpediculaire jusqu'à ce que le robot trouve la ligne de trajectoire
+ *
+ * 8: Suivre ligne jusqu'à la ligne perpendiculaire
+ * 9: Sur la ligne perpendiculaire jusqu'à dans la boîte
+ * 10: Dans la boîte jusqu'à la ligne  perpendiculaire
+ * 11: Dans la ligne perpediculaire jusqu'à ce que le robot trouve la ligne de trajectoire
  *
  */
+
 class Section4 : public Robot1 {
 public:
     Section4();
@@ -26,6 +35,7 @@ public:
     void evaluateAction(uint8_t code) override;
 
     void soundEnterBox();
+
     void soundExitBox();
 };
 

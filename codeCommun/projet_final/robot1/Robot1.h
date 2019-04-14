@@ -14,16 +14,6 @@
 
 #include "IRTransceiver.h"
 
-//todo
-#include "../../lib/LED.h"
-#include "../../lib/Timer.h"
-#include "../../lib/Motors.h"
-#include "../../lib/TrackerSensor.h"
-#include "../../lib/Button.h"
-#include "../../lib/Speaker.h"
-#include "../../lib/IRTransceiver.h"
-
-#define DELTA_V 20
 
 class Robot1 : public Robot {
 public:
@@ -33,8 +23,17 @@ public:
 
     void run() override;
 
+    /**
+     * Permet d'évaluer si un changement d'état est nécessaire dans la machine à état
+     * @param code Code binaire représentant l'état des capteurs
+     * @return Vrai si on doit rester dans la boucle principale. Faux permet de faire la transition vers la section suivante
+     */
     virtual bool evaluateState(uint8_t code);
 
+    /**
+     * Permet d'évaluer l'action à effectuer en fonction de l'état
+     * @param code Code binaire représentant l'état des capteurs
+     */
     virtual void evaluateAction(uint8_t code);
 
     bool followLine(char code);

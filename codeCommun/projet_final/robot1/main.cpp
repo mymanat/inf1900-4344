@@ -15,7 +15,7 @@ void start(uint8_t section) {
     {
         for (uint8_t i = 0; i < SECTION_COUNT; ++i)
         {
-            Robot1::changeSectionSound(); //todo
+            Robot1::changeSectionSound();
             LED led;
             led.turnOff();
             led.turnOn(section);
@@ -84,6 +84,7 @@ void start() {
 }
 
 int main() {
+
 
     initUART();
     //    Robot1::transitionState();

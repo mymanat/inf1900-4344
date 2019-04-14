@@ -2,44 +2,96 @@
 // Created by simon on 4/9/19.
 //
 
+#include <stdint.h>
 #include "Section4.h"
 
 
 Section4::Section4() {
-//    setSpeed(MOTOR_SLOW_SPEED);
-    setSpeed(120);//todo
+    setSpeed(MOTOR_SLOW_SPEED);
 }
 
 
 bool Section4::evaluateState(uint8_t code) {
-
-    if (state % 2 == 0)
+    switch (state)
     {
-        if (compareBits(code, "y000y"))
-        {
-            led.setStateOnboardLED(LED_ONBOARD_RED);
-            soundEnterBox();
-            state++;
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
-        }
-    }
-    else
-    {
-        if (compareBits(code, "11111"))
-        {
-            led.setStateOnboardLED(LED_ONBOARD_RED);
-            soundExitBox();
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
-            state++;
-            if (state == 6)
+        /* state % 4 == 0 */
+        case 0:
+        case 4:
+        case 8:
+            if (compareBits(code, "1xxx1"))
             {
-                motor.goForward(MOTOR_MAX_SPEED);
-                wait(200);
-                return false;
+                soundEnterBox();
+                state++;
             }
-        }
+            break;
+
+
+            /* state % 2 != 0 */
+        case 1:
+        case 5:
+        case 9:
+            if (compareBits(code, "y000y"))
+            {
+
+                state++;
+            }
+            break;
+        case 3:
+        case 7:
+        case 11:
+            if (compareBits(code, "0zzz0"))
+            {
+                state++;
+                if (state == 12)
+                {
+                    led.setStateOnboardLED(LED_ONBOARD_RED);
+                    motor.goForward(MOTOR_MAX_SPEED);
+                    wait(TRANSITION_DELAY_2);
+                    return false;
+                }
+            }
+            break;
+            /* else */
+        default:
+            if (compareBits(code, "1xxx1"))
+            {
+                soundExitBox();
+                state++;
+            }
+            break;
 
     }
+
+
+    /*
+     * //todo
+     if (state % 2 == 0)
+     {
+         if (compareBits(code, "y000y"))
+         {
+             led.setStateOnboardLED(LED_ONBOARD_RED);
+             soundEnterBox();
+             state++;
+             led.setStateOnboardLED(LED_ONBOARD_OFF);
+         }
+     }
+     else
+     {
+         if (compareBits(code, "11111"))
+         {
+             led.setStateOnboardLED(LED_ONBOARD_RED);
+             soundExitBox();
+             led.setStateOnboardLED(LED_ONBOARD_OFF);
+             state++;
+             if (state == 6)
+             {
+                 motor.goForward(MOTOR_MAX_SPEED);
+                 wait(TRANSITION_DELAY_2);
+                 return false;
+             }
+         }
+
+     }*/
 
 
     return true;
@@ -48,17 +100,57 @@ bool Section4::evaluateState(uint8_t code) {
 void Section4::evaluateAction(uint8_t code) {
 
 
+    /* Correspond aux états 0, 4, 8. Les états où il fait suivre la ligne */
+    if (state % 4 == 0)
+    {
+        led.setStateOnboardLED(LED_ONBOARD_GREEN);
+        followLine(code);
+    }
+
+        /* états 1, 3,5, 7, 9, 11. Les états sur la ligne perpendiculaire*/
+    else if (state % 2 != 0)
+    {
+        led.setStateOnboardLED(LED_ONBOARD_OFF);
+        if (compareBits(code, "0000"))
+        {
+
+            followLine(code);
+//            motor.goForward(getSpeed());
+        }
+    }
+
+        /* États 2, 6, 10. Dans la boîte */
+    else
+    {
+        if (!compareBits(code, "00000"))
+        {
+
+            led.setStateOnboardLED(LED_ONBOARD_GREEN);
+            uint8_t speed2 = getSpeed();
+
+            /* Si le capteur 2 ou 4 est actif, on doit tourner plus.*/
+            speed2 *= compareBits(code, "xz0zx") ? 0.5 : 0.75;
+
+            followLine(invertBitsPos(code, SENSOR_COUNT), getSpeed(), speed2);
+        }
+            /* Si les capteurs ne détectent rien, on va tout droit */
+        else
+        {
+            led.setStateOnboardLED(LED_ONBOARD_RED);
+            motor.goForward(MOTOR_SLOW_SPEED);
+        }
+    }
+
+    /*
+     * Les états pairs font des followLine() normal.
+     */
+/*
+
     if (state % 2 == 0)
     {
         if (!(compareBits(code, "1xxxx") || compareBits(code, "xxxx1")))
         {
-//            setSpeed(120);
-//
-//            setTurnSpeed(120 - 40);
             followLine(code);
-
-//            followLine(code, getSpeed(), getSpeed() - 40);
-
         }
     }
     else
@@ -66,46 +158,37 @@ void Section4::evaluateAction(uint8_t code) {
 
         if (!compareBits(code, "xx1xx"))
         {
-//            setTurnSpeed(120);
-//            setSpeed(120);
-            uint8_t invertedCode = 0;
 
-            invertedCode |= ((code >> 4) & 1) << 0;
-            invertedCode |= ((code >> 3) & 1) << 1;
-            invertedCode |= ((code >> 2) & 1) << 2;
-            invertedCode |= ((code >> 1) & 1) << 3;
-            invertedCode |= ((code >> 0) & 1) << 4;
-
-//            followLine(code, getSpeed() - 40, getSpeed());
-//            followLine(code);
-            followLine(invertedCode);
+            followLine(invertBitsPos(code, SENSOR_COUNT));
         }
-        else
+        else if (compareBits(code, "0000"))
         {
+
             motor.goForward(getSpeed());
         }
     }
 
+*/
 
 }
 
 
 void Section4::soundEnterBox() {
-    speaker.jouerSon(80);
+    speaker.jouerSon(LA4);
     wait(50);
     speaker.arreterSon();
     wait(20);
-    speaker.jouerSon(70);
+    speaker.jouerSon(LA5);
     wait(50);
     speaker.arreterSon();
 }
 
 void Section4::soundExitBox() {
-    speaker.jouerSon(70);
+    speaker.jouerSon(LA5);
     wait(50);
     speaker.arreterSon();
     wait(20);
-    speaker.jouerSon(80);
+    speaker.jouerSon(LA4);
     wait(50);
     speaker.arreterSon();
 }
