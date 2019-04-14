@@ -36,11 +36,15 @@ void Robot1::transitionState() {
                 motor.stop();
                 DEBUG_SOUND();
 
-                motor.adjust(0, MOTOR_SLOW_SPEED);
-                state++;
                 if (!shouldTurnAfterTransition)
                 {
                     state = 3;
+                }
+                else
+                {
+
+                    motor.adjust(0, MOTOR_SLOW_SPEED);
+                    state++;
                 }
 
             }

@@ -55,6 +55,7 @@ bool Section3::evaluateState(uint8_t code) {
             if (compareBits(code, "11111") || compareBits(code, "00000"))
             {
 
+                led.setStateOnboardLED(LED_ONBOARD_RED);
                 motor.stop();
                 button.init();
                 state++;
@@ -68,12 +69,13 @@ bool Section3::evaluateState(uint8_t code) {
                 motor.init();
                 state = 2;
             }
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
             break;
         case 2:
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
 
             if (compareBits(code, "11111"))
             {
+                DEBUG_SOUND();
                 state++;
             }
             break;
@@ -124,6 +126,7 @@ void Section3::detectLine(uint8_t code) {
         return;
 
     }
+    DEBUG_SOUND();
     if (timeFirstLine == 0 && compareBits(code, "zxxxz"))
     {
 

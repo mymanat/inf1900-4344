@@ -86,6 +86,7 @@ void start() {
     while (!(section <= SECTION_COUNT && section > 0))
     {
         LED led;
+        led.turnOff();
         led.setStateOnboardLED(LED_ONBOARD_RED);
         wait(500);
         led.setStateOnboardLED(LED_ONBOARD_OFF);
