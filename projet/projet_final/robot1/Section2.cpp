@@ -5,6 +5,7 @@
 #include "Section2.h"
 
 Section2::Section2() {
+    a = (SECTION2_MIN_SPEED - SECTION2_MAX_SPEED) / pow(hitCountHalf, 2);
 
 }
 
@@ -42,9 +43,9 @@ void Section2::evaluateCurve(uint8_t code) {
     {
         hitCount = SECTION2_DECEL_FACTOR;
     }
-    else if (hitCount >= hitCountMax)
+    else if (hitCount >= SECTION2_HITCOUNT_MAX)
     {
-        hitCount = hitCountMax;
+        hitCount = SECTION2_HITCOUNT_MAX;
     }
 
 
@@ -54,14 +55,14 @@ bool Section2::evaluateState(uint8_t code) {
     evaluateCurve(code);
 
 
-    uint8_t speed = a * pow(hitCount - hitCountHalf, 2) + max;
+    uint8_t speed = a * pow(hitCount - hitCountHalf, 2) + SECTION2_MAX_SPEED;
 
 
     switch (state)
     {
 
         case 0:
-            if (compareBits(code, "11100"))
+            if (compareBits(code, "111x0"))
             {
                 motor.stop();
                 DEBUG_SOUND();

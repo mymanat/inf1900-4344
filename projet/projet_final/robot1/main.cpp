@@ -31,7 +31,7 @@ void start(uint8_t section) {
 
 
                     Section1 section1;
-                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
+                    if (i == SECTION_COUNT - 1)
                     {
                         section1.setShouldTurnAfterTransition(false);
                     }
@@ -42,7 +42,7 @@ void start(uint8_t section) {
                 case 2:
                 {
                     Section2 section2;
-                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
+                    if (i == SECTION_COUNT - 1)
                     {
                         section2.setShouldTurnAfterTransition(false);
                     }
@@ -52,7 +52,7 @@ void start(uint8_t section) {
                 case 3:
                 {
                     Section3 section3;
-                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
+                    if (i == SECTION_COUNT - 1)
                     {
                         section3.setShouldTurnAfterTransition(false);
                     }
@@ -62,7 +62,7 @@ void start(uint8_t section) {
                 case 4:
                 {
                     Section4 section4;
-                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
+                    if (i == SECTION_COUNT - 1)
                     {
                         section4.setShouldTurnAfterTransition(false);
                     }
@@ -111,6 +111,7 @@ void start() {
 
 int main() {
 
+    DEBUG_SOUND();
 #ifdef DEBUG
     initUART();
 #endif
