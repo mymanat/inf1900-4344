@@ -103,6 +103,10 @@ public:
         speaker.arreterSon();
     }
 
+    bool isShouldTransition() const;
+
+    void setShouldTransition(bool shouldTransition);
+
 protected:
     LED led;
     Timer timer;
@@ -119,6 +123,8 @@ private:
      * Défini si le robot devrait aller tout droit lorsque les capteurs ne détectent rien
      */
     bool shouldGoStraight = false;
+
+    bool shouldTransition = true;
 
     uint8_t speed = MOTOR_MAX_SPEED;
 };

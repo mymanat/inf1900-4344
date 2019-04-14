@@ -9,6 +9,7 @@
 
 #include "Utils.h"
 #include "wait.h"
+#include "LED.h"
 
 #define MI4 64
 
@@ -42,7 +43,6 @@ public:
 
     void jouerMelodie();
 
-    void jouerMelodie2();
 
 
     void arreterSon();

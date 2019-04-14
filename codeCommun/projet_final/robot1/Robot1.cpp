@@ -2,6 +2,7 @@
 // Created by simon on 4/3/19.
 //
 
+#include <stdint.h>
 #include "Robot1.h"
 
 Robot1::Robot1() {
@@ -74,8 +75,10 @@ void Robot1::run() {
         shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
 
-    Robot1 robot1;
-    robot1.transitionState();
+    if (shouldTransition) {
+        Robot1 robot1;
+        robot1.transitionState();
+    }
 }
 
 bool Robot1::evaluateState(uint8_t code) {
@@ -126,6 +129,7 @@ uint8_t Robot1::receiveData() {
     int message = 0;
     int channel = 0;
     int command = 0;
+    led.turnOff();
 
     while (true)
     {
@@ -151,6 +155,10 @@ uint8_t Robot1::receiveData() {
             wait(100);
             led.setStateOnboardLED(LED_ONBOARD_OFF);
             compteur++;
+            led.turnOff();
+
+            led.turnOn(compteur);
+
             if (compteur == 10)
             {
                 compteur = 1;
@@ -183,4 +191,12 @@ bool Robot1::isShouldGoStraight() const {
 
 void Robot1::setShouldGoStraight(bool shouldGoStraight) {
     Robot1::shouldGoStraight = shouldGoStraight;
+}
+
+bool Robot1::isShouldTransition() const {
+    return shouldTransition;
+}
+
+void Robot1::setShouldTransition(bool shouldTransition) {
+    Robot1::shouldTransition = shouldTransition;
 }

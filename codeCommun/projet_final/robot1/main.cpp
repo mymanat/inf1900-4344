@@ -26,24 +26,36 @@ void start(uint8_t section) {
                 case 1:
                 {
                     Section1 section1;
+                    if (i == 3) {
+                        section1.setShouldTransition(false);
+                    }
                     section1.run();
                 }
                     break;
                 case 2:
                 {
                     Section2 section2;
+                    if (i == 3) {
+                        section2.setShouldTransition(false);
+                    }
                     section2.run();
                 }
                     break;
                 case 3:
                 {
                     Section3 section3;
+                    if (i == 3) {
+                        section3.setShouldTransition(false);
+                    }
                     section3.run();
                 }
                     break;
                 case 4:
                 {
                     Section4 section4;
+                    if (i == 3) {
+                        section4.setShouldTransition(false);
+                    }
                     section4.run();
                 }
                     break;
