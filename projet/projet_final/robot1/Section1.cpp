@@ -11,23 +11,16 @@ bool Section1::evaluateState(uint8_t code) {
             //If all sensors detect black, change state
             if (compareBits(code, "00000"))
             {
-
-                //Stop the motors and wait for a command
                 motor.stop();
                 command = receiveData() - 1;
                 motor.init();
                 trackerSensor.can::init();
                 ++state;
-
             }
-            break;
-        case 1:
             break;
         case 2:
             if (!compareBits(code, "00000"))
             {
-                //speaker.playSound(RE);
-
                 ++state;
             }
             break;
@@ -35,7 +28,6 @@ bool Section1::evaluateState(uint8_t code) {
             return false;
             break;
     }
-
     return true;
 }
 
@@ -48,7 +40,6 @@ void Section1::evaluateAction(uint8_t code) {
             break;
         case 1:
         {
-
             //Calculate values of x and y
             int y = command / 3;
             int x = command % 3;
