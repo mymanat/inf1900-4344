@@ -111,6 +111,7 @@ void start() {
 
 int main() {
 
+    DEBUG_SOUND();
 #ifdef DEBUG
     initUART();
 #endif

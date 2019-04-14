@@ -15,7 +15,11 @@ void Robot1::transitionState() {
 
     motor.stop();
 
+#ifdef DEFINE
     speaker.playSound(SOL3);
+#endif
+
+
     led.setStateOnboardLED(LED_ONBOARD_RED);
 
     wait(TRANSITION_DELAY_LONG);
@@ -42,7 +46,7 @@ void Robot1::transitionState() {
                 else
                 {
 
-                    motor.adjust(MOTOR_SLOW_SPEED/4, MOTOR_SLOW_SPEED);
+                    motor.adjust(MOTOR_SLOW_SPEED / 4, MOTOR_SLOW_SPEED);
                     state = 2;
                 }
 
@@ -60,7 +64,10 @@ void Robot1::transitionState() {
     } while (state < 3);
 
     led.setStateOnboardLED(LED_ONBOARD_OFF);
+#ifdef DEFINE
     speaker.playSound(MI4);
+#endif
+
     motor.stop();
     wait(TRANSITION_DELAY_LONG);
 
@@ -163,7 +170,8 @@ uint8_t Robot1::receiveData() {
 
             timer.startTimer();
         }
-        if (timer.getValue() > timer.getDuration() / 8) {
+        if (timer.getValue() > timer.getDuration() / 8)
+        {
             led.setStateOnboardLED(LED_ONBOARD_OFF);
         }
 
