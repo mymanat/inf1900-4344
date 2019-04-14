@@ -151,14 +151,14 @@ uint8_t Robot1::receiveData() {
             wait(TRANSITION_DELAY_1);
             led.setStateOnboardLED(LED_ONBOARD_OFF);
             compteur++;
-            led.turnOff();
-
-            led.turnOn(compteur);
-
             if (compteur == 10)
             {
                 compteur = 1;
             }
+            led.turnOff();
+            led.turnOn((compteur > LED_COUNT) ? (compteur - LED_COUNT) : compteur);
+
+
             timer.startTimer();
         }
 

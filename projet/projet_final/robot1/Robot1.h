@@ -6,17 +6,27 @@
 #define MAIN_ROBOT1_H
 
 #include "Utils.h"
-
 #include "Timer.h"
 #include "Button.h"
-
 #include "LED.h"
 #include "Motors.h"
 #include "TrackerSensor.h"
-
 #include "Speaker.h"
-
 #include "IRTransceiver.h"
+
+
+
+//todo
+
+#include "../../lib/Utils.h"
+#include "../../lib/Timer.h"
+#include "../../lib/Button.h"
+#include "../../lib/LED.h"
+#include "../../lib/Motors.h"
+#include "../../lib/TrackerSensor.h"
+#include "../../lib/Speaker.h"
+#include "../../lib/IRTransceiver.h"
+
 
 /**
  * Classe qui contient les méthodes utiles à l'exécution du parcourt. Les 4 classes de section héritent de celle-ci.

@@ -74,8 +74,9 @@ bool TrackerSensor::isShouldUpdateLED() const {
     return shouldUpdateLED;
 }
 
-void TrackerSensor::setShouldUpdateLED(bool shouldUpdateLED) {
-    shouldUpdateLED = shouldUpdateLED;
+void TrackerSensor::setShouldUpdateLED(bool shouldUpdateLed) {
+    shouldUpdateLED = shouldUpdateLed;
 }
+
 
 

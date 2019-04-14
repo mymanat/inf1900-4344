@@ -50,3 +50,14 @@ Cette méthode contient la boucle principale. Elle possède 3 étapes:
 2. Elle détermine l'action à effectuer en fonction de l'état de la machine à état en appelant la méthode virtuelle "evaluateAction()" qui est redéfinit par les classes de section
 3. Elle détermine si la machine à état devrait changer d'état.
 
+
+
+----
+#ROBOT 2: Robot Émetteur
+
+Lorsque le robot est pret à transmettre, la DEL se trouvant sur la carte s'allume.
+
+Lorsque l'on appuie sur le bouton poussoir, elle change de couleur.
+
+Après 2 secondes, si l'utilisateur a arrêter d'appuyer à répétition sur le bouton, le signal est transmit. Pendant la transmission,
+la DEL devient rouge. Ensuite, elle va cligneter un nombre de fois correspondant au signal envoyé.

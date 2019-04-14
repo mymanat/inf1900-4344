@@ -35,18 +35,26 @@ int main() {
 
         if (button.getState())
         {
+            while (button.getState()) {
+                led.setStateOnboardLED(LED_ONBOARD_RED);
+            }
+            led.setStateOnboardLED(LED_ONBOARD_GREEN);
 
             counter = 1;
             button.setState(false);
             timer.startTimer();
 
-            //_delay_ms(100);
 
             while (!timer.isDone())
             {
 
                 if (button.getState())
                 {
+                    while (button.getState()) {
+                        led.setStateOnboardLED(LED_ONBOARD_RED);
+                    }
+                    led.setStateOnboardLED(LED_ONBOARD_GREEN);
+
                     counter++;
                     button.setState(false);
                     timer.startTimer();

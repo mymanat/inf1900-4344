@@ -91,10 +91,12 @@ public:
      * Permet de définir si les DELs devraient être  mises-à-jour en même temps que le capteur
      * @param shouldUpdateLED Si les DELs devraient être mises-à-jour
      */
-    void setShouldUpdateLED(bool shouldUpdateLED);
+    void setShouldUpdateLED(bool shouldUpdateLed);
+
 
 
     uint16_t getBlackValue() const;
+
 
     void setBlackValue(uint16_t blackValue);
 
