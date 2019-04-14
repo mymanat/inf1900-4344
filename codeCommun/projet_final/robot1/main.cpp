@@ -5,6 +5,7 @@
 #include "Section2.h"
 #include "Section3.h"
 #include "Section4.h"
+#include "../../lib/Motors.h"
 
 void start(uint8_t section);
 
@@ -93,18 +94,23 @@ int main() {
 
 //    start();
     start();
+//    Motors motors;
+//    motors.tournerDroite90();
+//    while (true) {
+//        motors.adjust(255, 255);
+//
 
 //    start(1);
 
 
-    //s1.run();
+//s1.run();
 
-    //    robot1.transitionState();
-    //    Section2 section2;
-    //    section2.run();
+//    robot1.transitionState();
+//    Section2 section2;
+//    section2.run();
 
-    //    Section4 section4;
-    //    section4.run();
-    //            start(robot1);
-    //    start(2);
+//    Section4 section4;
+//    section4.run();
+//            start(robot1);
+//    start(2);
 }
