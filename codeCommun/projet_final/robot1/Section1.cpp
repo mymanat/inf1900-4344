@@ -19,6 +19,7 @@ bool Section1::evaluateState(uint8_t code) {
             if (message != 0)
             {
                 state = 2;
+                led.setStateOnboardLED(LED_ONBOARD_RED);
             }
             break;
         case 2:
@@ -52,6 +53,7 @@ void Section1::evaluateAction(uint8_t code) {
             break;
         case 2:
             wait(1000);
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
             //Extract the channel out of the message
             channel = ir.getChannel(message);
 

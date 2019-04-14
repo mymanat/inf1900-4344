@@ -42,4 +42,10 @@
 #define LONGUEUR_COMMANDE_IR 12
 
 
+
+/*
+ * Délais pour s'assurer de la précision des mouvements
+ */
+#define TRANSITION_DELAY_1 100
+
 #endif
