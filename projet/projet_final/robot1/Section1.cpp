@@ -4,13 +4,22 @@
 
 #include "Section1.h"
 
+Section1::Section1() {
+
+    setSpeed(MOTOR_SLOW_SPEED);
+}
+
+}
+
 bool Section1::evaluateState(uint8_t code) {
     switch (state)
     {
         case 0:
+
             //If all sensors detect black, change state
             if (compareBits(code, "00000"))
             {
+                setSpeed(MOTOR_FAST_SPEED);
 
                 //Stop the motors and wait for a command
                 motor.stop();
