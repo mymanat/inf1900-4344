@@ -14,30 +14,24 @@ bool Section1::evaluateState(uint8_t code) {
                 state = 1;
                 //Stop the motors and wait for a command
                 motor.stop();
-//            message = ir.receive();
                 command = receiveData();
                 motor.init();
 
-                state = 2;
                 led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 trackerSensor.can::init();
 
             }
             break;
         case 1:
-            //If a command is received, change state
-            state = 2;
             break;
         case 2:
-            break;
-        case 3:
-            if (!compareBits(code, "00000"))
+            if (1 == 2)
             {
-                speaker.jouerSon(RE);
+                //speaker.jouerSon(RE);
 
-                state = 4;
+                ++state;
             }
-        case 4:
+        case 3:
             return false;
             break;
     }
@@ -53,21 +47,8 @@ void Section1::evaluateAction(uint8_t code) {
             followLine(code);
             break;
         case 1:
-
-            break;
-        case 2:
         {
             wait(1000);
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
-            //Extract the channel out of the message
-//            channel = ir.getChannel(message);
-
-            //Extract the command from the message
-//            command = ir.getCommand(message) - 1;
-
-            //If the channel matches the one we are trying to receive from
-//            if (channel == 1)
-//            {
 
             //Calculate values of x and y
             int y = command / 3;
@@ -97,7 +78,10 @@ void Section1::evaluateAction(uint8_t code) {
             speaker.arreterSon();
 
             motor.tournerDroite90();
+            wait(1000);
+            speaker.jouerSon(RE);
             wait(2000);
+            speaker.arreterSon();
 
             motor.goForward(255);
             wait(tempsMovementX[x]);
@@ -109,9 +93,7 @@ void Section1::evaluateAction(uint8_t code) {
 
             wait(2000);
 
-            //motor.goForward(MOTOR_MAX_SPEED);
-            //wait();
-            state = 3;
+            ++state;
         }
             break;
         case 3:
