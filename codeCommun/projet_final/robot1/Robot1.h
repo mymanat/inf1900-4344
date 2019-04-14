@@ -80,6 +80,30 @@ public:
         speaker.arreterSon();
     }
 
+    static void changeSectionSound() {
+        Speaker speaker;
+        speaker.jouerSon(70);
+        wait(100);
+        speaker.arreterSon();
+        wait(20);
+        speaker.jouerSon(80);
+        wait(100);
+        speaker.arreterSon();
+        speaker.jouerSon(70);
+        wait(100);
+        speaker.arreterSon();
+        speaker.jouerSon(70);
+        wait(100);
+        speaker.arreterSon();
+        wait(20);
+        speaker.jouerSon(80);
+        wait(100);
+        speaker.arreterSon();
+        speaker.jouerSon(70);
+        wait(100);
+        speaker.arreterSon();
+    }
+
 protected:
     LED led;
     Timer timer;
@@ -87,7 +111,6 @@ protected:
     TrackerSensor trackerSensor;
     Button button;
     Speaker speaker;
-
 
 
     uint8_t state = 0;

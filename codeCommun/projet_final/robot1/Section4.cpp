@@ -11,6 +11,7 @@ Section4::Section4() {
     setShouldGoStraight(true);
 }
 
+
 bool Section4::evaluateState(uint8_t code) {
 
     if (state % 2 == 0)

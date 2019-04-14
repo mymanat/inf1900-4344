@@ -16,9 +16,32 @@ bool Section3::followLineSection3(uint8_t code) {
 }
 
 bool Section3::evaluateState(uint8_t code) {
+
     if (state > 3 && state < 8)
     {
         loopCounter++;
+        if (compareBits(code, "00000"))
+        {
+#ifdef DEBUG
+            uint8_t time1a = timeFirstLine >> 8;
+            uint8_t time1b = timeFirstLine & 0xff;
+            uint8_t time2a = timeSecondLine >> 8;
+            uint8_t time2b = timeSecondLine & 0xff;
+
+            transmissionUART(time1a);
+            transmissionUART(time1b);
+            transmissionUART(0xff);
+            transmissionUART(time2a);
+            transmissionUART(time2b);
+#endif
+            motor.stop();
+            trackerSensor.setShouldUpdateDel(false);
+
+            evaluateLine();
+            button.init();
+            state++;
+            return true;
+        }
     }
     switch (state)
     {
@@ -60,29 +83,7 @@ bool Section3::evaluateState(uint8_t code) {
                 state++;
             }
             break;
-        case 7:
-            if (compareBits(code, "00000"))
-            {
-#ifdef DEBUG
-                uint8_t time1a = timeFirstLine >> 8;
-                uint8_t time1b = timeFirstLine & 0xff;
-                uint8_t time2a = timeSecondLine >> 8;
-                uint8_t time2b = timeSecondLine & 0xff;
 
-                transmissionUART(time1a);
-                transmissionUART(time1b);
-                transmissionUART(0xff);
-                transmissionUART(time2a);
-                transmissionUART(time2b);
-#endif
-                motor.stop();
-                trackerSensor.setShouldUpdateDel(false);
-
-                evaluateLine();
-                button.init();
-                state++;
-            }
-            break;
         case 8:
             if (button.getState())
             {
@@ -97,7 +98,7 @@ bool Section3::evaluateState(uint8_t code) {
 }
 
 void Section3::checkLineDetection(uint8_t code) {
-    if (loopCounter < 100 ||  compareBits(code, "0xxx0"))
+    if (loopCounter < 200 || compareBits(code, "0xxx0"))
     {
         return;
 

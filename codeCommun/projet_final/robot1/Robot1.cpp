@@ -24,7 +24,7 @@ void Robot1::transitionState()
 
     motor.stop();
 
-    changeStateSound(); //todo
+
 
     wait(500);
     state = 0;

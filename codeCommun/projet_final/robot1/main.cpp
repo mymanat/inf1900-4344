@@ -16,6 +16,11 @@ void start(uint8_t section)
     {
         for (uint8_t i = 0; i < SECTION_COUNT; ++i)
         {
+            Robot1::changeSectionSound(); //todo
+            LED led;
+            led.turnOff();
+            led.turnOn(section);
+            wait(100);
             switch (section)
             {
             case 1:
@@ -46,15 +51,23 @@ void start(uint8_t section)
                 break;
             }
 
+
+
             section = (section == 4) ? 0 : section + 1;
+
+
         }
     }
     Motors motors;
     motors.stop();
+    Speaker speaker;
+    speaker.jouerMelodie2();
 }
 
-void start(Robot1 &robot1)
+void start()
+
 {
+    Robot1 robot1;
     uint8_t section = robot1.receiveData();
 
     LED del;
@@ -70,10 +83,12 @@ int main()
 
     initialisationUART();
     //    Robot1::transitionState();
-//    Robot1 robot1;
+//    start(2);
+start();
+
 //    start(robot1);
-    Section2 section2;
-    section2.run();
+
+
 
     //Section1 s1;
     //s1.run();
