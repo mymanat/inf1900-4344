@@ -15,17 +15,17 @@ public:
   IRTransceiver();
 
   void transmit(int command, int channel);
-   int receive();
-  //bool estMaintenu(bool up, int duree);
+  int receive();
   int measureBurstLength();
   bool isSignalActive();
   bool isWithinTolerance(int val, int target);
-  int getCommand(int message);
-  int getChannel(int message);
+  int getCommand();
+  int getChannel();
 
 private:
   Speaker speaker_;
   can converter_;
+  int message_;
 };
 
 #endif //IR_TRANSCEIVER
