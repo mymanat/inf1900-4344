@@ -11,26 +11,25 @@ bool Section1::evaluateState(uint8_t code) {
             //If all sensors detect black, change state
             if (compareBits(code, "00000"))
             {
-                state = 1;
                 //Stop the motors and wait for a command
                 motor.stop();
-                command = receiveData();
+                command = receiveData() - 1;
                 motor.init();
-
-                led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 trackerSensor.can::init();
+                ++state;
 
             }
             break;
         case 1:
             break;
         case 2:
-            if (1 == 2)
+            if (!compareBits(code, "00000"))
             {
                 //speaker.jouerSon(RE);
 
                 ++state;
             }
+            break;
         case 3:
             return false;
             break;
@@ -48,7 +47,6 @@ void Section1::evaluateAction(uint8_t code) {
             break;
         case 1:
         {
-            wait(1000);
 
             //Calculate values of x and y
             int y = command / 3;
@@ -74,11 +72,11 @@ void Section1::evaluateAction(uint8_t code) {
             motor.stop();
 
             speaker.jouerSon(RE);
-            wait(1000);
+            wait(3000);
             speaker.arreterSon();
 
             motor.tournerDroite90();
-            wait(1000);
+            wait(3000);
             speaker.jouerSon(RE);
 
             wait(1000);
@@ -98,16 +96,17 @@ void Section1::evaluateAction(uint8_t code) {
             ++state;
         }
             break;
-        case 3:
-            if (cpt <= 400)
+        case 2:
+        motor.setDirection(MOTOR_DIRECTION_FORWARD);
+            if (cpt <= 2500)
             {
-                if (cpt < 200)
+                if (cpt < 1250)
                 {
-                    motor.adjust(40, 100);
+                    motor.adjust(MOTOR_SLOW_SPEED, MOTOR_SLOW_SPEED/2);
                 }
                 else
                 {
-                    motor.adjust(100, 40);
+                    motor.adjust(MOTOR_SLOW_SPEED/2, MOTOR_SLOW_SPEED);
                 }
                 ++cpt;
             }

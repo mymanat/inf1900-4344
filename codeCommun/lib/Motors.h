@@ -16,13 +16,13 @@
 /**
  * Durée de rotation pour faire 90 degrés
  */
-#define MOTOR_ROTATION_DURATION_90_R 400
+#define MOTOR_ROTATION_DURATION_90_R 410
 #define MOTOR_ROTATION_DURATION_90_L 425
 
 /**
  * Coefficient pour modifier la vitesse du moteur qui tourne plus rapidement que l'autre
  */
-#define MOTOR_IMBALANCE_COEFFICIENT 0.98
+#define MOTOR_IMBALANCE_COEFFICIENT 1.0
 
 #define MOTOR_MAX_SPEED 170
 #define MOTOR_SLOW_SPEED 130
