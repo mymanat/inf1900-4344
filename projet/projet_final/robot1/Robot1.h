@@ -98,9 +98,9 @@ public:
     void setShouldGoStraight(bool shouldGoStraight);
 
 
-    bool isShouldTransition() const;
+    bool isShouldTurnAfterTransition() const;
 
-    void setShouldTransition(bool shouldTransition);
+    void setShouldTurnAfterTransition(bool shouldTurn);
 
 protected:
     LED led;

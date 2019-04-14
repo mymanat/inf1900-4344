@@ -15,30 +15,36 @@ void start(uint8_t section) {
     {
         for (uint8_t i = 0; i < SECTION_COUNT; ++i)
         {
+
+
             DEBUG_SOUND();
             LED led;
             led.turnOff();
             led.turnOn(section);
-            wait(100);
+            wait(200);
             DEBUG_SOUND();
+
             switch (section)
             {
                 case 1:
                 {
+
+
                     Section1 section1;
-                    if (i == 3)
+                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
                     {
-                        section1.setShouldTransition(false);
+                        section1.setShouldTurnAfterTransition(false);
                     }
                     section1.run();
+
                 }
                     break;
                 case 2:
                 {
                     Section2 section2;
-                    if (i == 3)
+                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
                     {
-                        section2.setShouldTransition(false);
+                        section2.setShouldTurnAfterTransition(false);
                     }
                     section2.run();
                 }
@@ -46,9 +52,9 @@ void start(uint8_t section) {
                 case 3:
                 {
                     Section3 section3;
-                    if (i == 3)
+                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
                     {
-                        section3.setShouldTransition(false);
+                        section3.setShouldTurnAfterTransition(false);
                     }
                     section3.run();
                 }
@@ -56,9 +62,9 @@ void start(uint8_t section) {
                 case 4:
                 {
                     Section4 section4;
-                    if (i == 3)
+                    if (i == SECTION_COUNT - 1)//sectioncount - 1//todo
                     {
-                        section4.setShouldTransition(false);
+                        section4.setShouldTurnAfterTransition(false);
                     }
                     section4.run();
                 }

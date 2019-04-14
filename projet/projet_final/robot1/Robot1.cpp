@@ -35,7 +35,6 @@ void Robot1::transitionState() {
             {
                 motor.stop();
                 DEBUG_SOUND();
-
                 if (!shouldTurnAfterTransition)
                 {
                     state = 3;
@@ -44,7 +43,7 @@ void Robot1::transitionState() {
                 {
 
                     motor.adjust(0, MOTOR_SLOW_SPEED);
-                    state++;
+                    state = 2;
                 }
 
             }
@@ -80,6 +79,7 @@ void Robot1::run() {
     }
 
     Robot1 robot1;
+    robot1.setShouldTurnAfterTransition(isShouldTurnAfterTransition());
     robot1.transitionState();
 }
 
@@ -193,10 +193,10 @@ void Robot1::setShouldGoStraight(bool shouldGoStraight) {
     Robot1::shouldGoStraight = shouldGoStraight;
 }
 
-bool Robot1::isShouldTransition() const {
+bool Robot1::isShouldTurnAfterTransition() const {
     return shouldTurnAfterTransition;
 }
 
-void Robot1::setShouldTransition(bool shouldTransition) {
-    Robot1::shouldTurnAfterTransition = shouldTransition;
+void Robot1::setShouldTurnAfterTransition(bool shouldTurn) {
+    Robot1::shouldTurnAfterTransition = shouldTurn;
 }

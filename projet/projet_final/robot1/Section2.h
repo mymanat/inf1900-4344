@@ -31,7 +31,6 @@
  * 0: follow line until hard right turn
  * 1: hard right turn
  * 2:follow line
- * 4:end
  */
 
 class Section2 : public Robot1 {
