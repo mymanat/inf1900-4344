@@ -55,43 +55,44 @@ void Section1::evaluateAction(uint8_t code) {
             //Execute the movements needed to get on the point specified by the command
             motor.tournerGauche90();
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
 
-            motor.goForward(255);
+            motor.goForward(MOTOR_MAXIMUM_SPEED);
             wait(tempsMovementX[x]);
             motor.stop();
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
 
             motor.tournerDroite90();
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
 
-            motor.goForward(255);
+            motor.goForward(MOTOR_MAXIMUM_SPEED);
             wait(tempsMovementY[y]);
             motor.stop();
 
             speaker.jouerSon(RE);
-            wait(3000);
+            wait(3 * DELAY_1_SEC);
             speaker.arreterSon();
 
             motor.tournerDroite90();
-            wait(3000);
-            speaker.jouerSon(RE);
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
+            speaker.jouerSon(RE);
+            wait(3 * DELAY_1_SEC);
+
 
             speaker.arreterSon();
 
-            motor.goForward(255);
+            motor.goForward(MOTOR_MAXIMUM_SPEED);
             wait(tempsMovementX[x]);
             motor.stop();
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
 
             motor.tournerGauche90();
 
-            wait(1000);
+            wait(TRANSITION_DELAY_LONG);
 
             ++state;
         }

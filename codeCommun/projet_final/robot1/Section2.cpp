@@ -88,7 +88,7 @@ bool Section2::evaluateState(uint8_t code) {
             if (compareBits(code, "00111"))
             {
                 motor.stop();
-                motor.adjust(0, MOTOR_MAX_SPEED);
+                motor.adjust(0, MOTOR_FAST_SPEED);
                 changeStateSound();
                 return false;
 

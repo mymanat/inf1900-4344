@@ -50,7 +50,7 @@ bool Section4::evaluateState(uint8_t code) {
             {
 
                 led.setStateOnboardLED(LED_ONBOARD_RED);
-                motor.goForward(MOTOR_MAX_SPEED);
+                motor.goForward(MOTOR_FAST_SPEED);
                 wait(TRANSITION_DELAY_2);
                 return false;
             }
@@ -89,7 +89,7 @@ bool Section4::evaluateState(uint8_t code) {
              state++;
              if (state == 6)
              {
-                 motor.goForward(MOTOR_MAX_SPEED);
+                 motor.goForward(MOTOR_FAST_SPEED);
                  wait(TRANSITION_DELAY_2);
                  return false;
              }

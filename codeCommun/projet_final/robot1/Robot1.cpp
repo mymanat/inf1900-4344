@@ -18,7 +18,7 @@ void Robot1::transitionState() {
     trackerSensor.init();
 
     shouldGoStraight = false;
-    setSpeed(MOTOR_MAX_SPEED);
+    setSpeed(MOTOR_FAST_SPEED);
 
     motor.stop();
 
@@ -42,8 +42,13 @@ void Robot1::transitionState() {
             {
                 motor.stop();
                 changeStateSound();
-                motor.adjust(MOTOR_SLOW_SPEED/3, MOTOR_SLOW_SPEED);
+                motor.adjust(MOTOR_SLOW_SPEED / 3, MOTOR_SLOW_SPEED);
                 state++;
+                if (!shouldTurnAfterTransition)
+                {
+                    state = 3;
+                }
+
             }
         }
         else
@@ -75,10 +80,8 @@ void Robot1::run() {
         shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
 
-    if (shouldTransition) {
-        Robot1 robot1;
-        robot1.transitionState();
-    }
+    Robot1 robot1;
+    robot1.transitionState();
 }
 
 bool Robot1::evaluateState(uint8_t code) {
@@ -194,9 +197,9 @@ void Robot1::setShouldGoStraight(bool shouldGoStraight) {
 }
 
 bool Robot1::isShouldTransition() const {
-    return shouldTransition;
+    return shouldTurnAfterTransition;
 }
 
 void Robot1::setShouldTransition(bool shouldTransition) {
-    Robot1::shouldTransition = shouldTransition;
+    Robot1::shouldTurnAfterTransition = shouldTransition;
 }

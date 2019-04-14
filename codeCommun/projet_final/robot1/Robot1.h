@@ -124,9 +124,9 @@ private:
      */
     bool shouldGoStraight = false;
 
-    bool shouldTransition = true;
+    bool shouldTurnAfterTransition = true;
 
-    uint8_t speed = MOTOR_MAX_SPEED;
+    uint8_t speed = MOTOR_FAST_SPEED;
 };
 
 #endif //MAIN_ROBOT1_H

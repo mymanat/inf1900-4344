@@ -24,10 +24,12 @@
  */
 #define MOTOR_IMBALANCE_COEFFICIENT 1.0
 
-#define MOTOR_MAX_SPEED 170
+#define MOTOR_FAST_SPEED 170
 #define MOTOR_SLOW_SPEED 130
 
 #define MOTOR_ULTRA_SPEED 220 //VITESSE_MAX_ULTRA
+
+#define MOTOR_MAXIMUM_SPEED 255
 
 class Motors : public Component
 {
