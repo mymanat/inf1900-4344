@@ -8,10 +8,9 @@
 
 void start(uint8_t section);
 
-void start(Robot1 &robot1);
+void start(Robot1 & robot1);
 
-void start(uint8_t section)
-{
+void start(uint8_t section) {
     if (section <= SECTION_COUNT && section > 0)
     {
         for (uint8_t i = 0; i < SECTION_COUNT; ++i)
@@ -23,65 +22,70 @@ void start(uint8_t section)
             wait(100);
             switch (section)
             {
-            case 1:
-            {
-                Section1 section1;
-                section1.run();
+                case 1:
+                {
+                    Section1 section1;
+                    section1.run();
+                }
+                    break;
+                case 2:
+                {
+                    Section2 section2;
+                    section2.run();
+                }
+                    break;
+                case 3:
+                {
+                    Section3 section3;
+                    section3.run();
+                }
+                    break;
+                case 4:
+                {
+                    Section4 section4;
+                    section4.run();
+                }
+                    break;
+                default:
+                    break;
             }
-            break;
-            case 2:
-            {
-                Section2 section2;
-                section2.run();
-            }
-            break;
-            case 3:
-            {
-                Section3 section3;
-                section3.run();
-            }
-            break;
-            case 4:
-            {
-                Section4 section4;
-                section4.run();
-            }
-            break;
-            default:
-                break;
-            }
-
 
 
             section = (section == 4) ? 1 : section + 1;
 
 
         }
+        Motors motors;
+        motors.stop();
+        Speaker speaker;
+        speaker.jouerMelodie2();
     }
-    Motors motors;
-    motors.stop();
-    Speaker speaker;
-    speaker.jouerMelodie2();
 }
 
-void start()
+void start() {
+    uint8_t section = 0;
+    while (!(section <= SECTION_COUNT && section > 0))
+    {
+        LED led;
+        led.setStateOnboardLED(LED_ONBOARD_RED);
+        wait(500);
+        led.setStateOnboardLED(LED_ONBOARD_OFF);
 
-{
-    Robot1 robot1;
-    uint8_t section = robot1.receiveData();
+        Robot1 robot1;
+        section = robot1.receiveData();
 
+
+    }
     LED del;
     del.turnOff();
     del.turnOn(section);
     wait(3000);
-
     start(section);
 }
 
-int main()
-{
+int main() {
 
-    initialisationUART();
+    initUART();
     //    Robot1::transitionState();
 //    start(2);
 //start();

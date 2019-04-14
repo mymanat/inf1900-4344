@@ -2,15 +2,15 @@
 #include "LOG.h"
 
 
-void transmissionUART(const uint8_t donnee) {
+void transmitUART(const uint8_t data) {
 
     /* Wait for empty transmit buffer */
     while (!(UCSR0A & (1 << UDRE0)));
     /* Put data into buffer, sends the data */
-    UDR0 = donnee;
+    UDR0 = data;
 
 }
-char receptionUART() {
+char receptUART() {
     /* Wait for empty transmit buffer */
 
 
@@ -22,7 +22,7 @@ char receptionUART() {
 }
 
 
-void initialisationUART(void) {
+void initUART(void) {
 
 // 2400 bauds. Nous vous donnons la valeur des deux
 
@@ -44,11 +44,11 @@ void initialisationUART(void) {
 
 }
 
-void log_uart(const char mots[]) {
-    for (uint8_t i = 0; i < strlen(mots); i++) {
+void log_uart(const char words[]) {
+    for (uint8_t i = 0; i < strlen(words); i++) {
 
-        unsigned char character= mots[i];
-        transmissionUART(character);
+        unsigned char character= words[i];
+        transmitUART(character);
         if(character == '\0'){
             break;
         }

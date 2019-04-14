@@ -6,7 +6,6 @@
 
 Section3::Section3() {
     setSpeed(MOTOR_SLOW_SPEED);
-
 }
 
 
@@ -17,25 +16,26 @@ bool Section3::evaluateState(uint8_t code) {
         loopCounter++;
         if (compareBits(code, "00000"))
         {
+            led.setStateOnboardLED(LED_ONBOARD_RED);
 #ifdef DEBUG
             uint8_t time1a = timeFirstLine >> 8;
-            uint8_t time1b = timeFirstLine & 0xff;
-            uint8_t time2a = timeSecondLine >> 8;
-            uint8_t time2b = timeSecondLine & 0xff;
+                uint8_t time1b = timeFirstLine & 0xff;
+                uint8_t time2a = timeSecondLine >> 8;
+                uint8_t time2b = timeSecondLine & 0xff;
 
-            transmissionUART(time1a);
-            transmissionUART(time1b);
-            transmissionUART(0xff);
-            transmissionUART(time2a);
-            transmissionUART(time2b);
+                transmitUART(time1a);
+                transmitUART(time1b);
+                transmitUART(0xff);
+                transmitUART(time2a);
+                transmitUART(time2b);
 #endif
             motor.stop();
             trackerSensor.setShouldUpdateDel(false);
 
             evaluateLine();
             button.init();
-            state++;
-            return true;
+            state = 8;
+
         }
     }
     switch (state)
@@ -43,6 +43,8 @@ bool Section3::evaluateState(uint8_t code) {
         case 0:
             if (compareBits(code, "11111"))
             {
+
+                led.setStateOnboardLED(LED_ONBOARD_RED);
                 motor.stop();
                 button.init();
                 state++;
@@ -50,21 +52,26 @@ bool Section3::evaluateState(uint8_t code) {
             }
             break;
         case 1:
-            if (button.getState())
+            while (button.getState())
             {
+                led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 motor.init();
-                state++;
+                state = 2;
             }
             break;
         case 2:
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
+
             if (compareBits(code, "11111"))
             {
+                led.setStateOnboardLED(LED_ONBOARD_GREEN);
                 state++;
             }
             break;
         case 3:
             if (compareBits(code, "0y1y0"))
             {
+                led.setStateOnboardLED(LED_ONBOARD_OFF);
                 state++;
             }
             break;
@@ -75,13 +82,24 @@ bool Section3::evaluateState(uint8_t code) {
         case 5:
             if (compareBits(code, "0x1x0"))
             {
+                led.setStateOnboardLED(LED_ONBOARD_OFF);
                 state++;
             }
             break;
 
         case 7:
+
+            break;
+        case 8:
+            motor.stop();
             if (button.getState())
             {
+
+                while (button.getState())
+                {
+                    led.setStateOnboardLED(LED_ONBOARD_GREEN);
+                }
+                led.setStateOnboardLED(LED_ONBOARD_OFF);
                 trackerSensor.setShouldUpdateDel(true);
                 motor.init();
                 return false;
@@ -109,6 +127,8 @@ void Section3::checkLineDetection(uint8_t code) {
     {
         timeSecondLine = loopCounter;
     }
+    led.setStateOnboardLED(LED_ONBOARD_GREEN);
+
     state++;
 
 

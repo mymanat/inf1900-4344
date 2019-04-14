@@ -6,27 +6,29 @@
 
 /**
  * Pour transmettre un seul charactère
- * @param donnee La donnée
+ * @param data La donnée
  */
-void transmissionUART(const uint8_t donnee);
+void transmitUART(const uint8_t data);
 
-char receptionUART();
+char receptUART();
 
 
-void initialisationUART(void);
+void initUART(void);
 
 
 /**
  * Pour transmettre une chaîne constantes
- * @param mots La chaîne (ex: "test")
+ * @param words La chaîne (ex: "test")
  */
-void log_uart(const char mots[]);
+void log_uart(const char words[]);
 
 
 #ifdef DEBUG
-# define DEBUG_PRINT(x)   log_uart(x)
+#define DEBUG_PRINT(x)   log_uart(x)
+#define DEBUG_TRANSMIT(x) transmitUART(x)
 #else
 # define DEBUG_PRINT(x) do {} while (0) // code mort
+#define DEBUG_TRANSMIT(x) do{} while(0)
 #endif
 
 

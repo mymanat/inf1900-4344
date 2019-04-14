@@ -17,15 +17,19 @@ bool Section4::evaluateState(uint8_t code) {
     {
         if (compareBits(code, "y000y"))
         {
+            led.setStateOnboardLED(LED_ONBOARD_RED);
             soundEnterBox();
             state++;
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
         }
     }
     else
     {
         if (compareBits(code, "11111"))
         {
+            led.setStateOnboardLED(LED_ONBOARD_RED);
             soundExitBox();
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
             state++;
             if (state == 6)
             {

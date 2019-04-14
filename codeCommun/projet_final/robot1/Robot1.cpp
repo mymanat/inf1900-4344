@@ -22,6 +22,7 @@ void Robot1::transitionState() {
     motor.stop();
 
     speaker.jouerSon(SOL3);
+    led.setStateOnboardLED(LED_ONBOARD_RED);
 
     wait(500);
     speaker.arreterSon();
@@ -55,6 +56,7 @@ void Robot1::transitionState() {
 
     } while (state < 3);
 
+    led.setStateOnboardLED(LED_ONBOARD_OFF);
     speaker.jouerSon(MI4);
     motor.stop();
     wait(500);
@@ -115,6 +117,7 @@ uint8_t Robot1::receiveData() {
 
     button.init();
 
+
     timer.setDurationSec(2);
     uint8_t compteur = 0;
 
@@ -143,6 +146,9 @@ uint8_t Robot1::receiveData() {
         {
 
             button.setState(false);
+            led.setStateOnboardLED(LED_ONBOARD_RED);
+            wait(100);
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
             compteur++;
             if (compteur == 10)
             {
