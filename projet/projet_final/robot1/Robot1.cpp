@@ -152,8 +152,6 @@ uint8_t Robot1::receiveData() {
 
             button.setState(false);
             led.setStateOnboardLED(LED_ONBOARD_RED);
-            wait(TRANSITION_DELAY_1);
-            led.setStateOnboardLED(LED_ONBOARD_OFF);
             compteur++;
             if (compteur == 10)
             {
@@ -164,6 +162,9 @@ uint8_t Robot1::receiveData() {
 
 
             timer.startTimer();
+        }
+        if (timer.getValue() > timer.getDuration() / 8) {
+            led.setStateOnboardLED(LED_ONBOARD_OFF);
         }
 
         if (compteur != 0 && timer.isDone())
