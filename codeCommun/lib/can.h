@@ -17,6 +17,7 @@
 #define CAN_H
 
 #include <avr/io.h>
+#include "Component.h"
 
 /*
  * Classe can:
@@ -26,9 +27,11 @@
  *
  */
 
-class can {
+class can : public Component{
  public:
-  can();
+    void init() override;
+
+    can();
   ~can();
 
   // retourne la valeur numerique correspondant a la valeur

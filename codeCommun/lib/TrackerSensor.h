@@ -28,7 +28,7 @@
  */
 #define SENSOR_COUNT 5
 
-class TrackerSensor : public can, public Component {
+class TrackerSensor : public can{
 
 public:
     TrackerSensor();

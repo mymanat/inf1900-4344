@@ -69,9 +69,7 @@ void Robot1::run() {
     bool shouldLoop = true;
     while (shouldLoop)
     {
-
         trackerSensor.update();
-
         evaluateAction(trackerSensor.getSensorStateCode());
         shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
@@ -112,6 +110,10 @@ bool Robot1::followLine(char code) {
 }
 
 uint8_t Robot1::receiveData() {
+
+    Timer timer;
+    Button button;
+    LED led;
     timer.init();
 
     button.init();
@@ -156,7 +158,7 @@ uint8_t Robot1::receiveData() {
             timer.startTimer();
         }
 
-        if (timer.isDone())
+        if (compteur != 0 && timer.isDone())
         {
             return compteur;
         }

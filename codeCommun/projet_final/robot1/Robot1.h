@@ -52,7 +52,7 @@ public:
  */
     void transitionState();
 
-    uint8_t receiveData();
+    static uint8_t receiveData();
 
     // Getters & Setters
 

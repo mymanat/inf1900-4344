@@ -66,6 +66,7 @@ void TrackerSensor::setBlackValue(uint16_t blackValue) {
 
 void TrackerSensor::init() {
 
+    can::init();
     DDR_TRACKER_SENSOR = MODE_INPUT;
     blackValue = getValue(SENSOR_MIDDLE_POS);
     setShouldUpdateDel(true);

@@ -12,15 +12,21 @@ bool Section1::evaluateState(uint8_t code) {
             if (compareBits(code, "00000"))
             {
                 state = 1;
+                //Stop the motors and wait for a command
+                motor.stop();
+//            message = ir.receive();
+                command = receiveData();
+                motor.init();
+
+                state = 2;
+                led.setStateOnboardLED(LED_ONBOARD_GREEN);
+                trackerSensor.can::init();
+
             }
             break;
         case 1:
             //If a command is received, change state
-            if (message != 0)
-            {
-                state = 2;
-                led.setStateOnboardLED(LED_ONBOARD_RED);
-            }
+            state = 2;
             break;
         case 2:
             break;
@@ -47,67 +53,66 @@ void Section1::evaluateAction(uint8_t code) {
             followLine(code);
             break;
         case 1:
-            //Stop the motors and wait for a command
-            motor.stop();
-            message = ir.receive();
+
             break;
         case 2:
+        {
             wait(1000);
             led.setStateOnboardLED(LED_ONBOARD_OFF);
             //Extract the channel out of the message
-            channel = ir.getChannel(message);
+//            channel = ir.getChannel(message);
 
             //Extract the command from the message
-            command = ir.getCommand(message) - 1;
+//            command = ir.getCommand(message) - 1;
 
             //If the channel matches the one we are trying to receive from
-            if (channel == 1)
-            {
+//            if (channel == 1)
+//            {
 
-                //Calculate values of x and y
-                int y = command / 3;
-                int x = command % 3;
+            //Calculate values of x and y
+            int y = command / 3;
+            int x = command % 3;
 
-                //Execute the movements needed to get on the point specified by the command
-                motor.tournerGauche90();
+            //Execute the movements needed to get on the point specified by the command
+            motor.tournerGauche90();
 
-                wait(2000);
+            wait(2000);
 
-                motor.goForward(255);
-                wait(tempsMovementX[x]);
-                motor.stop();
+            motor.goForward(255);
+            wait(tempsMovementX[x]);
+            motor.stop();
 
-                wait(2000);
+            wait(2000);
 
-                motor.tournerDroite90();
+            motor.tournerDroite90();
 
-                wait(2000);
+            wait(2000);
 
-                motor.goForward(255);
-                wait(tempsMovementY[y]);
-                motor.stop();
+            motor.goForward(255);
+            wait(tempsMovementY[y]);
+            motor.stop();
 
-                speaker.jouerSon(RE);
-                wait(2000);
-                speaker.arreterSon();
+            speaker.jouerSon(RE);
+            wait(2000);
+            speaker.arreterSon();
 
-                motor.tournerDroite90();
-                wait(2000);
+            motor.tournerDroite90();
+            wait(2000);
 
-                motor.goForward(255);
-                wait(tempsMovementX[x]);
-                motor.stop();
+            motor.goForward(255);
+            wait(tempsMovementX[x]);
+            motor.stop();
 
-                wait(2000);
+            wait(2000);
 
-                motor.tournerGauche90();
+            motor.tournerGauche90();
 
-                wait(2000);
+            wait(2000);
 
-                //motor.goForward(MOTOR_MAX_SPEED);
-                //wait();
-                state = 3;
-            }
+            //motor.goForward(MOTOR_MAX_SPEED);
+            //wait();
+            state = 3;
+        }
             break;
         case 3:
             if (cpt <= 400)
