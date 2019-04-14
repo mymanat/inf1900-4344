@@ -53,7 +53,7 @@ void start(uint8_t section)
 
 
 
-            section = (section == 4) ? 0 : section + 1;
+            section = (section == 4) ? 1 : section + 1;
 
 
         }
@@ -85,12 +85,8 @@ int main()
     //    Robot1::transitionState();
 //    start(2);
 //start();
-    Robot1 robot1;
-    robot1.transitionState();
-    Section4 section4;
-    section4.run();
 
-//    start(robot1);
+    start();
 
 
 
