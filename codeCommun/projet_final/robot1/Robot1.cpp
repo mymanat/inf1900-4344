@@ -41,7 +41,7 @@ void Robot1::transitionState() {
             {
                 motor.stop();
                 changeStateSound();
-                motor.adjust(40, 100);
+                motor.adjust(MOTOR_SLOW_SPEED/3, MOTOR_SLOW_SPEED);
                 state++;
             }
         }
