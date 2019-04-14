@@ -70,6 +70,16 @@ uint8_t LED::getLEDPosition(uint8_t numLED) const {
     }
 }
 
+void LED::setStateOnboardLED(uint8_t state) const {
+    setBit(&PORT_LED, 0, POSITION_ONBOARD_LED);
+    setBit(&PORT_LED, 0, POSITION_ONBOARD_LED + 1);
+
+    if (state)
+    {
+        setBit(&PORT_LED, 1, POSITION_ONBOARD_LED - 1 + state);
+    }
+
+}
 
 LED::LED() {
     DDR_LED = MODE_OUTPUT;

@@ -16,7 +16,7 @@ bool Section4::evaluateState(uint8_t code) {
 
     if (state % 2 == 0)
     {
-        if (compareBits(code, "yy0yy"))
+        if (compareBits(code, "y000y"))
         {
             soundEnterBox();
             state++;

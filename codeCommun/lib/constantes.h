@@ -31,6 +31,7 @@
 #define POSITION_LED_3 2
 #define POSITION_LED_4 3
 #define POSITION_LED_5 4
+#define POSITION_ONBOARD_LED 6
 
 
 /** Nombre de sections au total */

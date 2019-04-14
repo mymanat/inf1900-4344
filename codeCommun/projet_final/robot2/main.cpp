@@ -17,6 +17,7 @@
 int main() {
     DDRA = MODE_INPUT;
     DDRC = MODE_OUTPUT;
+    LED led;
 
     Timer timer;
     Button button;
@@ -30,8 +31,11 @@ int main() {
 
     uint8_t counter = 0;
 
+    led.setStateOnboardLED(LED_ONBOARD_GREEN);
+
     while (true)
     {
+
 
         if (button.getState())
         {
@@ -49,19 +53,31 @@ int main() {
                 {
                     counter++;
                     button.setState(false);
+                    timer.startTimer();
                 }
             }
 
             counter %= 10;
             timer.startTimer();
 
+            led.setStateOnboardLED(LED_ONBOARD_RED);
             while (!timer.isDone())
             {
                 ir.transmit(counter, 1);
             }
+
+            for (uint8_t i = 0; i < counter; ++i)
+            {
+
+                led.setStateOnboardLED(LED_ONBOARD_OFF);
+                wait(200);
+                led.setStateOnboardLED(LED_ONBOARD_GREEN);
+                wait(200);
+
+            }
+            led.setStateOnboardLED(LED_ONBOARD_GREEN);
         }
     }
-
     /*
 
     IRTransceiver transmetteur;
