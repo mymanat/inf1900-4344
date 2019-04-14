@@ -7,6 +7,8 @@
 
 #define DDR_MOTOR DDRD
 
+#define BATTERY_MULTIPLIER 1.2
+
 
 #define PORT_MOTOR PORTD
 #define PIN_LEFT_MOTOR (uint8_t)6

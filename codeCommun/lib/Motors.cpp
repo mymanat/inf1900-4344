@@ -14,10 +14,10 @@ void Motors::adjustPWM(uint8_t a, uint8_t b)
     TCCR1C = 0;
 }
 
-void Motors::adjust(uint8_t gauche, uint8_t droite)
+void Motors::adjust(uint8_t left, uint8_t right)
 {
     stop();
-    adjustPWM(droite, gauche);
+    adjustPWM(right * BATTERY_MULTIPLIER, left * BATTERY_MULTIPLIER);
 }
 
 void Motors::setDirection(bool direction)
@@ -26,23 +26,23 @@ void Motors::setDirection(bool direction)
     setMotorDirection(direction, MOTOR_RIGHT);
 }
 
-void Motors::setMotorDirection(bool direction, bool moteurNb)
+void Motors::setMotorDirection(bool direction, bool motorID)
 {
-    setBit(&PORT_MOTOR, !direction, (moteurNb) ? PIN_LEFT_MOTOR : PIN_RIGHT_MOTOR);
+    setBit(&PORT_MOTOR, !direction, (motorID) ? PIN_LEFT_MOTOR : PIN_RIGHT_MOTOR);
 }
 
-void Motors::goForward(int vitesse)
+void Motors::goForward(int speed)
 {
     stop();
     setDirection(MOTOR_DIRECTION_FORWARD);
-    adjustPWM(vitesse, vitesse);
+    adjustPWM(speed, speed);
 }
 
-void Motors::goBackward(int vitesse)
+void Motors::goBackward(int speed)
 {
     stop();
     setDirection(MOTOR_DIRECTION_BACKWARD);
-    adjustPWM(vitesse, vitesse);
+    adjustPWM(speed, speed);
 }
 
 void Motors::tournerGauche90()

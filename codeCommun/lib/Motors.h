@@ -36,11 +36,11 @@ public:
 
   void init() override;
 
-  void adjust(uint8_t gauche, uint8_t droite);
+  void adjust(uint8_t left, uint8_t right);
 
-  void goForward(int vitesse);
+  void goForward(int speed);
 
-  void goBackward(int vitesse);
+  void goBackward(int speed);
 
   void stop();
 
@@ -51,9 +51,9 @@ public:
   /**
  * Permet de définir la direction d'un moteur spécifique
  * @param direction la direction
- * @param moteurNb Le numero du moteur
+ * @param motorID Le numero du moteur
  */
-  void setMotorDirection(bool direction, bool moteurNb);
+  void setMotorDirection(bool direction, bool motorID);
 
   /**
      * Permet de définir la direction des 2 moteurs en même temps
