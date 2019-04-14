@@ -6,29 +6,32 @@
 
 bool Section1::evaluateState(uint8_t code)
 {
+    transmissionUART(state);
+    transmissionUART(0xff);
     switch (state)
     {
     case 0:
         //If all sensors detect black, change state
         if (compareBits(code, "00000"))
         {
-            ++state;
+            state = 1;
         }
         break;
     case 1:
         //If a command is received, change state
         if (message != 0)
         {
-            ++state;
+            state = 2;
         }
         break;
     case 2:
         break;
     case 3:
-        if (compareBits(code, "zzzzz"))
+        if (!compareBits(code, "00000"))
         {
             speaker.jouerSon(RE);
-            ++state;
+
+            state = 4;
         }
     case 4:
         return false;
@@ -105,7 +108,7 @@ void Section1::evaluateAction(uint8_t code)
 
             //motor.goForward(MOTOR_MAX_SPEED);
             //wait();
-            ++state;
+            state = 3;
         }
         break;
     case 3:

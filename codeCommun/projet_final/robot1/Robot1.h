@@ -44,7 +44,7 @@ public:
  * @param code
  * @param speed Vitesse des roues par defaut
  * @param slowWheelSpeed Vitesse de la roue plus lente (pour tourner)
- * @return
+ * @return Si il détecte au moins une ligne noir
  */
     bool followLine(char code, uint8_t speed, uint8_t slowWheelSpeed);
 

@@ -10,7 +10,6 @@ Section2::Section2() {
 
 
     a = (min - max) / pow(b, 2);
-    state = 2;
 
 }
 
@@ -118,6 +117,7 @@ bool Section2::evaluateState(uint8_t code) {
         case 2:
             if (compareBits(code, "00111")) {
                 motor.stop();
+                motor.adjust(0, MOTOR_MAX_SPEED);
                 changeStateSound();
                 return false;
 

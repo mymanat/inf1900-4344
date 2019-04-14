@@ -16,7 +16,7 @@ bool Section4::evaluateState(uint8_t code) {
 
     if (state % 2 == 0)
     {
-        if (compareBits(code, "yy0yy"))
+        if (compareBits(code, "y000y"))
         {
             soundEnterBox();
             state++;
@@ -30,6 +30,7 @@ bool Section4::evaluateState(uint8_t code) {
             state++;
             if (state == 6)
             {
+                motor.goForward(MOTOR_MAX_SPEED);
                 wait(200);
                 return false;
             }

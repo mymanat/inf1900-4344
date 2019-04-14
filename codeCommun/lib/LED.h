@@ -7,6 +7,10 @@
 
 #include "Utils.h"
 
+#define LED_ONBOARD_OFF 0
+#define LED_ONBOARD_GREEN 1
+#define LED_ONBOARD_RED 2
+
 
 /**
  * Classe Permettant de contrôler la DEL.
@@ -48,6 +52,14 @@ public:
      * @param numLED Le numéro de la DEL
      */
     void setState(bool state, uint8_t numLED) const;
+
+
+    /**
+     * Permet de définir l'état de la DEL sur la carte mère
+     *
+     * @param state L'état de la DEL. 0: éteinte, 1: Vert, 2: Rouge
+     */
+    void setStateOnboardLED(uint8_t state) const;
 
 };
 
