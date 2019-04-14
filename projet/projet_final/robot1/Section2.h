@@ -20,6 +20,20 @@
  */
 #define SECTION2_HARD_TURN_SPEED_FACTOR 5
 
+/**
+ * Vitesse Minimale
+ */
+#define SECTION2_MIN_SPEED 110
+
+/**
+ * Vitesse Maximale
+ */
+#define SECTION2_MAX_SPEED 200
+
+/**
+ * La borne supérieur de la variable hitCount
+ */
+#define SECTION2_HITCOUNT_MAX 8000
 
 /**
  *
@@ -38,23 +52,31 @@ public:
 
     Section2();
 
-//ralentir dans demi lune pas reaccel
     bool evaluateState(uint8_t code) override;
 
     void evaluateAction(uint8_t code) override;
 
+    /**
+     * Permet d'évaluer la vitesse dans une courbe
+     * @param code Le code des capteurs
+     */
     void evaluateCurve(uint8_t code);
 
 private:
 
 
-    int16_t min = 110;
-    int16_t max = 200;
-    int16_t hitCountMax = 8000;
-    int16_t hitCountHalf = hitCountMax / 2;
+    int16_t hitCountHalf = SECTION2_HITCOUNT_MAX / 2;
+
+    /**
+     * On incrémente cette valeur lorsque le robot tourne.
+     * La vitese du robot suit une fonction quadratic dépendante de cette valeur
+     */
     int16_t hitCount = hitCountHalf;
 
-    double a = (min - max) / pow(hitCountHalf, 2);
+    /**
+     * Variable utilisée par la formule mathématique qui calcule la vitesse
+     */
+    double a = 0;
 
 };
 
