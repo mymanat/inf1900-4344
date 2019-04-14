@@ -25,7 +25,7 @@ bool Section1::evaluateState(uint8_t code) {
             break;
         case 3:
             motor.stop();
-            changeSectionSound();
+            changeStateSound();
             return false;
             break;
     }

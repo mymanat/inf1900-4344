@@ -84,7 +84,6 @@ int IRTransceiver::receive()
         //PORTC = 0x05;
         do{
             burstLength = measureBurstLength();
-            transmissionUART(burstLength);
 
             if(isWithinTolerance(burstLength, 6)){
                 message |= (0 << messageLength);       //inutile, mais clarifie le code

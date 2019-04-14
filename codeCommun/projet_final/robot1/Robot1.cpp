@@ -21,19 +21,22 @@ void Robot1::transitionState() {
 
     motor.stop();
 
+    speaker.jouerSon(FA4);
 
     wait(500);
+    speaker.arreterSon();
     state = 0;
     uint8_t code = 0;
     do
     {
+        motor.goForward(getSpeed());
 
         trackerSensor.update();
         code = trackerSensor.getSensorStateCode();
         if (state == 0)
         {
             /* Suit la ligne jusqu'au virage */
-            if (!followLine(code) || compareBits(code, "00xx1"))
+            if (followLine(code) || compareBits(code, "00xx1"))
             {
                 motor.adjust(40, 100);
                 state++;
@@ -50,8 +53,10 @@ void Robot1::transitionState() {
 
     } while (state < 3);
 
+    speaker.jouerSon(MI4);
     motor.stop();
     wait(500);
+    speaker.arreterSon();
 }
 
 void Robot1::run() {
@@ -68,7 +73,8 @@ void Robot1::run() {
         shouldLoop = evaluateState(trackerSensor.getSensorStateCode());
     }
 
-    transitionState();
+    Robot1 robot1;
+    robot1.transitionState();
 }
 
 bool Robot1::evaluateState(uint8_t code) {

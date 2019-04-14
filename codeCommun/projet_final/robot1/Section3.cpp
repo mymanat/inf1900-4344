@@ -10,7 +10,6 @@ Section3::Section3() {
 }
 
 
-
 bool Section3::evaluateState(uint8_t code) {
 
     if (state > 3 && state < 8)
@@ -72,7 +71,6 @@ bool Section3::evaluateState(uint8_t code) {
         case 4:
         case 6:
             checkLineDetection(code);
-            state++;
             break;
         case 5:
             if (compareBits(code, "0x1x0"))
@@ -111,7 +109,7 @@ void Section3::checkLineDetection(uint8_t code) {
     {
         timeSecondLine = loopCounter;
     }
-
+    state++;
 
 
 }
@@ -120,7 +118,6 @@ void Section3::evaluateLine() {
     led.turnOff();
     uint8_t id = 0;
 
-//    if (loopCounter > DELTA_COUNTER)
     if (timeSecondLine - timeFirstLine > timeFirstLine * 2.2)
     {
 
@@ -138,11 +135,7 @@ void Section3::evaluateLine() {
 
 void Section3::evaluateAction(uint8_t code) {
 
-    if (state != 7)
-    {
-        followLine(code);
-
-    }
+    followLine(code);
 
 }
 

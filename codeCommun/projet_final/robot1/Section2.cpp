@@ -5,7 +5,6 @@
 #include "Section2.h"
 
 Section2::Section2() {
-    setShouldGoStraight(false);
 //    double a = pow(-1 * (min - max), 1 / (hitCountMax / 2));
 
 

@@ -8,7 +8,6 @@
 Section4::Section4() {
 //    setSpeed(MOTOR_SLOW_SPEED);
     setSpeed(120);//todo
-    setShouldGoStraight(true);
 }
 
 

@@ -23,8 +23,8 @@
  * 5: attend sortie premiere ligne
  *
  * 6: attend deuxieme ligne
- * 6: attend white
- * 7: attend btn
+ * 7: attend white
+ * 8: attend btn
  */
 class Section3 : public Robot1 {
 

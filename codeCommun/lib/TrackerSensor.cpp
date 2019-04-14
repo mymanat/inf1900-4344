@@ -68,6 +68,7 @@ void TrackerSensor::init() {
 
     DDR_TRACKER_SENSOR = MODE_INPUT;
     blackValue = getValue(SENSOR_MIDDLE_POS);
+    setShouldUpdateDel(true);
 }
 
 bool TrackerSensor::isShouldUpdateDel() const {
