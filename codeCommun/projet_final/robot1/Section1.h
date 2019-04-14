@@ -22,10 +22,11 @@ private:
   int message;
   int channel;
   int command;
+  int cpt = 0;
   IRTransceiver ir;
 
-  int tempsMovementX[3] = {1400, 1000, 750};
-  int tempsMovementY[3] = {1400, 1000, 600};
+  int tempsMovementX[3] = {1150, 1000, 550};
+  int tempsMovementY[3] = {1150, 900, 550};
 };
 
 #endif //MAIN_SECTION1_H

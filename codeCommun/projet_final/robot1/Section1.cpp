@@ -25,6 +25,12 @@ bool Section1::evaluateState(uint8_t code)
     case 2:
         break;
     case 3:
+        if (compareBits(code, "zzzzz"))
+        {
+            speaker.jouerSon(RE);
+            ++state;
+        }
+    case 4:
         return false;
         break;
     }
@@ -87,7 +93,7 @@ void Section1::evaluateAction(uint8_t code)
             motor.tournerDroite90();
             wait(2000);
 
-            motor.goForward(MOTOR_MAX_SPEED);
+            motor.goForward(255);
             wait(tempsMovementX[x]);
             motor.stop();
 
@@ -97,10 +103,30 @@ void Section1::evaluateAction(uint8_t code)
 
             wait(2000);
 
-            motor.goForward(MOTOR_MAX_SPEED);
-            wait(500);
+            //motor.goForward(MOTOR_MAX_SPEED);
+            //wait();
             ++state;
         }
+        break;
+    case 3:
+        motor.goForward(128);
+        if (cpt <= 400)
+        {
+            if (cpt < 200)
+            {
+                motor.adjust(50, 100);
+            }
+            else
+            {
+                motor.adjust(100, 50);
+            }
+            ++cpt;
+        }
+        else
+        {
+            cpt = 0;
+        }
+
         break;
     }
 }
